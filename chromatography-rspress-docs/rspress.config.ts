@@ -1,0 +1,51 @@
+import * as path from 'node:path';
+import { defineConfig } from '@rspress/core';
+
+export default defineConfig({
+  root: path.join(__dirname, 'docs'),
+  title: '企业文档中心',
+  description: '涵盖硬件仪器、软件平台的全矩阵在线说明书与技术支持',
+  icon: '/peaiot-logo.png',
+  logoText: '企业文档中心',
+  search: false,
+  themeConfig: {
+    socialLinks: [],
+    nav: [
+      { text: '产品手册目录', link: '/intro' },
+    ],
+    sidebar: {
+      '/': [
+        {
+          text: '🏠 产品矩阵总览',
+          link: '/intro',
+        },
+        {
+          text: '🔬 微型气相色谱系列',
+          items: [
+            { text: 'TCD 参比气路物理仿真', link: '/01-chromatography/tcd-gas-flow' },
+          ],
+        },
+        {
+          text: '💻 软件平台系列',
+          items: [
+            { text: '上位机工作站快速入门', link: '/02-software/intro' },
+          ],
+        }
+      ],
+    },
+    footer: {
+      message: '版权所有 © 2026 企业研发中心',
+    },
+    outlineTitle: '本页目录',
+    prevPageText: '上一页',
+    nextPageText: '下一页',
+    hideNavbar: 'always',
+  },
+  builderConfig: {
+    resolve: {
+      alias: {
+        '@components': path.join(__dirname, 'components'),
+      },
+    },
+  },
+});

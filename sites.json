@@ -1,0 +1,16 @@
+{
+  "peaiot.cn": {
+    "name": "奕柏科技官方网站",
+    "domain": "peaiot.cn",
+    "panelEnvPrefix": "BTA6",
+    "outputDir": "build_www",
+    "description": "主站企业官网"
+  },
+  "doc.rry.net": {
+    "name": "奕柏科技企业文档中心",
+    "domain": "doc.rry.net",
+    "panelEnvPrefix": "BTA6",
+    "outputDir": "build_doc",
+    "description": "企业内部及外部综合文档中心"
+  }
+}
