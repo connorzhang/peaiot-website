@@ -11,6 +11,7 @@
     "domain": "doc.rry.net",
     "panelEnvPrefix": "BTA6",
     "outputDir": "build_doc",
+    "remoteSubDir": "public_html",
     "description": "企业内部及外部综合文档中心"
   }
 }

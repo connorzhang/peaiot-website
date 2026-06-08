@@ -31,7 +31,9 @@ if (!panelUrl || !apiKey) {
     process.exit(1);
 }
 
-const targetDir = `/www/wwwroot/${siteDomain}`;
+const siteRoot = `/www/wwwroot/${siteDomain}`;
+const targetDir = siteInfo.remoteSubDir ? `${siteRoot}/${siteInfo.remoteSubDir}` : siteRoot;
+
 // 动态使用配置中的 outputDir
 const outputDir = siteInfo.outputDir || 'doc_build';
 const zipName = `${outputDir}.zip`;
@@ -68,7 +70,7 @@ async function addSite() {
     });
 
     form.append('webname', webname);
-    form.append('path', targetDir);
+    form.append('path', siteRoot);
     form.append('type_id', '0'); // 默认分类
     form.append('type', 'PHP'); // 宝塔里建 HTML 站通常 type 还是传 PHP，靠 version 来区分
     form.append('version', '00'); // 00 代表纯静态 HTML 站点
