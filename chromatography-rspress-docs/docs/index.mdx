@@ -7,8 +7,8 @@ hero:
   tagline: 高交互动态仿真 · AI自动构建 · 极速访问体验
   actions:
     - theme: brand
-      text: 浏览全系产品手册 📚
-      link: /intro
+      text: 浏览全系产品手册 👇
+      link: '#product-portal'
   image:
     src: /peaiot-logo.png
     alt: Logo
@@ -26,3 +26,38 @@ features:
     details: 天然支持 llms.txt 协议，完美适配 AI 原生生成工作流与 GitOps 持续部署。
     icon: 🤖
 ---
+
+import ProjectPortal from '@docs-components/ProjectPortal';
+
+<div id="product-portal" className="portal-container">
+  <div className="portal-header">
+    <h2>产品与项目导航</h2>
+    <p>请在下方选择您需要查阅的产品系列与具体项目，进入独立的专属文档空间。</p>
+  </div>
+  <ProjectPortal />
+</div>
+
+<style>
+{`
+  .portal-container {
+    max-width: 1152px;
+    margin: 0 auto;
+    padding: 6rem 1.5rem;
+    border-top: 1px solid var(--rp-c-divider);
+  }
+  .portal-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .portal-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--rp-c-text-1);
+  }
+  .portal-header p {
+    font-size: 1.1rem;
+    color: var(--rp-c-text-2);
+  }
+`}
+</style>
