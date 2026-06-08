@@ -50,28 +50,12 @@ PEABSS系统采用**双服务架构**来提供AI技能：
 | get_device_trend_data | 获取设备趋势数据 | Elasticsearch | ✅ 已完成 |
 | check_device_status | 检查设备在线状态 | PostgreSQL | ✅ 已完成 |
 | get_enterprise_device_status | 统计企业设备状态 | PostgreSQL | ✅ 已完成 |
-| get_enterprise_all_devices_latest_data | 获取企业所有设备最新数据 | PostgreSQL + Elasticsearch | ✅ 已完成 |
 | get_environment_data | 查询设备环境数据 | Elasticsearch | ✅ 已完成 |
 | compare_multi_device_data | 多设备数据对比 | Elasticsearch | ✅ 已完成 |
 | analyze_environment_statistics | 环境数据统计分析 | Elasticsearch | ✅ 已完成 |
 | detect_environment_anomaly | 环境数据异常检测 | Elasticsearch | ✅ 已完成 |
-| predict_environment_anomaly | 环境异常预测 | Elasticsearch | ✅ 已完成 |
-| predict_environment_trend | 环境趋势预测 | Elasticsearch | ✅ 已完成 |
-| analyze_multi_factor_correlation | 多因子相关性分析 | Elasticsearch | ✅ 已完成 |
-| get_environment_improvement_advice | 环境改善建议 | Elasticsearch | ✅ 已完成 |
-| analyze_with_copilot | Copilot 分析 | Elasticsearch + AI | ✅ 已完成 |
-| analyze_multi_device_coordination | 多设备协同分析 | Elasticsearch | ✅ 已完成 |
-| assess_environment_risk | 环境风险评估 | Elasticsearch | ✅ 已完成 |
-| analyze_energy_consumption | 能源消耗分析 | Elasticsearch | ✅ 已完成 |
-| assess_environment_compliance | 环境合规评估 | Elasticsearch | ✅ 已完成 |
-| diagnose_device_failure | 设备故障诊断 | Elasticsearch | ✅ 已完成 |
-| get_device_maintenance_advice | 设备维护建议 | Elasticsearch | ✅ 已完成 |
-| get_enterprise_environment_overview | 企业环境概览 | PostgreSQL + Elasticsearch | ✅ 已完成 |
 | send_sms_notification | 发送短信通知 | 外部服务 | ✅ 已完成 |
 | send_email_notification | 发送邮件通知 | 外部服务 | ✅ 已完成 |
-| ollama_ai | Ollama AI 分析 | 外部服务 | ✅ 已完成 |
-| compare_historical_data | 历史数据对比 | Elasticsearch | ✅ 已完成 |
-| visualize_environment_data | 环境数据可视化 | Elasticsearch | ✅ 已完成 |
 
 ### Python AI服务
 | 技能名称 | 功能描述 | 状态 |
@@ -93,74 +77,20 @@ PEABSS系统采用**双服务架构**来提供AI技能：
 ### 高级技能（基于ES）
 | 技能名称 | 功能描述 | 数据来源 | 优先级 | 建议实现 |
 |---------|---------|---------|--------|----------|
+| predict_environment_trend | 环境数据预测分析 | Elasticsearch | P2 | Python |
+| analyze_factor_correlation | 多因子关联分析 | Elasticsearch | P3 | Python |
 | analyze_regional_environment | 区域环境分析 | Elasticsearch | P3 | Python |
 | assess_data_quality | 环境数据质量评估 | Elasticsearch | P3 | Go |
-| optimize_energy_consumption | 能源消耗优化 | Elasticsearch | P2 | Python |
-| intelligent_alarm_prediction | 智能告警预测 | Elasticsearch | P2 | Python |
 
 ### 企业级技能（综合）
 | 技能名称 | 功能描述 | 数据来源 | 优先级 | 建议实现 |
 |---------|---------|---------|--------|----------|
+| get_enterprise_environment_overview | 企业环境概览 | PostgreSQL + Elasticsearch | P2 | Go |
 | get_enterprise_anomaly_statistics | 企业异常统计 | PostgreSQL + Elasticsearch | P2 | Go |
 | analyze_enterprise_environment_trend | 企业环境趋势 | Elasticsearch | P3 | Python |
-| enterprise_compliance_report | 企业合规性报告 | Elasticsearch | P3 | Python |
-| enterprise_risk_management | 企业风险管理 | PostgreSQL + Elasticsearch | P2 | Go |
+| assess_enterprise_compliance | 企业合规性评估 | Elasticsearch | P3 | Python |
 
-## 四、工具实现
-
-### 1. 工具与技能的关系
-
-PEABSS系统采用**技能（Skill）**和**工具（Tool）**两套机制：
-
-| 机制 | 用途 | 实现接口 | 注册位置 |
-|------|------|----------|----------|
-| **技能（Skill）** | 用于AI系统集成 | `interfaces.Skill` | `GetDeviceSkills()` |
-| **工具（Tool）** | 用于传统API调用 | `Tool` | `registerTools()` |
-
-### 2. 已实现的工具
-
-所有技能都已经有对应的工具实现，包括：
-
-| 工具名称 | 对应技能 | 功能描述 |
-|---------|---------|---------|
-| get_device_list | DeviceListSkill | 获取设备列表 |
-| get_device_history | DeviceHistorySkill | 获取设备历史数据 |
-| get_device_rtd_data | DeviceRtdDataSkill | 获取设备实时数据 |
-| get_multiple_devices_latest_data | MultipleDevicesLatestDataSkill | 批量获取设备最新数据 |
-| get_device_factor_stat | DeviceFactorStatSkill | 获取设备因子统计数据 |
-| get_device_trend_data | DeviceTrendDataSkill | 获取设备趋势数据 |
-| check_device_status | DeviceStatusCheckSkill | 检查设备在线状态 |
-| get_enterprise_device_status | EnterpriseDeviceStatusSkill | 统计企业设备状态 |
-| get_enterprise_all_devices_latest_data | EnterpriseAllDevicesLatestDataSkill | 获取企业所有设备最新数据 |
-| get_environment_data | EnvironmentDataQuerySkill | 查询设备环境数据 |
-| compare_multi_device_data | MultiDeviceDataComparisonSkill | 多设备数据对比 |
-| analyze_environment_statistics | EnvironmentStatisticsSkill | 环境数据统计分析 |
-| detect_environment_anomaly | EnvironmentAnomalyDetectionSkill | 环境数据异常检测 |
-| predict_environment_anomaly | EnvironmentAnomalyPredictionSkill | 环境异常预测 |
-| predict_environment_trend | EnvironmentPredictionSkill | 环境趋势预测 |
-| analyze_multi_factor_correlation | MultiFactorCorrelationSkill | 多因子相关性分析 |
-| get_environment_improvement_advice | EnvironmentImprovementAdviceSkill | 环境改善建议 |
-| analyze_with_copilot | CopilotAnalysisSkill | Copilot 分析 |
-| analyze_multi_device_coordination | MultiDeviceCoordinationAnalysisSkill | 多设备协同分析 |
-| assess_environment_risk | EnvironmentRiskAssessmentSkill | 环境风险评估 |
-| analyze_energy_consumption | EnergyConsumptionAnalysisSkill | 能源消耗分析 |
-| assess_environment_compliance | EnvironmentComplianceSkill | 环境合规评估 |
-| diagnose_device_failure | DeviceDiagnosisSkill | 设备故障诊断 |
-| get_device_maintenance_advice | DeviceMaintenanceAdviceSkill | 设备维护建议 |
-| get_enterprise_environment_overview | EnterpriseEnvironmentOverviewSkill | 企业环境概览 |
-| send_sms_notification | SMSSkill | 发送短信通知 |
-| send_email_notification | EmailSkill | 发送邮件通知 |
-| ollama_ai | OllamaAISkill | Ollama AI 分析 |
-| compare_historical_data | HistoricalDataComparisonSkill | 历史数据对比 |
-| visualize_environment_data | EnvironmentVisualizationSkill | 环境数据可视化 |
-
-### 3. 工具调用方式
-
-- **接口**：`POST /portal/mcp/call`
-- **参数**：`{"tool_name": "tool_name", "arguments": {"param1": "value1"}}`
-- **返回**：工具执行结果（JSON格式）
-
-## 五、技能开发规范
+## 四、技能开发规范
 
 ### 1. 命名规范
 - 技能名称使用小写字母，单词间用下划线分隔

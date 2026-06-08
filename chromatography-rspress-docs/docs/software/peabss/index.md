@@ -1,94 +1,24 @@
-# PeaBSS
+# PEABSS 文档中心
 
-## 项目简介
+欢迎查阅 PEABSS（豌豆易联业务服务支撑系统）官方文档。
 
-PeaBSS（豌豆易联业务服务支撑系统）是一个基于 Go 语言开发的环保物联网平台，主要用于环保监测设备的数据采集、存储、分析和可视化。
+本项目是一个基于 Go 语言和 Python 混合架构开发的智能环保物联网平台，旨在为环保监测设备提供高效的数据采集、存储、分析和可视化能力，并深度集成了最新的大语言模型(LLM)技术以实现智能化环境监测。
 
-### 主要功能
+## 目录导览
 
-- **设备管理**：支持设备注册、状态监控、配置管理
-- **多协议支持**：HJ212、MQTT、Modbus 协议接入
-- **数据采集**：实时数据采集和处理
-- **数据存储**：PostgreSQL + TimescaleDB 时间序列存储
-- **数据可视化**：GIS 大屏、AI BI 大屏
-- **告警管理**：阈值告警、多渠道通知
-- **AI 集成**：智能诊断、数据分析、对话式 AI
-- **MCP 服务**：模型上下文协议服务，支持 AI 工具调用
+请从以下分类中选择您需要的文档：
 
-## 技术栈
+### 👨‍💻 [开发指南](./dev-guide/开发文档.md)
+包含系统架构、开发流程、项目配置以及版本更新日志，适合后端开发人员与架构师阅读。
 
-- **后端**：Go 1.21
-- **前端**：Webix、ECharts、Leaflet
-- **数据库**：PostgreSQL + TimescaleDB
-- **部署**：Docker、GitHub Actions
+### 🔌 [API 接口文档](./api-docs/app_api.md)
+系统所有的应用接口与开放 API 说明，涵盖登录认证、设备管理与数据流传输协议。
 
-## 快速开始
+### 🤖 [AI 技能开发](./ai-docs/AI核心概念知识体系.md)
+深入了解系统中集成的 AI 核心概念，并学习如何利用 Python 开发自定义的智能检测和数据预测技能。
 
-### 环境要求
+### 📖 [用户手册](./user-guide/用户手册.md)
+面向终端用户的系统使用说明书，包含从基础配置、设备管理到大屏展示的详细操作指引。
 
-- Go 1.21 或更高版本
-- PostgreSQL 14 或更高版本（含 TimescaleDB 插件）
-- 操作系统: Linux、Windows
-
-### 安装步骤
-
-1. **数据库准备**
-   ```bash
-   # 使用 Docker 部署 PostgreSQL + TimescaleDB
-   docker run -d --name peabss-db -p 5432:5432 \
-     -e POSTGRES_DB=peaiot \
-     -e POSTGRES_USER=peaiot \
-     -e POSTGRES_PASSWORD=peaiot \
-     timescale/timescaledb:latest-pg14
-   ```
-
-2. **项目配置**
-   创建 `peabss.yml` 配置文件（参考 `docs/开发文档.md`）
-
-3. **初始化数据库**
-   ```bash
-   ./peabss -initdb
-   ```
-
-4. **启动服务**
-   ```bash
-   ./peabss
-   ```
-
-## 访问地址
-
-- **Web 管理界面**：http://localhost:1870
-- **Portal 服务**：http://localhost:1875
-- **GIS 监控大屏**：http://localhost:1875/portal/gis_dashboard/1
-- **AI BI 大屏**：http://localhost:1875/portal/ai_bi_dashboard
-- **MCP 工具测试**：http://localhost:1875/portal/mcp_tool_test
-
-## 版本信息
-
-| 版本 | 日期 | 描述 |
-|------|------|------|
-| v3.0.81 | 2026-04-15 | 基础版本 |
-| v3.0.82 | 2026-04-15 | 新增 AI 对话功能和 MCP 工具测试页面 |
-
-## 开发文档
-
-详细的开发文档请参考 `docs/开发文档.md`
-
-## 贡献指南
-
-1. **Fork 仓库**
-2. **创建分支**
-3. **提交更改**
-4. **创建 Pull Request**
-5. **代码审查**
-6. **合并代码**
-
-## 联系与支持
-
-- **GitHub Issues**：提交 bug 报告和功能请求
-- **邮件支持**：support@peaiot.com
-- **技术文档**：https://docs.peaiot.com
-
-## 许可证
-
-MIT License
+### 🚀 [部署配置](./deployment/docker-compose.yml)
+（配置文件）用于快速部署 PostgreSQL、TimescaleDB 等底层依赖环境的 Docker 编排配置。

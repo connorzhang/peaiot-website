@@ -1,0 +1,22 @@
+version: '3'
+services:
+  pgdb:
+    image: timescale/timescaledb-ha:pg14.1-ts2.5.1-latest
+    container_name: "pgdb"
+    ports:
+      - "127.0.0.1:5432:5432"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    environment:
+      POSTGRES_DB: peaiot
+      POSTGRES_USER: peaiot
+      POSTGRES_PASSWORD: peaiot
+    volumes:
+      - "/database/pgdata:/home/postgres/pgdata/data"
+    networks:
+      pea_network:
+
+networks:
+  pea_network:
