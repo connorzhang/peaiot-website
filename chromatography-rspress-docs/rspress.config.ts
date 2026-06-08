@@ -174,6 +174,14 @@ export default defineConfig({
     nextPageText: '下一页',
     hideNavbar: 'never',
   },
+  markdown: {
+    link: {
+      checkDeadLinks: false
+    }
+  },
+  route: {
+    cleanUrls: true,
+  },
   builderConfig: {
     resolve: {
       alias: {
