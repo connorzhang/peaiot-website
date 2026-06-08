@@ -1,0 +1,13 @@
+[
+  "intro",
+  {
+    "type": "dir",
+    "name": "hardware",
+    "label": "🔬 硬件设备"
+  },
+  {
+    "type": "dir",
+    "name": "software",
+    "label": "💻 软件项目"
+  }
+]
