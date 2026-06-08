@@ -12,25 +12,57 @@ function getSign() {
     return { request_time: timestamp, request_token: token };
 }
 
-async function runCommand(cmd) {
+async function runCommand() {
     const { request_time, request_token } = getSign();
     const form = new URLSearchParams();
     form.append('request_time', request_time);
     form.append('request_token', request_token);
-    // 宝塔API中并没有直接提供运行任意命令的接口，通常是借助计划任务或软连接。
-    // 但是我们可以通过获取网站目录下的文件列表，来看看有没有克隆成功，或者 build_doc 目录的更新时间。
-    form.append('filename', '/www/wwwroot/doc.rry.net/docs_factory');
-    form.append('user', 'www');
-    form.append('access', '755');
-    form.append('sall', '1'); // Recursive? Usually sall in Baota means sub-all
+    const newScript = `#!/bin/bash
+exec > /www/wwwroot/doc.rry.net/docs_factory/webhook.log 2>&1
+echo "========================================================================="
+echo "开始执行自动部署 WebHook 任务 - $(date "+%Y-%m-%d %H:%M:%S")"
+echo "========================================================================="
 
+export HOME=/tmp
+export PATH=$PATH:/usr/local/bin:/usr/bin:/usr/local/node/bin:/www/server/nodejs/v20.12.2/bin
+
+SITE_ROOT="/www/wwwroot/doc.rry.net"
+SOURCE_DIR="\${SITE_ROOT}/docs_factory"
+PUBLIC_DIR="\${SITE_ROOT}/public_html"
+
+if [ ! -d "\${SOURCE_DIR}" ]; then
+  echo "错误: 源码目录 \${SOURCE_DIR} 不存在！"
+  exit 1
+fi
+
+git config --global --add safe.directory \${SOURCE_DIR}
+
+cd \${SOURCE_DIR} || exit 1
+git reset --hard
+git pull origin main
+
+npm install
+cd chromatography-rspress-docs || exit 1
+npm run build
+
+mkdir -p \${PUBLIC_DIR}
+cp -r ../build_doc/* \${PUBLIC_DIR}/
+
+echo "========================================================================="
+echo "自动部署成功！网站内容已更新 - $(date "+%Y-%m-%d %H:%M:%S")"
+echo "========================================================================="
+`;
+    form.append('data', newScript);
+    form.append('encoding', 'utf-8');
+    form.append('path', '/www/server/panel/plugin/webhook/script/RjaqxE7xeotNj5uAM0TjW7EwCHj1KrtEvj5Efw3Ng987GUxN');
+    
     try {
-        const res = await fetch(`${panelUrl}/files?action=SetFileAccess`, {
+        const res = await fetch(`${panelUrl}/files?action=SaveFileBody`, {
             method: 'POST',
             body: form
         });
         const text = await res.text();
-        console.log('SetFileAccess:', text);
+        console.log('GetFileBody:', text);
     } catch (e) {
         console.error(e);
     }

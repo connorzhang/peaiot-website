@@ -1,0 +1,29 @@
+[
+  {
+    "name": "hardware",
+    "label": "🔬 硬件设备",
+    "projects": [
+      {
+        "name": "micro-gc",
+        "label": "MICRO-GC",
+        "link": "/hardware/micro-gc/"
+      }
+    ]
+  },
+  {
+    "name": "software",
+    "label": "💻 软件项目",
+    "projects": [
+      {
+        "name": "peabss",
+        "label": "PEABSS",
+        "link": "/software/peabss/"
+      },
+      {
+        "name": "workstation",
+        "label": "WORKSTATION",
+        "link": "/software/workstation/"
+      }
+    ]
+  }
+]
