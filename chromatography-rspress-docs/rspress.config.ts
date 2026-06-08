@@ -122,7 +122,7 @@ function generateProjectIndexAndSidebar() {
       const projectSidebar = buildSidebarTree(projectDir, `/${categoryName}/${projectName}/`);
       // 为侧边栏加上返回首页和当前项目名的头部
       sidebarData[`/${categoryName}/${projectName}/`] = [
-        { text: '🏠 返回产品导航', link: '/#product-portal' },
+        { text: '🏠 返回产品导航', link: '/' },
         { text: projectLabel, items: projectSidebar }
       ];
     }
@@ -163,7 +163,7 @@ export default defineConfig({
   themeConfig: {
     socialLinks: [],
     nav: [
-      { text: '产品手册目录', link: '/#product-portal' },
+      { text: '产品手册目录', link: '/' },
     ],
     sidebar: dynamicSidebar,
     footer: {

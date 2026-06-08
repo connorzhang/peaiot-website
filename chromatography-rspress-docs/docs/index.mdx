@@ -1,83 +1,20 @@
 ---
-pageType: custom
+title: 📚 产品手册目录
+sidebar: false
 ---
 
-import { HomeHero, HomeFeature } from '@rspress/core/theme';
 import ProjectPortal from '@docs-components/ProjectPortal';
 
-<HomeHero
-  hero={{
-    name: '企业产品文档中心',
-    text: '涵盖全矩阵在线说明书',
-    tagline: '高交互动态仿真 · AI自动构建 · 极速访问体验',
-    actions: [
-      {
-        theme: 'brand',
-        text: '浏览全系产品手册 👇',
-        link: '#product-portal'
-      }
-    ],
-    image: {
-      src: '/peaiot-logo.png',
-      alt: 'Logo'
-    }
-  }}
-/>
+# 欢迎来到企业产品文档中心
 
-<HomeFeature
-  features={[
-    {
-      title: '统一入口，全矩阵覆盖',
-      details: '打破各产品线信息孤岛，汇集硬件设备、软件项目等所有说明书于一处。',
-      icon: '🏢'
-    },
-    {
-      title: '高交互的动态说明',
-      details: '支持在文档中无缝嵌入复杂的 React 组件和动态 SVG 气路仿真，超越传统静态 PDF。',
-      icon: '⚡️'
-    },
-    {
-      title: '极速访问与构建',
-      details: '底层基于 Rust 的打包引擎，即使面对万篇文档也能在数秒内完成编译发布。',
-      icon: '🚀'
-    },
-    {
-      title: 'AI 与自动化运维',
-      details: '天然支持 llms.txt 协议，完美适配 AI 原生生成工作流与 GitOps 持续部署。',
-      icon: '🤖'
-    }
-  ]}
-/>
+这是我们为全线硬件设备、软件项目以及生态工具提供技术文档的**统一在线门户**。
 
-<div id="product-portal" className="portal-container">
-  <div className="portal-header">
-    <h2>产品与项目导航</h2>
-    <p>请在下方选择您需要查阅的产品系列与具体项目，进入独立的专属文档空间。</p>
-  </div>
-  <ProjectPortal />
-</div>
+👇 **请在下方选择您需要查阅的产品系列与具体项目。**
 
-<style>
-{`
-  .portal-container {
-    max-width: 1152px;
-    margin: 0 auto;
-    padding: 6rem 1.5rem;
-    border-top: 1px solid var(--rp-c-divider);
-  }
-  .portal-header {
-    text-align: center;
-    margin-bottom: 4rem;
-  }
-  .portal-header h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--rp-c-text-1);
-  }
-  .portal-header p {
-    font-size: 1.1rem;
-    color: var(--rp-c-text-2);
-  }
-`}
-</style>
+<ProjectPortal />
+
+---
+
+> **系统提示**：
+> 本页内容会根据各业务项目自动同步并生成。
+> 如果您是开发者，只需在您的项目中使用 `publish-to-docs` 技能（并可自定义您的物理目录分类 ），文档就会自动在此处生成对应入口，实现 100% 免配置接入！并且每个项目都拥有自己独立的菜单与阅读空间。
