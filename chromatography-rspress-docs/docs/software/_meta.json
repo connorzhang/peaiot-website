@@ -1,8 +1,8 @@
 [
   {
     "type": "link",
-    "text": "🏠 返回文档首页",
-    "label": "🏠 返回文档首页",
+    "text": " 返回文档首页",
+    "label": " 返回文档首页",
     "link": "/intro"
   },
   {
@@ -11,6 +11,10 @@
   },
   {
     "name": "peabss",
-    "label": "PEABSS"
+    "label": "PeaBSS物联网平台"
+  },
+  {
+    "name": "h2o2_system",
+    "label": "双氧水工艺监控系统"
   }
 ]

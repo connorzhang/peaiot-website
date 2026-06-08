@@ -1,0 +1,23 @@
+[
+  "index",
+  {
+    "type": "dir",
+    "name": "01-guide",
+    "label": "📖 用户指南"
+  },
+  {
+    "type": "dir",
+    "name": "02-development",
+    "label": "💻 开发文档"
+  },
+  {
+    "type": "dir",
+    "name": "03-api",
+    "label": "🔌 接口文档"
+  },
+  {
+    "type": "dir",
+    "name": "04-ai",
+    "label": "🤖 AI与智能体"
+  }
+]
