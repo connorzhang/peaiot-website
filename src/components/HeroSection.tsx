@@ -56,15 +56,6 @@ export const HeroSection = () => {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
           </a>
-          
-          <a 
-            href="https://doc.rry.net"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-8 py-4 bg-transparent border border-emerald-500/50 text-emerald-400 font-bold rounded-full hover:bg-emerald-500/10 hover:border-emerald-400 transition-all duration-300 w-full sm:w-auto flex items-center justify-center no-underline"
-          >
-            进入企业文档中心
-          </a>
 
           <a 
             href="#contact"

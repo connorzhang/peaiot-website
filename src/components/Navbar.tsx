@@ -36,7 +36,6 @@ export const Navbar = () => {
           <button onClick={() => scrollTo('top')} className="text-slate-300 hover:text-emerald-400 transition-colors font-medium bg-transparent border-none outline-none">首页</button>
           <button onClick={() => scrollTo('services')} className="text-slate-300 hover:text-emerald-400 transition-colors font-medium bg-transparent border-none outline-none">核心业务</button>
           <button onClick={() => scrollTo('features')} className="text-slate-300 hover:text-emerald-400 transition-colors font-medium bg-transparent border-none outline-none">解决方案</button>
-          <a href="https://doc.rry.net" target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-emerald-400 transition-colors font-medium bg-transparent border-none outline-none no-underline">文档中心</a>
           <button onClick={() => scrollTo('contact')} className="text-slate-300 hover:text-emerald-400 transition-colors font-medium bg-transparent border-none outline-none">联系我们</button>
         </div>
 
@@ -52,7 +51,6 @@ export const Navbar = () => {
           <button onClick={() => scrollTo('top')} className="text-left text-slate-300 hover:text-emerald-400 py-2 bg-transparent border-none outline-none">首页</button>
           <button onClick={() => scrollTo('services')} className="text-left text-slate-300 hover:text-emerald-400 py-2 bg-transparent border-none outline-none">核心业务</button>
           <button onClick={() => scrollTo('features')} className="text-left text-slate-300 hover:text-emerald-400 py-2 bg-transparent border-none outline-none">解决方案</button>
-          <a href="https://doc.rry.net" target="_blank" rel="noopener noreferrer" className="text-left text-slate-300 hover:text-emerald-400 py-2 bg-transparent border-none outline-none no-underline block">文档中心</a>
           <button onClick={() => scrollTo('contact')} className="text-left text-slate-300 hover:text-emerald-400 py-2 bg-transparent border-none outline-none">联系我们</button>
         </div>
       )}
