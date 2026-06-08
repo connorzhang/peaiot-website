@@ -18,20 +18,27 @@ function buildSidebarTree(dirPath: string, routePrefix: string): any[] {
   const files = fs.readdirSync(dirPath, { withFileTypes: true })
     .filter(f => !f.name.startsWith('.') && f.name !== '_meta.json' && f.name !== 'components');
 
-  // Sort files based on _meta.json if available
-  if (meta.length > 0) {
-    const metaOrder = meta.map(m => typeof m === 'string' ? m : m.name);
-    files.sort((a, b) => {
-      const aName = a.name.replace(/\.mdx?$/, '');
-      const bName = b.name.replace(/\.mdx?$/, '');
-      const aIdx = metaOrder.indexOf(aName);
-      const bIdx = metaOrder.indexOf(bName);
-      if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
-      if (aIdx !== -1) return -1;
-      if (bIdx !== -1) return 1;
-      return 0;
-    });
-  }
+  // Sort files based on _meta.json and force 'index' to the top
+  const metaOrder = meta.length > 0 ? meta.map(m => typeof m === 'string' ? m : m.name) : [];
+  files.sort((a, b) => {
+    const aName = a.name.replace(/\.mdx?$/, '');
+    const bName = b.name.replace(/\.mdx?$/, '');
+    
+    const aIdx = metaOrder.indexOf(aName);
+    const bIdx = metaOrder.indexOf(bName);
+    
+    // 1. Respect _meta.json order if specified
+    if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+    if (aIdx !== -1) return -1;
+    if (bIdx !== -1) return 1;
+    
+    // 2. Force 'index' to the top
+    if (aName === 'index' && bName !== 'index') return -1;
+    if (bName === 'index' && aName !== 'index') return 1;
+    
+    // 3. Fallback to alphabetical sorting
+    return aName.localeCompare(bName, 'zh-CN');
+  });
 
   for (const f of files) {
     const isDir = f.isDirectory();
