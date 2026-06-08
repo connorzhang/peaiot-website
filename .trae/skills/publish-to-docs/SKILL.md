@@ -22,11 +22,14 @@ description: "将当前项目的文档同步发布到企业中心文档站(doc.r
   git clone git@github.com:connorzhang/peaiot-website.git temp_docs_repo
   ```
 
-### 3. 复制并组织文档
+### 3. 复制并组织文档与元数据
 - 进入克隆下来的主仓库中，文档统一存放在：`temp_docs_repo/chromatography-rspress-docs/docs/`
 - 在该路径下，根据步骤 1 确定的分类创建目录：`temp_docs_repo/chromatography-rspress-docs/docs/<大类>/<子项目名>/`
 - 将当前业务项目中的所有 Markdown 文档（`.md`, `.mdx`）及相关的静态资源，全部复制到上述目标目录中。
   - *注意：如果在目标目录已存在旧文档，请直接覆盖同步更新。*
+- **【重要】更新中文名称映射**：读取或创建 `temp_docs_repo/chromatography-rspress-docs/docs/<大类>/_meta.json` 文件。
+  - 检查 JSON 数组中是否已包含当前子项目的中文名称映射（如 `{"name": "workstation", "label": "色谱工作站"}`）。
+  - 如果不存在，主动询问用户“请提供该项目在门户上显示的中文名称”，然后将其追加到 `_meta.json` 数组中并保存，以防止前端门户退化显示为全大写英文。
 
 ### 4. 提交并推送到主仓库
 - 进入 `temp_docs_repo` 目录内，自动执行 Git 提交流程：

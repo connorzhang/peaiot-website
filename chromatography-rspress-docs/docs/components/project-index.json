@@ -21,7 +21,7 @@
       },
       {
         "name": "workstation",
-        "label": "WORKSTATION",
+        "label": "色谱工作站",
         "link": "/software/workstation/API_DESIGN"
       }
     ]
