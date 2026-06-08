@@ -6,7 +6,7 @@
       {
         "name": "micro-gc",
         "label": "MICRO-GC",
-        "link": "/hardware/micro-gc/"
+        "link": "/hardware/micro-gc/tcd-gas-flow"
       }
     ]
   },
@@ -22,7 +22,7 @@
       {
         "name": "workstation",
         "label": "WORKSTATION",
-        "link": "/software/workstation/"
+        "link": "/software/workstation/intro"
       }
     ]
   }

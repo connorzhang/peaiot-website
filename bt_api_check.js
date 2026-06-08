@@ -54,10 +54,10 @@ echo "========================================================================="
 `;
     form.append('data', newScript);
     form.append('encoding', 'utf-8');
-    form.append('path', '/www/server/panel/plugin/webhook/script/RjaqxE7xeotNj5uAM0TjW7EwCHj1KrtEvj5Efw3Ng987GUxN');
+    form.append('path', '/www/wwwroot/doc.rry.net/docs_factory/webhook.log');
     
     try {
-        const res = await fetch(`${panelUrl}/files?action=SaveFileBody`, {
+        const res = await fetch(`${panelUrl}/files?action=GetFileBody`, {
             method: 'POST',
             body: form
         });
