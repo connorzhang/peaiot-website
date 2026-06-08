@@ -14,7 +14,7 @@ hero:
     alt: Logo
 features:
   - title: 统一入口，全矩阵覆盖
-    details: 打破各产品线信息孤岛，汇集色谱、光谱、软件平台等所有说明书于一处。
+    details: 打破各产品线信息孤岛，汇集硬件设备、软件项目等所有说明书于一处。
     icon: 🏢
   - title: 高交互的动态说明
     details: 支持在文档中无缝嵌入复杂的 React 组件和动态 SVG 气路仿真，超越传统静态 PDF。
