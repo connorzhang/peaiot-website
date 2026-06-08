@@ -10,12 +10,11 @@ export default defineConfig({
   icon: '/peaiot-logo.png',
   logo: '/peaiot-logo.png',
   logoText: '企业文档中心',
-  search: true,
+  search: false,
   themeConfig: {
     socialLinks: [],
     nav: [
-      { text: '产品手册目录', link: '/intro' },
-      { text: '返回官网', link: 'https://peaiot.cn' }
+      { text: '产品手册目录', link: '/intro' }
     ],
     sidebar: {
       '/': [
@@ -39,7 +38,10 @@ export default defineConfig({
     },
     footer: {
       message: '版权所有 © 2026 奕柏科技'
-    }
+    },
+    outlineTitle: '本页目录',
+    prevPageText: '上一页',
+    nextPageText: '下一页'
   },
   builderConfig: {
     resolve: {
