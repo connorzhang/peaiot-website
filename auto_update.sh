@@ -1,10 +1,22 @@
 #!/bin/bash
+exec > /www/wwwroot/doc.rry.net/docs_factory/webhook.log 2>&1
+
 # 宝塔 WebHook 自动拉取与编译部署脚本
 # 用途：监听 GitHub 推送，自动编译文档并发布到隔离目录
 
 echo "========================================================================="
 echo "开始执行自动部署 WebHook 任务 - $(date "+%Y-%m-%d %H:%M:%S")"
+echo "Starting deployment at $(date)"
 echo "========================================================================="
+
+# 加载 Node.js 环境（如果使用了 nvm 或默认环境不在 path 中）
+export PATH=$PATH:/usr/local/bin:/usr/bin:/usr/local/node/bin
+if [ -s "$HOME/.nvm/nvm.sh" ]; then
+    source "$HOME/.nvm/nvm.sh"
+fi
+
+echo "Node version: $(node -v)"
+echo "NPM version: $(npm -v)"
 
 # 1. 定义站点根目录变量
 SITE_ROOT="/www/wwwroot/doc.rry.net"
@@ -42,12 +54,10 @@ echo ">>> 开始将编译好的静态页面部署到 public_html 目录..."
 # 确保 public_html 目录存在
 mkdir -p ${PUBLIC_DIR}
 
-# 清空旧的静态页面（排除可能存在的隐藏文件如 .user.ini）
-find ${PUBLIC_DIR} -mindepth 1 -maxdepth 1 ! -name ".user.ini" -exec rm -rf {} +
-
-# 将构建好的文件拷贝到公开访问区
+# 将构建好的文件拷贝到公开访问区 (强制覆盖)
 cp -r ../build_doc/* ${PUBLIC_DIR}/
 
 echo "========================================================================="
 echo "自动部署成功！网站内容已更新 - $(date "+%Y-%m-%d %H:%M:%S")"
+echo "Deployment finished at $(date)"
 echo "========================================================================="
