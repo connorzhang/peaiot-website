@@ -68,20 +68,20 @@ curl.exe -sL http://doc.rry.net/skills/publish-to-docs.md -o ~/.trae/skills/publ
   ```
 
 ### 2.5 架构兼容性与版本熔断校验 (Version Check)
-- 读取克隆下来的主仓库中的架构策略文件：`temp_docs_repo/chromatography-rspress-docs/sync-policy.json`。
-- 提取其中的 `min_skill_version` 字段（如 `"2.0"`）。
-- **【强制红线】版本熔断**：对比本技能声明的当前版本（`v2.0`）与 `min_skill_version`。如果本技能版本低于主仓库的最低要求，**必须立即中止**，并向用户抛出红色警告：“🚫 致命错误：当前同步技能版本过低，与远端文档站架构不兼容！为了防止破坏文档库，请先拉取最新技能脚本更新全局配置后重试。”，绝不允许往下执行任何清空或复制动作。
+- 读取克隆下来的主仓库中的架构策略文件：`temp_docs_repo/sync-policy.json`。
+- 提取其中的 `min_skill_version` 字段（如 `"2.1.0"`）。
+- **【强制红线】版本熔断**：对比本技能声明的当前版本（即 `v2.1.0`）与 `min_skill_version`。如果本技能版本低于主仓库的最低要求，**必须立即中止**，并向用户抛出红色警告：“🔴 致命错误：当前同步技能版本过低，与远端文档站架构不兼容！为了防止破坏文档库，请先拉取最新技能脚本更新全局配置后重试。”，绝不允许往下执行任何清空或复制动作。
 
 ### 3. 防覆盖校验与扁平化复制 (Ownership Check)
 - 在主仓库的 `docs/` 目录下，检查是否已经存在名为 `project.json` 中 `id` 值的文件夹（即 `docs/<id>`）。
 - **【强制红线】冲突熔断**：如果该目录存在，读取该目录下的旧 `project.json`。对比其中的 `repo` 与当前项目的 `repo` 是否完全一致。如果不一致，说明该 `id` 已被其他业务抢占，必须**立即中止操作**，并向用户抛出红色警告：“致命错误：项目 ID 冲突！该标识已被其他仓库占用，请修改 project.json 中的 id”。
-- 校验通过后，**必须先清空**目标目录 `temp_docs_repo/chromatography-rspress-docs/docs/<id>/` 下的所有旧文件，然后再将当前业务项目文档目录下的所有文件复制进去。
+- 校验通过后，**必须先清空**目标目录 `temp_docs_repo/docs/<id>/` 下的所有旧文件，然后再将当前业务项目文档目录下的所有文件复制进去。
 - **【严禁干预元数据】**：只复制文件，绝对不要去修改主仓库中的路由配置，框架会自动通过标签和预编译脚本生成首页与探索页。
 
 ### 4. 提交并推送到主仓库
 - 进入 `temp_docs_repo` 目录内，自动执行 Git 提交流程：
   ```bash
-  git add chromatography-rspress-docs/docs/
+  git add docs/
   git commit -m "docs: 自动同步 <子项目名> 项目文档"
   git push origin main
   ```
