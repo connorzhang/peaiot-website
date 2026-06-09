@@ -5,6 +5,8 @@ description: "将当前项目的文档同步发布到企业中心文档站(doc.r
 
 # 发布到企业文档中心 (Publish to Docs)
 
+> **当前技能版本：v2.0** (支持现代扁平化与标签化架构)
+
 该技能用于将任意业务项目（硬件、软件等）的说明书文档，通过免 API 的 Git 中转架构，自动推送到奕柏科技的企业文档中心主仓库，从而触发服务器端 Webhook 自动部署到 `doc.rry.net`。
 
 ## 执行步骤 (AI 必须全自动代为执行)
@@ -31,6 +33,11 @@ description: "将当前项目的文档同步发布到企业中心文档站(doc.r
   ```bash
   git clone git@github.com:connorzhang/peaiot-website.git temp_docs_repo
   ```
+
+### 2.5 架构兼容性与版本熔断校验 (Version Check)
+- 读取克隆下来的主仓库中的架构策略文件：`temp_docs_repo/chromatography-rspress-docs/sync-policy.json`。
+- 提取其中的 `min_skill_version` 字段（如 `"2.0"`）。
+- **【强制红线】版本熔断**：对比本技能声明的当前版本（`v2.0`）与 `min_skill_version`。如果本技能版本低于主仓库的最低要求，**必须立即中止**，并向用户抛出红色警告：“🚫 致命错误：当前同步技能版本过低，与远端文档站架构不兼容！为了防止破坏文档库，请先拉取最新技能脚本更新全局配置后重试。”，绝不允许往下执行任何清空或复制动作。
 
 ### 3. 防覆盖校验与扁平化复制 (Ownership Check)
 - 在主仓库的 `docs/` 目录下，检查是否已经存在名为 `project.json` 中 `id` 值的文件夹（即 `docs/<id>`）。
