@@ -44,9 +44,8 @@ echo ">>> 开始安装依赖 (npm install)..."
 npm install
 
 echo ">>> 开始编译文档 (npm run build) ..."
-# 进入专门的文档中心目录进行构建
-cd chromatography-rspress-docs || exit 1
-npm run build
+# 在根目录执行文档构建
+npm run build:doc
 
 # 5. 物理隔离部署：将编译产物移动到公开访问区
 echo ">>> 开始将编译好的静态页面部署到 public_html 目录..."
@@ -55,7 +54,7 @@ echo ">>> 开始将编译好的静态页面部署到 public_html 目录..."
 mkdir -p ${PUBLIC_DIR}
 
 # 将构建好的文件拷贝到公开访问区 (强制覆盖)
-cp -r ../build_doc/* ${PUBLIC_DIR}/
+cp -r build_doc/* ${PUBLIC_DIR}/
 
 echo "========================================================================="
 echo "自动部署成功！网站内容已更新 - $(date "+%Y-%m-%d %H:%M:%S")"
