@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modbus&#x2F;TCP（标准协议）寄存器映射（新边缘节点） - 企业文档中心 | 奕柏科技</title>
+<script>{;const saved = localStorage.getItem('rspress-theme-appearance');const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches;const isDark = !saved || saved === 'auto' ? preferDark : saved === 'dark';document.documentElement.classList.toggle('dark', isDark);document.documentElement.classList.toggle('rp-dark', isDark);document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';}</script>
+<link href="/static/css/styles.3acae6679e.css" rel="stylesheet">
+<script defer src="/static/js/styles.b10ef529e7.js"></script>
+<script defer src="/static/js/lib-react.b866a4fe50.js"></script>
+<script defer src="/static/js/lib-router.47ee6159f2.js"></script>
+<script defer src="/static/js/4653.96b19df9c5.js"></script>
+<script defer src="/static/js/index.571209b70a.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Rspress v2.0.13">
+<link rel="icon" href="/peaiot-logo.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Modbus/TCP（标准协议）寄存器映射（新边缘节点） - 企业文档中心 | 奕柏科技">
+<meta name="description" content="本文件定义“新跨平台边缘节点”的 标准 Modbus/TCP（MBAP Header）对外寄存器映射。外部系统（PLC/DCS/上位机）只需按地址读写，不依赖旧版的 12 字节自定义帧。">
+<meta property="og:description" content="本文件定义“新跨平台边缘节点”的 标准 Modbus/TCP（MBAP Header）对外寄存器映射。外部系统（PLC/DCS/上位机）只需按地址读写，不依赖旧版的 12 字节自定义帧。"></head>
+
+  <body>
+    <div id="__rspress_root"><link rel="preload" as="image" href="/peaiot-logo.png"/><header class="rp-nav"><div class="rp-nav__left"><div class="rp-nav__title"><a href="/" class="rp-nav__title__link rp-link"><div class="rp-nav__title__logo"><img src="/peaiot-logo.png" alt="logo" id="logo" class="rspress-logo rp-nav__title__logo-image"/></div><span>企业文档中心</span></a></div></div><div class="rp-nav__right"><button class="rp-search-button"><div class="rp-search-button__content"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21" class="rp-search-button__icon"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg><span class="rp-search-button__word">Search</span></div><div class="rp-search-button__hotkey" style="opacity:0"><span></span><span>K</span></div></button><div class="rp-search-button--mobile"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg></div><ul class="rp-nav-menu rp-nav-menu--right"><li class="rp-nav-menu__item rp-nav-menu__item--active"><a href="/index.html" class="rp-nav-menu__item__container rp-link">产品手册目录</a></li><li class="rp-nav-menu__item"><a href="/explore.html" class="rp-nav-menu__item__container rp-link">探索项目</a></li></ul><div class="rp-nav__others"><div class="rp-nav-menu__divider"></div><div class="rp-switch-appearance"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" class="rp-switch-appearance__icon rp-switch-appearance__icon--sun"><path fill="currentColor" d="m7.001 15.848-1.226 1.226a.58.58 0 0 0 0 .818.58.58 0 0 0 .818 0l1.226-1.226a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0m-.352-8.735a.584.584 0 0 0 .825-.825L6.237 5.051a.584.584 0 0 0-.825.825zM5.011 11.07h-1.75a.584.584 0 0 0 0 1.167h1.75c.324 0 .584-.26.584-.583a.585.585 0 0 0-.584-.584m7.003-5.835c.324 0 .584-.26.584-.584V2.9a.58.58 0 0 0-.584-.584.58.58 0 0 0-.583.583V4.65c0 .323.262.584.583.584m5.616 1.621 1.226-1.225a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0l-1.226 1.225a.58.58 0 0 0 0 .818.576.576 0 0 0 .818 0m3.138 4.214h-1.75a.58.58 0 0 0-.584.584c0 .324.26.584.583.584h1.751a.584.584 0 1 0 0-1.167m-3.389 5.124a.584.584 0 0 0-.825.825l1.238 1.238a.584.584 0 0 0 .825-.826zm-5.365-9.795a5.256 5.256 0 0 0-5.257 5.258 5.256 5.256 0 0 0 5.257 5.257 5.256 5.256 0 0 0 5.257-5.257 5.256 5.256 0 0 0-5.257-5.258m0 11.675a.58.58 0 0 0-.583.583v1.751a.582.582 0 1 0 1.167 0v-1.75a.584.584 0 0 0-.584-.584"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" viewBox="0 0 19 19" class="rp-switch-appearance__icon rp-switch-appearance__icon--moon"><path fill="currentColor" d="M9.166 0a9.2 9.2 0 0 1 1.857.188.834.834 0 0 1 .042 1.623 4.47 4.47 0 1 0 5.457 5.457l.048-.135a.834.834 0 0 1 1.575.177q.186.902.188 1.856A9.168 9.168 0 1 1 9.166 0"></path></svg></div></div><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__sm"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg></button><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__md"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg><ul class="rp-hover-group rp-hover-group--hidden rp-hover-group--right"><div class="rp-nav-menu__others-mobile__container"><div class="rp-nav-hamburger__md__hover-group"><div class="rp-nav-screen-appearance"><div class="rp-nav-screen-appearance__left">Theme</div><div class="rp-nav-screen-appearance__right"></div></div><div class="rp-nav-screen-divider"></div></div></div></ul></button></div></header><div class="rp-doc-layout__menu"><div class="rp-sidebar-menu"><button type="button" class="rp-sidebar-menu__left"><svg width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M4 6h24v2H4zm0 18h24v2H4zm0-12h24v2H4zm0 6h24v2H4z"></path></svg><span>Menu</span></button><button type="button" class="rp-sidebar-menu__right"><span class="rp-sidebar-menu__right__text">ON THIS PAGE</span><svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg><svg width="1em" height="1em" viewBox="0 0 32 32" class="rp-sidebar-menu__right__icon" style="transform:rotate(0deg);transition:transform 0.2s ease-out"><path fill="currentColor" d="M22 16 12 26l-1.4-1.4 8.6-8.6-8.6-8.6L12 6z"></path></svg></button></div></div><div class="rp-doc-layout__container"><aside class="rp-doc-layout__sidebar rp-scrollbar"></aside><div class="rp-doc-layout__doc"><main class="rp-doc-layout__doc-container"><div class="rp-doc rspress-doc"><!--$--><h1 class="rp-toc-include" id="modbustcp标准协议寄存器映射新边缘节点"><a href="#modbustcp标准协议寄存器映射新边缘节点" class="rp-header-anchor rp-link" aria-hidden="true">#</a>Modbus/TCP（标准协议）寄存器映射（新边缘节点）<!-- --> </h1>
+<p>本文件定义“新跨平台边缘节点”的 <strong>标准 Modbus/TCP</strong>（MBAP Header）对外寄存器映射。外部系统（PLC/DCS/上位机）只需按地址读写，不依赖旧版的 12 字节自定义帧。</p>
+<h2 class="rp-toc-include" id="1-协议与连接"><a href="#1-协议与连接" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1. 协议与连接</h2>
+<ul>
+<li>传输：Modbus/TCP（标准 MBAP Header）</li>
+<li>默认端口：<code>1502</code>（推荐，Linux 下无需特权端口）</li>
+<li>可选端口：<code>502</code>（如现场强制要求，需要以 root/能力授权方式绑定）</li>
+</ul>
+<p>多仪器约定：</p>
+<ul>
+<li>使用 MBAP Header 的 <code>Unit Identifier</code>（1 字节）区分仪器实例</li>
+<li>单仪器场景可固定 <code>UnitId=1</code></li>
+</ul>
+<p>通道分段约定：</p>
+<ul>
+<li><code>base = channelIndex * 10000</code></li>
+<li>通道 0/1/2/3 分别使用 <code>base=0/10000/20000/30000</code></li>
+</ul>
+<h2 class="rp-toc-include" id="2-数据类型与字节序"><a href="#2-数据类型与字节序" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2. 数据类型与字节序</h2>
+<ul>
+<li><code>uint16</code>：一个 Holding Register</li>
+<li><code>ascii2</code>：每个 Holding Register 承载 2 个 ASCII 字符（高字节=第 1 个字符，低字节=第 2 个字符）</li>
+<li><code>float32</code>：使用 2 个 Holding Register（高字在前），每个寄存器内部高字节在前</li>
+</ul>
+<h2 class="rp-toc-include" id="3-coils010515"><a href="#3-coils010515" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3. Coils（01/05/15）</h2>
+<p>说明：</p>
+<ul>
+<li>读：Function 01</li>
+<li>写：Function 05/15（写入后由边缘节点映射为对仪器主站协议的下行命令）</li>
+</ul>
+<p>状态位（读）：</p>
+<ul>
+<li><code>10000</code>：控温状态</li>
+<li><code>10001</code>：分析/采集中状态</li>
+<li><code>10002</code>：通道 0 采集态</li>
+<li><code>10003</code>：通道 1 采集态</li>
+<li><code>10004</code>：通道 2 采集态</li>
+<li><code>10005</code>：通道 3 采集态</li>
+<li><code>10006</code>：点火状态 1</li>
+<li><code>10007</code>：点火状态 2</li>
+<li><code>10008</code>：事件状态 bit1</li>
+</ul>
+<p>控制位（写）：</p>
+<ul>
+<li><code>10000</code>：控温 开/关（映射主站命令 16/17）</li>
+<li><code>10001</code>：全部样品分析 开/关（映射主站命令 18/19）</li>
+<li><code>10002..10005</code>：通道 0..3 分析 开/关（映射主站命令 22/23）</li>
+<li><code>10006/10007</code>：点火动作（映射主站命令 20）</li>
+</ul>
+<h2 class="rp-toc-include" id="4-holding-registers030616"><a href="#4-holding-registers030616" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4. Holding Registers（03/06/16）</h2>
+<h3 class="rp-toc-include" id="41-stationid全局强约束"><a href="#41-stationid全局强约束" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.1 StationId（全局，强约束）</h3>
+<p>设备标识（24 位 ASCII）：</p>
+<ul>
+<li>地址：<code>801</code> ~ <code>812</code>（共 12 个寄存器）</li>
+<li>内容：24 字节 ASCII（每寄存器 2 字节）</li>
+<li>默认值与规范：见 <a href="file:///d:/GIT/VS2022/Chromatography-workstation/docs/DEVICE_ID_STATIONID.md" class="rp-link">docs/DEVICE_ID_STATIONID.md</a></li>
+</ul>
+<h3 class="rp-toc-include" id="42-通道快照按-base-分段"><a href="#42-通道快照按-base-分段" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.2 通道快照（按 base 分段）</h3>
+<p>以下寄存器地址均指 <code>base + offset</code>：</p>
+<p>元信息：</p>
+<ul>
+<li><code>0..7</code>：设备/通道描述（16 字节 ASCII，ascii2*8）</li>
+<li><code>8..15</code>：状态文本（16 字节 ASCII，ascii2*8）</li>
+<li><code>16..21</code>：采集时间 <code>yyMMddHHmmss</code>（12 字节 ASCII，ascii2*6）</li>
+<li><code>22</code>：检测器标识 <code>detMark</code>（uint16）</li>
+<li><code>24</code>：进样次数 <code>injNo</code>（uint16）</li>
+<li><code>25</code>：峰数 <code>peakCount</code>（uint16）</li>
+<li><code>26..27</code>：炉温/加热值 1（float32）</li>
+<li><code>28..29</code>：炉温/加热值 2（float32）</li>
+</ul>
+<p>峰表（建议）：</p>
+<ul>
+<li>起始：<code>1000</code></li>
+<li>每峰宽度：<code>40</code> 寄存器</li>
+<li>最大峰数：<code>20</code>（不足则后续峰记录全 0/空）</li>
+</ul>
+<p>第 i 个峰（<code>i = 0..19</code>）基址：<code>p = 1000 + i*40</code></p>
+<ul>
+<li><code>p + 0..15</code>：组分名（32 字节 ASCII）</li>
+<li><code>p + 16..17</code>：RT（float32，单位秒或分钟需在项目中统一）</li>
+<li><code>p + 18..19</code>：峰高（float32）</li>
+<li><code>p + 20..21</code>：面积（float32）</li>
+<li><code>p + 22..23</code>：面积百分比（float32，0~100）</li>
+<li><code>p + 24..25</code>：峰高百分比（float32，0~100）</li>
+<li><code>p + 26..27</code>：含量（float32）</li>
+<li><code>p + 28..29</code>：含量百分比（float32，0~100）</li>
+</ul>
+<p>预留：</p>
+<ul>
+<li><code>p + 30..39</code>：预留扩展（后续加“状态/报警/定量单位/置信度”等）</li>
+</ul><!--/$--></div><footer class="rp-doc-footer"><div class="rp-doc-footer__edit"></div><div class="rp-doc-footer__divider"></div><div class="rp-prev-next-page"><div class="rp-prev-next-page__placeholder"></div><div class="rp-prev-next-page__placeholder"></div></div></footer></main></div><aside class="rp-doc-layout__outline rp-scrollbar"><div class="rp-outline"><div class="rp-outline__title">ON THIS PAGE<svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg></div><nav class="rp-outline__toc rp-scrollbar"><a href="#1-协议与连接" class="rp-toc-item rp-link" title="1. 协议与连接" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">1. 协议与连接</span></a><a href="#2-数据类型与字节序" class="rp-toc-item rp-link" title="2. 数据类型与字节序" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">2. 数据类型与字节序</span></a><a href="#3-coils010515" class="rp-toc-item rp-link" title="3. Coils（01/05/15）" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">3. Coils（01/05/15）</span></a><a href="#4-holding-registers030616" class="rp-toc-item rp-link" title="4. Holding Registers（03/06/16）" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">4. Holding Registers（03/06/16）</span></a><a href="#41-stationid全局强约束" class="rp-toc-item rp-link" title="4.1 StationId（全局，强约束）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.1 StationId（全局，强约束）</span></a><a href="#42-通道快照按-base-分段" class="rp-toc-item rp-link" title="4.2 通道快照（按 base 分段）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.2 通道快照（按 base 分段）</span></a></nav><div class="rp-outline__divider"></div><div class="rp-outline__bottom"></div></div></aside></div></div>
+    <div id="__rspress_modal_container"></div>
+  </body>
+</html>

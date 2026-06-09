@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PLC 说明书 (单文件版) - 企业文档中心 | 奕柏科技</title>
+<script>{;const saved = localStorage.getItem('rspress-theme-appearance');const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches;const isDark = !saved || saved === 'auto' ? preferDark : saved === 'dark';document.documentElement.classList.toggle('dark', isDark);document.documentElement.classList.toggle('rp-dark', isDark);document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';}</script>
+<link href="/static/css/styles.3acae6679e.css" rel="stylesheet">
+<script defer src="/static/js/styles.b10ef529e7.js"></script>
+<script defer src="/static/js/lib-react.b866a4fe50.js"></script>
+<script defer src="/static/js/lib-router.47ee6159f2.js"></script>
+<script defer src="/static/js/4653.96b19df9c5.js"></script>
+<script defer src="/static/js/index.571209b70a.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Rspress v2.0.13">
+<link rel="icon" href="/peaiot-logo.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="PLC 说明书 (单文件版) - 企业文档中心 | 奕柏科技">
+<meta name="description" content="说明：本版本为“复制到在线 Markdown 系统”准备，图示采用 内嵌 SVG（不依赖外部文件，也不依赖 Mermaid）。">
+<meta property="og:description" content="说明：本版本为“复制到在线 Markdown 系统”准备，图示采用 内嵌 SVG（不依赖外部文件，也不依赖 Mermaid）。"></head>
+
+  <body>
+    <div id="__rspress_root"><link rel="preload" as="image" href="/peaiot-logo.png"/><header class="rp-nav"><div class="rp-nav__left"><div class="rp-nav__title"><a href="/" class="rp-nav__title__link rp-link"><div class="rp-nav__title__logo"><img src="/peaiot-logo.png" alt="logo" id="logo" class="rspress-logo rp-nav__title__logo-image"/></div><span>企业文档中心</span></a></div></div><div class="rp-nav__right"><button class="rp-search-button"><div class="rp-search-button__content"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21" class="rp-search-button__icon"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg><span class="rp-search-button__word">Search</span></div><div class="rp-search-button__hotkey" style="opacity:0"><span></span><span>K</span></div></button><div class="rp-search-button--mobile"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg></div><ul class="rp-nav-menu rp-nav-menu--right"><li class="rp-nav-menu__item rp-nav-menu__item--active"><a href="/index.html" class="rp-nav-menu__item__container rp-link">产品手册目录</a></li><li class="rp-nav-menu__item"><a href="/explore.html" class="rp-nav-menu__item__container rp-link">探索项目</a></li></ul><div class="rp-nav__others"><div class="rp-nav-menu__divider"></div><div class="rp-switch-appearance"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" class="rp-switch-appearance__icon rp-switch-appearance__icon--sun"><path fill="currentColor" d="m7.001 15.848-1.226 1.226a.58.58 0 0 0 0 .818.58.58 0 0 0 .818 0l1.226-1.226a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0m-.352-8.735a.584.584 0 0 0 .825-.825L6.237 5.051a.584.584 0 0 0-.825.825zM5.011 11.07h-1.75a.584.584 0 0 0 0 1.167h1.75c.324 0 .584-.26.584-.583a.585.585 0 0 0-.584-.584m7.003-5.835c.324 0 .584-.26.584-.584V2.9a.58.58 0 0 0-.584-.584.58.58 0 0 0-.583.583V4.65c0 .323.262.584.583.584m5.616 1.621 1.226-1.225a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0l-1.226 1.225a.58.58 0 0 0 0 .818.576.576 0 0 0 .818 0m3.138 4.214h-1.75a.58.58 0 0 0-.584.584c0 .324.26.584.583.584h1.751a.584.584 0 1 0 0-1.167m-3.389 5.124a.584.584 0 0 0-.825.825l1.238 1.238a.584.584 0 0 0 .825-.826zm-5.365-9.795a5.256 5.256 0 0 0-5.257 5.258 5.256 5.256 0 0 0 5.257 5.257 5.256 5.256 0 0 0 5.257-5.257 5.256 5.256 0 0 0-5.257-5.258m0 11.675a.58.58 0 0 0-.583.583v1.751a.582.582 0 1 0 1.167 0v-1.75a.584.584 0 0 0-.584-.584"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" viewBox="0 0 19 19" class="rp-switch-appearance__icon rp-switch-appearance__icon--moon"><path fill="currentColor" d="M9.166 0a9.2 9.2 0 0 1 1.857.188.834.834 0 0 1 .042 1.623 4.47 4.47 0 1 0 5.457 5.457l.048-.135a.834.834 0 0 1 1.575.177q.186.902.188 1.856A9.168 9.168 0 1 1 9.166 0"></path></svg></div></div><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__sm"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg></button><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__md"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg><ul class="rp-hover-group rp-hover-group--hidden rp-hover-group--right"><div class="rp-nav-menu__others-mobile__container"><div class="rp-nav-hamburger__md__hover-group"><div class="rp-nav-screen-appearance"><div class="rp-nav-screen-appearance__left">Theme</div><div class="rp-nav-screen-appearance__right"></div></div><div class="rp-nav-screen-divider"></div></div></div></ul></button></div></header><div class="rp-doc-layout__menu"><div class="rp-sidebar-menu"><button type="button" class="rp-sidebar-menu__left"><svg width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M4 6h24v2H4zm0 18h24v2H4zm0-12h24v2H4zm0 6h24v2H4z"></path></svg><span>Menu</span></button><button type="button" class="rp-sidebar-menu__right"><span class="rp-sidebar-menu__right__text">ON THIS PAGE</span><svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg><svg width="1em" height="1em" viewBox="0 0 32 32" class="rp-sidebar-menu__right__icon" style="transform:rotate(0deg);transition:transform 0.2s ease-out"><path fill="currentColor" d="M22 16 12 26l-1.4-1.4 8.6-8.6-8.6-8.6L12 6z"></path></svg></button></div></div><div class="rp-doc-layout__container"><aside class="rp-doc-layout__sidebar rp-scrollbar"></aside><div class="rp-doc-layout__doc"><main class="rp-doc-layout__doc-container"><div class="rp-doc rspress-doc"><!--$--><h1 class="rp-toc-include" id="双氧水生产控制系统---plc-使用说明书单文件版"><a href="#双氧水生产控制系统---plc-使用说明书单文件版" class="rp-header-anchor rp-link" aria-hidden="true">#</a>双氧水生产控制系统 - PLC 使用说明书（单文件版）<!-- --> </h1>
+<p>说明：本版本为“复制到在线 Markdown 系统”准备，图示采用 <strong>内嵌 SVG</strong>（不依赖外部文件，也不依赖 Mermaid）。</p>
+<h2 class="rp-toc-include" id="1-硬件确认"><a href="#1-硬件确认" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1. 硬件确认</h2>
+<p>本项目硬件固定如下：</p>
+<ul>
+<li>PLC：S7-200 SMART <strong>CPU ST30</strong></li>
+<li>右侧第 1 个模块：<strong>AE08</strong>（8 路 4-20mA 模拟量输入）
+<ul>
+<li>模拟量输入地址：<code>AIW16</code> ~ <code>AIW30</code></li>
+</ul>
+</li>
+<li>右侧第 2 个模块：<strong>AQ02</strong>（2 路模拟量输出）
+<ul>
+<li>模拟量输出地址：<code>AQW32</code>、<code>AQW34</code></li>
+</ul>
+</li>
+</ul>
+<h3 class="rp-toc-include" id="模块布局示意图"><a href="#模块布局示意图" class="rp-header-anchor rp-link" aria-hidden="true">#</a>模块布局示意图</h3>
+<p>MinDoc 一般会过滤内嵌 SVG/HTML，因此本“单文件粘贴版”默认使用 Mermaid（渲染为矢量图，可无限放大）。</p>
+<div class="rp-codeblock language-mermaid"><div class="rp-codeblock__content"><div class="rp-codeblock__content__scroll-container rp-scrollbar rp-scrollbar--always"><pre class="shiki css-variables" style="background-color:var(--shiki-background);color:var(--shiki-foreground)" tabindex="0" data-lang="mermaid"><code><span class="line"><span style="color:var(--shiki-foreground)">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: { &#x27;fontFamily&#x27;: &#x27;Arial&#x27;, &#x27;fontSize&#x27;: &#x27;16px&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#111827&#x27;, &#x27;lineColor&#x27;: &#x27;#111827&#x27; }}}%%</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">graph LR</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  classDef cpu fill:#f3f4f6,stroke:#111827,stroke-width:2px,color:#111827;</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  classDef ai  fill:#dbeafe,stroke:#1d4ed8,stroke-width:2px,color:#111827;</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  classDef ao  fill:#dcfce7,stroke:#166534,stroke-width:2px,color:#111827;</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  linkStyle 0,1 stroke:#111827,stroke-width:2px;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  CPU[&quot;CPU ST30&quot;]:::cpu --&gt; AE08[&quot;AE08&lt;br/&gt;8×4-20mA&lt;br/&gt;AIW16~AIW30&quot;]:::ai --&gt; AQ02[&quot;AQ02&lt;br/&gt;2×AO&lt;br/&gt;AQW32/AQW34&quot;]:::ao</span></span></code></pre></div><div class="rp-code-button-group"><button class="rp-code-button-group__button rp-code-wrap-button" title="Toggle code wrap" aria-label="Toggle code wrap"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrapped"><path fill="currentColor" d="M21 5H3v2h18zM3 19h7v-2H3zm0-6h15c1 0 2 .43 2 2s-1 2-2 2h-2v-2l-4 3 4 3v-2h2c2.95 0 4-1.27 4-4 0-2.72-1-4-4-4H3z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrap"><path fill="currentColor" d="M16 7H3V5h13zM3 19h13v-2H3zm19-7-4-3v2H3v2h15v2z"></path></svg></button><button class="rp-code-button-group__button rp-code-copy-button" title="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--copy"><path fill="currentColor" d="M20 8v12H8V8zm0-2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2"></path><path fill="currentColor" d="M4 16H2V4a2 2 0 0 1 2-2h12v2H4Z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--success"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z"></path></svg></button></div></div></div>
+<p>如果你的 MinDoc 未开启 Mermaid，可用下面的纯文本布局：</p>
+<div class="rp-codeblock language-text"><div class="rp-codeblock__content"><div class="rp-codeblock__content__scroll-container rp-scrollbar rp-scrollbar--always"><pre class="shiki css-variables" style="background-color:var(--shiki-background);color:var(--shiki-foreground)" tabindex="0" data-lang="text"><code><span class="line"><span>CPU ST30  -&gt;  AE08 (8×4-20mA, AIW16~AIW30)  -&gt;  AQ02 (2×AO, AQW32/AQW34)</span></span></code></pre></div><div class="rp-code-button-group"><button class="rp-code-button-group__button rp-code-wrap-button" title="Toggle code wrap" aria-label="Toggle code wrap"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrapped"><path fill="currentColor" d="M21 5H3v2h18zM3 19h7v-2H3zm0-6h15c1 0 2 .43 2 2s-1 2-2 2h-2v-2l-4 3 4 3v-2h2c2.95 0 4-1.27 4-4 0-2.72-1-4-4-4H3z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrap"><path fill="currentColor" d="M16 7H3V5h13zM3 19h13v-2H3zm19-7-4-3v2H3v2h15v2z"></path></svg></button><button class="rp-code-button-group__button rp-code-copy-button" title="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--copy"><path fill="currentColor" d="M20 8v12H8V8zm0-2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2"></path><path fill="currentColor" d="M4 16H2V4a2 2 0 0 1 2-2h12v2H4Z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--success"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z"></path></svg></button></div></div></div>
+<h2 class="rp-toc-include" id="11-机柜基本布局后门视角"><a href="#11-机柜基本布局后门视角" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1.1 机柜基本布局（后门视角）</h2>
+<p>下面布局依据“从后门查看”的机柜草图整理，用于现场快速定位与走线分区理解：</p>
+<ul>
+<li>顶部：电源/24VDC、RS485 端子与供电等</li>
+<li>中部：左侧为阳极侧、右侧为阴极侧，中间为两路泵与驱动/调速</li>
+<li>底部：接地排、纯水机/制水机控制、空压机与交流电相关</li>
+</ul>
+<div class="rp-codeblock language-mermaid"><div class="rp-codeblock__content"><div class="rp-codeblock__content__scroll-container rp-scrollbar rp-scrollbar--always"><pre class="shiki css-variables" style="background-color:var(--shiki-background);color:var(--shiki-foreground)" tabindex="0" data-lang="mermaid"><code><span class="line"><span style="color:var(--shiki-foreground)">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: { &#x27;fontFamily&#x27;: &#x27;Arial&#x27;, &#x27;fontSize&#x27;: &#x27;14px&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#111827&#x27;, &#x27;lineColor&#x27;: &#x27;#111827&#x27; }}}%%</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">graph TB</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  classDef pwr fill:#f3f4f6,stroke:#111827,stroke-width:2px,color:#111827;</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  classDef sig fill:#dbeafe,stroke:#1d4ed8,stroke-width:2px,color:#111827;</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  classDef act fill:#fef3c7,stroke:#92400e,stroke-width:2px,color:#111827;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  subgraph TOP[&quot;机柜顶部&quot;]</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    PWR[&quot;电源/24VDC&quot;]:::pwr</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    BUS[&quot;RS485/端子/供电&quot;]:::sig</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  subgraph MID[&quot;机柜中部&quot;]</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    subgraph L[&quot;左侧：阳极侧&quot;]</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">      AFlow[&quot;阳极：流量计&quot;]:::sig</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">      ALevel[&quot;阳极：液位/压力等变送器&quot;]:::sig</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">      AValve[&quot;阳极：阀/补水阀&quot;]:::act</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    end</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    Pumps[&quot;中间：阳极泵 + 阴极泵（驱动/调速）&quot;]:::act</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    subgraph R[&quot;右侧：阴极侧&quot;]</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">      CFlow[&quot;阴极：流量计&quot;]:::sig</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">      CLevel[&quot;阴极：液位等变送器&quot;]:::sig</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">      CValve[&quot;阴极：阀/补水阀&quot;]:::act</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    end</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  subgraph BOT[&quot;机柜底部&quot;]</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    PE[&quot;接地排&quot;]:::pwr</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    RO[&quot;纯水机/制水机控制&quot;]:::act</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    AC[&quot;空压机/交流电相关&quot;]:::pwr</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  TOP --&gt; MID --&gt; BOT</span></span></code></pre></div><div class="rp-code-button-group"><button class="rp-code-button-group__button rp-code-wrap-button" title="Toggle code wrap" aria-label="Toggle code wrap"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrapped"><path fill="currentColor" d="M21 5H3v2h18zM3 19h7v-2H3zm0-6h15c1 0 2 .43 2 2s-1 2-2 2h-2v-2l-4 3 4 3v-2h2c2.95 0 4-1.27 4-4 0-2.72-1-4-4-4H3z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrap"><path fill="currentColor" d="M16 7H3V5h13zM3 19h13v-2H3zm19-7-4-3v2H3v2h15v2z"></path></svg></button><button class="rp-code-button-group__button rp-code-copy-button" title="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--copy"><path fill="currentColor" d="M20 8v12H8V8zm0-2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2"></path><path fill="currentColor" d="M4 16H2V4a2 2 0 0 1 2-2h12v2H4Z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--success"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z"></path></svg></button></div></div></div>
+<p>走线建议：</p>
+<ul>
+<li>4-20mA 与 RS485 尽量走“信号线槽”，远离交流电与电机线</li>
+<li>模拟量线建议用屏蔽双绞线，屏蔽层单端接地（接地排）</li>
+<li>强弱电分槽/分层，交叉尽量 90°</li>
+</ul>
+<h2 class="rp-toc-include" id="2-程序与文件"><a href="#2-程序与文件" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2. 程序与文件</h2>
+<ul>
+<li>PLC 导入用程序：<code>双氧水控制_v7.awl</code></li>
+<li>编辑查看用程序：<code>双氧水控制_v7_utf8.awl</code></li>
+<li>工艺说明：<code>开关机说明-V2.txt</code></li>
+<li>本说明书（仓库版）：<code>PLC使用说明书.md</code></li>
+</ul>
+<h2 class="rp-toc-include" id="21-是否需要向导"><a href="#21-是否需要向导" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2.1 是否需要“向导”？</h2>
+<p>本项目当前版本使用 <strong>AE08 模拟量输入（AIW16~AIW30）</strong> 与 <strong>AQ02 模拟量输出（AQW32/AQW34）</strong>，不依赖 PWM/PTO/HSC/通信向导生成的程序块。</p>
+<p>但仍需要在 Micro/WIN SMART 的 <strong>系统块</strong> 中确认：</p>
+<ul>
+<li>CPU 型号为 ST30</li>
+<li>模块顺序为 AE08（第 1 个）+ AQ02（第 2 个），地址分别为 <code>AIW16</code> 起、<code>AQW32</code> 起</li>
+<li>模拟量量程/类型（4-20mA、0-10V 等）与现场一致</li>
+</ul>
+<h2 class="rp-toc-include" id="3-接线对照表必须按表核对"><a href="#3-接线对照表必须按表核对" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3. 接线对照表（必须按表核对）</h2>
+<h3 class="rp-toc-include" id="31-按钮输入di"><a href="#31-按钮输入di" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3.1 按钮输入（DI）</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>PLC 地址</th><th>名称</th><th>建议接线</th><th>作用</th></tr></thead><tbody><tr><td><code>I0.1</code></td><td>开机按钮</td><td>常开按钮</td><td>触发开机顺控</td></tr><tr><td><code>I0.2</code></td><td>关机按钮</td><td>常开按钮</td><td>触发关机顺控</td></tr><tr><td><code>I0.3</code></td><td>急停</td><td>建议常闭回路</td><td>立即停机并关闭所有输出</td></tr></tbody></table></div>
+<h3 class="rp-toc-include" id="311-水流量计霍尔脉冲"><a href="#311-水流量计霍尔脉冲" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3.1.1 水流量计（霍尔脉冲）</h3>
+<p>本项目水流量计为霍尔脉冲输出型（方波），说明书要点如下（详见 <code>docs/937-15xxF01_GB.pdf</code>）：</p>
+<ul>
+<li>输出方式：开集电极 <strong>NPN</strong>（Open collector NPN），方波输出</li>
+<li>供电范围：<strong>+3.8 ~ +24 VDC</strong></li>
+<li>输出电平：被触发时将信号端拉到 0V（饱和压降 &lt;0.7V），不触发时开路</li>
+<li>说明书强调：不同介质/安装会导致 “Pulses/litre” 有偏差，建议整机管路条件下做标定</li>
+</ul>
+<h4 class="rp-toc-include" id="3111-接线建议按-npn-开集电极"><a href="#3111-接线建议按-npn-开集电极" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3.1.1.1 接线建议（按 NPN 开集电极）</h4>
+<ul>
+<li>供电：流量计 + 接 +24V（或按现场实际供电），- 接 0V</li>
+<li>信号：流量计 Signal 接到 PLC 的高速/普通输入点（建议单独占用输入点）</li>
+<li>参考地：PLC 输入公共端与流量计 0V 同参考（避免漂移）</li>
+<li>抗干扰：信号线用屏蔽线，远离接触器/变频器/电机线</li>
+</ul>
+<p>提示：因为是 NPN “下拉到 0V”，在某些接法下 PLC 看到的是“低电平有效”的脉冲（逻辑相反）。程序取脉冲时只要选对“上升沿/下降沿”即可。</p>
+<h4 class="rp-toc-include" id="3112-脉冲换算把脉冲变成流量"><a href="#3112-脉冲换算把脉冲变成流量" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3.1.1.2 脉冲换算（把脉冲变成流量）</h4>
+<p>先确认流量计喷嘴（Nozzle）型号，对应的 <strong>Pulses/litre（每升脉冲数）</strong> 参考表：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>喷嘴直径</th><th style="text-align:right">Pulses/litre（每升脉冲数）</th></tr></thead><tbody><tr><td>Ø 1.00 mm</td><td style="text-align:right">2223</td></tr><tr><td>Ø 1.20 mm</td><td style="text-align:right">1787</td></tr><tr><td>Ø 2.00 mm</td><td style="text-align:right">1013</td></tr><tr><td>Ø 2.50 mm</td><td style="text-align:right">754</td></tr><tr><td>Ø 5.60 mm</td><td style="text-align:right">256</td></tr></tbody></table></div>
+<p>换算公式（推荐每 1 秒统计一次脉冲增量）：</p>
+<ul>
+<li>设 <code>ΔP</code> = 1 秒内脉冲数（pulses/s）</li>
+<li>设 <code>K</code> = Pulses/litre（pulses/L）</li>
+<li><strong>瞬时流量（L/min）</strong>：<code>Flow = ΔP / K * 60</code></li>
+<li><strong>累计体积（L）</strong>：<code>Total_L = TotalPulses / K</code></li>
+</ul>
+<h3 class="rp-toc-include" id="32-执行器输出do"><a href="#32-执行器输出do" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3.2 执行器输出（DO）</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>PLC 地址</th><th>设备</th><th>说明</th></tr></thead><tbody><tr><td><code>Q0.2</code></td><td>阳极补水电磁阀</td><td>开机补水用</td></tr><tr><td><code>Q0.3</code></td><td>阴极补水电磁阀</td><td>开机补水用</td></tr><tr><td><code>Q0.4</code></td><td>阳极控制电磁阀</td><td>空压机后延时开启</td></tr><tr><td><code>Q0.5</code></td><td>阴极液体电磁阀</td><td>阴极泵后延时开启</td></tr><tr><td><code>Q0.6</code></td><td>空压机（接触器/电磁阀）</td><td>关机后延时 30 分钟关闭</td></tr><tr><td><code>Q0.7</code></td><td>纯水机/制水机</td><td>开机自动开启</td></tr><tr><td><code>Q1.0</code></td><td>直流电源开关控制</td><td>阴极阀开启 5 分钟后使能</td></tr></tbody></table></div>
+<h3 class="rp-toc-include" id="33-模拟量输入ae0884-20ma"><a href="#33-模拟量输入ae0884-20ma" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3.3 模拟量输入（AE08，8×4-20mA）</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>通道</th><th>PLC 地址</th><th>建议接入</th><th>用途</th></tr></thead><tbody><tr><td>CH0</td><td><code>AIW16</code></td><td>高压罐压力变送器</td><td>压力达标判定</td></tr><tr><td>CH1</td><td><code>AIW18</code></td><td>阳极桶液位变送器</td><td>补水停止判定</td></tr><tr><td>CH2</td><td><code>AIW20</code></td><td>阴极桶液位变送器</td><td>补水停止判定</td></tr><tr><td>CH3~CH7</td><td><code>AIW22~AIW30</code></td><td>预留</td><td>预留</td></tr></tbody></table></div>
+<h3 class="rp-toc-include" id="34-模拟量输出aq022ao"><a href="#34-模拟量输出aq022ao" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3.4 模拟量输出（AQ02，2×AO）</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>通道</th><th>PLC 地址</th><th>建议接入</th><th>用途</th></tr></thead><tbody><tr><td>AO0</td><td><code>AQW32</code></td><td>阳极泵调速（变频器给定等）</td><td>阳极泵流量/转速控制</td></tr><tr><td>AO1</td><td><code>AQW34</code></td><td>阴极泵调速（变频器给定等）</td><td>阴极泵流量/转速控制</td></tr></tbody></table></div>
+<p>安全策略：当对应泵未使能时，程序会将 <code>AQW32/AQW34</code> 强制输出为 0。</p>
+<h3 class="rp-toc-include" id="接线总览示意图"><a href="#接线总览示意图" class="rp-header-anchor rp-link" aria-hidden="true">#</a>接线总览示意图</h3>
+<div class="rp-codeblock language-mermaid"><div class="rp-codeblock__content"><div class="rp-codeblock__content__scroll-container rp-scrollbar rp-scrollbar--always"><pre class="shiki css-variables" style="background-color:var(--shiki-background);color:var(--shiki-foreground)" tabindex="0" data-lang="mermaid"><code><span class="line"><span style="color:var(--shiki-foreground)">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: { &#x27;fontFamily&#x27;: &#x27;Arial&#x27;, &#x27;fontSize&#x27;: &#x27;14px&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#111827&#x27;, &#x27;lineColor&#x27;: &#x27;#111827&#x27; }}}%%</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">graph LR</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  classDef btn fill:#f3f4f6,stroke:#111827,stroke-width:2px,color:#111827;</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  classDef sen fill:#dbeafe,stroke:#1d4ed8,stroke-width:2px,color:#111827;</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  classDef plc fill:#e5e7eb,stroke:#111827,stroke-width:2px,color:#111827;</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  classDef act fill:#fef3c7,stroke:#92400e,stroke-width:2px,color:#111827;</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  classDef ao  fill:#dcfce7,stroke:#166534,stroke-width:2px,color:#111827;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  Start[&quot;开机按钮&lt;br/&gt;I0.1&quot;]:::btn --&gt; CPU[&quot;CPU ST30&quot;]:::plc</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  Stop[&quot;关机按钮&lt;br/&gt;I0.2&quot;]:::btn --&gt; CPU</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  Estop[&quot;急停&lt;br/&gt;I0.3&quot;]:::btn --&gt; CPU</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  P[&quot;压力&lt;br/&gt;AIW16&quot;]:::sen --&gt; AE08[&quot;AE08&lt;br/&gt;AIW16~AIW30&quot;]:::plc --&gt; CPU</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  LA[&quot;阳极液位&lt;br/&gt;AIW18&quot;]:::sen --&gt; AE08</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  LC[&quot;阴极液位&lt;br/&gt;AIW20&quot;]:::sen --&gt; AE08</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  CPU --&gt; V1[&quot;阳极补水阀&lt;br/&gt;Q0.2&quot;]:::act</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  CPU --&gt; V2[&quot;阴极补水阀&lt;br/&gt;Q0.3&quot;]:::act</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  CPU --&gt; V3[&quot;阳极阀&lt;br/&gt;Q0.4&quot;]:::act</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  CPU --&gt; V4[&quot;阴极阀&lt;br/&gt;Q0.5&quot;]:::act</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  CPU --&gt; Air[&quot;空压机&lt;br/&gt;Q0.6&quot;]:::act</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  CPU --&gt; RO[&quot;制水机&lt;br/&gt;Q0.7&quot;]:::act</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  CPU --&gt; DC[&quot;直流电源&lt;br/&gt;Q1.0&quot;]:::act</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  CPU --&gt; AQ02[&quot;AQ02&lt;br/&gt;AQW32/AQW34&quot;]:::ao</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  AQ02 --&gt; AO0[&quot;阳极泵给定&lt;br/&gt;AQW32&quot;]:::ao</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  AQ02 --&gt; AO1[&quot;阴极泵给定&lt;br/&gt;AQW34&quot;]:::ao</span></span></code></pre></div><div class="rp-code-button-group"><button class="rp-code-button-group__button rp-code-wrap-button" title="Toggle code wrap" aria-label="Toggle code wrap"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrapped"><path fill="currentColor" d="M21 5H3v2h18zM3 19h7v-2H3zm0-6h15c1 0 2 .43 2 2s-1 2-2 2h-2v-2l-4 3 4 3v-2h2c2.95 0 4-1.27 4-4 0-2.72-1-4-4-4H3z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrap"><path fill="currentColor" d="M16 7H3V5h13zM3 19h13v-2H3zm19-7-4-3v2H3v2h15v2z"></path></svg></button><button class="rp-code-button-group__button rp-code-copy-button" title="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--copy"><path fill="currentColor" d="M20 8v12H8V8zm0-2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2"></path><path fill="currentColor" d="M4 16H2V4a2 2 0 0 1 2-2h12v2H4Z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--success"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z"></path></svg></button></div></div></div>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="720" viewBox="0 0 1400 720">
+  <rect x="0" y="0" width="1400" height="720" fill="#ffffff"></rect>
+  <text x="40" y="60" font-family="Segoe UI, Arial, sans-serif" font-size="32" fill="#111827">接线总览示意（按钮/传感器/执行器）</text>
+  <rect x="40" y="110" width="360" height="250" rx="16" fill="#f3f4f6" stroke="#111827" stroke-width="2"></rect>
+  <text x="70" y="155" font-family="Segoe UI, Arial, sans-serif" font-size="26" fill="#111827">按钮输入（DI）</text>
+  <text x="70" y="200" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">开机按钮：I0.1</text>
+  <text x="70" y="235" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">关机按钮：I0.2</text>
+  <text x="70" y="270" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">急停：I0.3（建议常闭）</text>
+  <rect x="40" y="400" width="360" height="260" rx="16" fill="#dbeafe" stroke="#111827" stroke-width="2"></rect>
+  <text x="70" y="445" font-family="Segoe UI, Arial, sans-serif" font-size="26" fill="#111827">传感器（4-20mA）</text>
+  <text x="70" y="490" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">压力：AIW16（AE08 CH0）</text>
+  <text x="70" y="525" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">阳极液位：AIW18（AE08 CH1）</text>
+  <text x="70" y="560" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">阴极液位：AIW20（AE08 CH2）</text>
+  <text x="70" y="595" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">其余通道：AIW22~AIW30（预留）</text>
+  <rect x="520" y="210" width="360" height="300" rx="16" fill="#e5e7eb" stroke="#111827" stroke-width="2"></rect>
+  <text x="550" y="255" font-family="Segoe UI, Arial, sans-serif" font-size="26" fill="#111827">PLC（CPU ST30）</text>
+  <text x="550" y="295" font-family="Segoe UI, Arial, sans-serif" font-size="18" fill="#374151">右侧模块：AE08（AIW16 起）+ AQ02（AQW32 起）</text>
+  <rect x="980" y="110" width="380" height="320" rx="16" fill="#fef3c7" stroke="#111827" stroke-width="2"></rect>
+  <text x="1010" y="155" font-family="Segoe UI, Arial, sans-serif" font-size="26" fill="#111827">执行器输出（DO）</text>
+  <text x="1010" y="200" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">阳极补水阀：Q0.2</text>
+  <text x="1010" y="235" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">阴极补水阀：Q0.3</text>
+  <text x="1010" y="270" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">阳极阀：Q0.4</text>
+  <text x="1010" y="305" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">阴极阀：Q0.5</text>
+  <text x="1010" y="340" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">空压机：Q0.6</text>
+  <text x="1010" y="375" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">制水机：Q0.7</text>
+  <text x="1010" y="410" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">直流电源：Q1.0</text>
+  <rect x="980" y="470" width="380" height="190" rx="16" fill="#dcfce7" stroke="#111827" stroke-width="2"></rect>
+  <text x="1010" y="515" font-family="Segoe UI, Arial, sans-serif" font-size="26" fill="#111827">泵调速给定（AO）</text>
+  <text x="1010" y="560" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">阳极泵给定：AQW32</text>
+  <text x="1010" y="595" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#374151">阴极泵给定：AQW34</text>
+  <line x1="400" y1="235" x2="520" y2="280" stroke="#111827" stroke-width="3"></line>
+  <polygon points="520,280 507,272 509,287" fill="#111827"></polygon>
+  <line x1="400" y1="530" x2="520" y2="405" stroke="#111827" stroke-width="3"></line>
+  <polygon points="520,405 507,408 516,418" fill="#111827"></polygon>
+  <line x1="880" y1="310" x2="980" y2="270" stroke="#111827" stroke-width="3"></line>
+  <polygon points="980,270 967,263 968,278" fill="#111827"></polygon>
+  <line x1="880" y1="440" x2="980" y2="555" stroke="#111827" stroke-width="3"></line>
+  <polygon points="980,555 968,547 967,562" fill="#111827"></polygon>
+</svg><p><text x="40" y="700" font-family="Segoe UI, Arial, sans-serif" font-size="16" fill="#6b7280">提示：如需打印，建议用 A4 横向；图中为逻辑对照，电气细节以柜内图纸为准。</text>
+</p>
+<h2 class="rp-toc-include" id="4-操作方法"><a href="#4-操作方法" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4. 操作方法</h2>
+<h3 class="rp-toc-include" id="41-开机"><a href="#41-开机" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.1 开机</h3>
+<ol>
+<li>打开总电源</li>
+<li>确认急停已释放</li>
+<li>按下 <strong>开机按钮（I0.1）</strong></li>
+<li>系统自动执行：补水 → 空压机 → 阳极阀/泵 → 压力达标 → 阴极泵/阀 → 延时 5 分钟 → 直流电源</li>
+</ol>
+<h3 class="rp-toc-include" id="42-关机"><a href="#42-关机" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.2 关机</h3>
+<ol>
+<li>按下 <strong>关机按钮（I0.2）</strong></li>
+<li>系统立即关闭直流电源、阀、泵、制水机</li>
+<li><strong>30 分钟后</strong>自动关闭空压机</li>
+</ol>
+<h3 class="rp-toc-include" id="43-急停"><a href="#43-急停" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.3 急停</h3>
+<p>按下 <strong>急停（I0.3）</strong>：系统立即关闭所有输出。排故完成后释放急停，再按开机。</p><!--/$--></div><footer class="rp-doc-footer"><div class="rp-doc-footer__edit"></div><div class="rp-doc-footer__divider"></div><div class="rp-prev-next-page"><div class="rp-prev-next-page__placeholder"></div><div class="rp-prev-next-page__placeholder"></div></div></footer></main></div><aside class="rp-doc-layout__outline rp-scrollbar"><div class="rp-outline"><div class="rp-outline__title">ON THIS PAGE<svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg></div><nav class="rp-outline__toc rp-scrollbar"><a href="#1-硬件确认" class="rp-toc-item rp-link" title="1. 硬件确认" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">1. 硬件确认</span></a><a href="#模块布局示意图" class="rp-toc-item rp-link" title="模块布局示意图" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">模块布局示意图</span></a><a href="#11-机柜基本布局后门视角" class="rp-toc-item rp-link" title="1.1 机柜基本布局（后门视角）" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">1.1 机柜基本布局（后门视角）</span></a><a href="#2-程序与文件" class="rp-toc-item rp-link" title="2. 程序与文件" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">2. 程序与文件</span></a><a href="#21-是否需要向导" class="rp-toc-item rp-link" title="2.1 是否需要“向导”？" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">2.1 是否需要“向导”？</span></a><a href="#3-接线对照表必须按表核对" class="rp-toc-item rp-link" title="3. 接线对照表（必须按表核对）" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">3. 接线对照表（必须按表核对）</span></a><a href="#31-按钮输入di" class="rp-toc-item rp-link" title="3.1 按钮输入（DI）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3.1 按钮输入（DI）</span></a><a href="#311-水流量计霍尔脉冲" class="rp-toc-item rp-link" title="3.1.1 水流量计（霍尔脉冲）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3.1.1 水流量计（霍尔脉冲）</span></a><a href="#3111-接线建议按-npn-开集电极" class="rp-toc-item rp-link" title="3.1.1.1 接线建议（按 NPN 开集电极）" style="padding-left:24px" data-depth="2"><span class="rp-toc-item__text rp-doc">3.1.1.1 接线建议（按 NPN 开集电极）</span></a><a href="#3112-脉冲换算把脉冲变成流量" class="rp-toc-item rp-link" title="3.1.1.2 脉冲换算（把脉冲变成流量）" style="padding-left:24px" data-depth="2"><span class="rp-toc-item__text rp-doc">3.1.1.2 脉冲换算（把脉冲变成流量）</span></a><a href="#32-执行器输出do" class="rp-toc-item rp-link" title="3.2 执行器输出（DO）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3.2 执行器输出（DO）</span></a><a href="#33-模拟量输入ae0884-20ma" class="rp-toc-item rp-link" title="3.3 模拟量输入（AE08，8×4-20mA）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3.3 模拟量输入（AE08，8×4-20mA）</span></a><a href="#34-模拟量输出aq022ao" class="rp-toc-item rp-link" title="3.4 模拟量输出（AQ02，2×AO）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3.4 模拟量输出（AQ02，2×AO）</span></a><a href="#接线总览示意图" class="rp-toc-item rp-link" title="接线总览示意图" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">接线总览示意图</span></a><a href="#4-操作方法" class="rp-toc-item rp-link" title="4. 操作方法" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">4. 操作方法</span></a><a href="#41-开机" class="rp-toc-item rp-link" title="4.1 开机" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.1 开机</span></a><a href="#42-关机" class="rp-toc-item rp-link" title="4.2 关机" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.2 关机</span></a><a href="#43-急停" class="rp-toc-item rp-link" title="4.3 急停" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.3 急停</span></a></nav><div class="rp-outline__divider"></div><div class="rp-outline__bottom"></div></div></aside></div></div>
+    <div id="__rspress_modal_container"></div>
+  </body>
+</html>

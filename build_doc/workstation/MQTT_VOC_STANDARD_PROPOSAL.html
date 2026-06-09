@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VOCs 色谱边缘工作站 MQTT 协议标准规范 (草案) - 企业文档中心 | 奕柏科技</title>
+<script>{;const saved = localStorage.getItem('rspress-theme-appearance');const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches;const isDark = !saved || saved === 'auto' ? preferDark : saved === 'dark';document.documentElement.classList.toggle('dark', isDark);document.documentElement.classList.toggle('rp-dark', isDark);document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';}</script>
+<link href="/static/css/styles.3acae6679e.css" rel="stylesheet">
+<script defer src="/static/js/styles.b10ef529e7.js"></script>
+<script defer src="/static/js/lib-react.b866a4fe50.js"></script>
+<script defer src="/static/js/lib-router.47ee6159f2.js"></script>
+<script defer src="/static/js/4653.96b19df9c5.js"></script>
+<script defer src="/static/js/index.571209b70a.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Rspress v2.0.13">
+<link rel="icon" href="/peaiot-logo.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="VOCs 色谱边缘工作站 MQTT 协议标准规范 (草案) - 企业文档中心 | 奕柏科技">
+<meta name="description" content="涵盖硬件仪器、软件平台的全矩阵在线说明书与技术支持">
+<meta property="og:description" content="涵盖硬件仪器、软件平台的全矩阵在线说明书与技术支持"></head>
+
+  <body>
+    <div id="__rspress_root"><link rel="preload" as="image" href="/peaiot-logo.png"/><header class="rp-nav"><div class="rp-nav__left"><div class="rp-nav__title"><a href="/" class="rp-nav__title__link rp-link"><div class="rp-nav__title__logo"><img src="/peaiot-logo.png" alt="logo" id="logo" class="rspress-logo rp-nav__title__logo-image"/></div><span>企业文档中心</span></a></div></div><div class="rp-nav__right"><button class="rp-search-button"><div class="rp-search-button__content"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21" class="rp-search-button__icon"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg><span class="rp-search-button__word">Search</span></div><div class="rp-search-button__hotkey" style="opacity:0"><span></span><span>K</span></div></button><div class="rp-search-button--mobile"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg></div><ul class="rp-nav-menu rp-nav-menu--right"><li class="rp-nav-menu__item rp-nav-menu__item--active"><a href="/index.html" class="rp-nav-menu__item__container rp-link">产品手册目录</a></li><li class="rp-nav-menu__item"><a href="/explore.html" class="rp-nav-menu__item__container rp-link">探索项目</a></li></ul><div class="rp-nav__others"><div class="rp-nav-menu__divider"></div><div class="rp-switch-appearance"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" class="rp-switch-appearance__icon rp-switch-appearance__icon--sun"><path fill="currentColor" d="m7.001 15.848-1.226 1.226a.58.58 0 0 0 0 .818.58.58 0 0 0 .818 0l1.226-1.226a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0m-.352-8.735a.584.584 0 0 0 .825-.825L6.237 5.051a.584.584 0 0 0-.825.825zM5.011 11.07h-1.75a.584.584 0 0 0 0 1.167h1.75c.324 0 .584-.26.584-.583a.585.585 0 0 0-.584-.584m7.003-5.835c.324 0 .584-.26.584-.584V2.9a.58.58 0 0 0-.584-.584.58.58 0 0 0-.583.583V4.65c0 .323.262.584.583.584m5.616 1.621 1.226-1.225a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0l-1.226 1.225a.58.58 0 0 0 0 .818.576.576 0 0 0 .818 0m3.138 4.214h-1.75a.58.58 0 0 0-.584.584c0 .324.26.584.583.584h1.751a.584.584 0 1 0 0-1.167m-3.389 5.124a.584.584 0 0 0-.825.825l1.238 1.238a.584.584 0 0 0 .825-.826zm-5.365-9.795a5.256 5.256 0 0 0-5.257 5.258 5.256 5.256 0 0 0 5.257 5.257 5.256 5.256 0 0 0 5.257-5.257 5.256 5.256 0 0 0-5.257-5.258m0 11.675a.58.58 0 0 0-.583.583v1.751a.582.582 0 1 0 1.167 0v-1.75a.584.584 0 0 0-.584-.584"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" viewBox="0 0 19 19" class="rp-switch-appearance__icon rp-switch-appearance__icon--moon"><path fill="currentColor" d="M9.166 0a9.2 9.2 0 0 1 1.857.188.834.834 0 0 1 .042 1.623 4.47 4.47 0 1 0 5.457 5.457l.048-.135a.834.834 0 0 1 1.575.177q.186.902.188 1.856A9.168 9.168 0 1 1 9.166 0"></path></svg></div></div><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__sm"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg></button><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__md"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg><ul class="rp-hover-group rp-hover-group--hidden rp-hover-group--right"><div class="rp-nav-menu__others-mobile__container"><div class="rp-nav-hamburger__md__hover-group"><div class="rp-nav-screen-appearance"><div class="rp-nav-screen-appearance__left">Theme</div><div class="rp-nav-screen-appearance__right"></div></div><div class="rp-nav-screen-divider"></div></div></div></ul></button></div></header><div class="rp-doc-layout__menu"><div class="rp-sidebar-menu"><button type="button" class="rp-sidebar-menu__left"><svg width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M4 6h24v2H4zm0 18h24v2H4zm0-12h24v2H4zm0 6h24v2H4z"></path></svg><span>Menu</span></button><button type="button" class="rp-sidebar-menu__right"><span class="rp-sidebar-menu__right__text">ON THIS PAGE</span><svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg><svg width="1em" height="1em" viewBox="0 0 32 32" class="rp-sidebar-menu__right__icon" style="transform:rotate(0deg);transition:transform 0.2s ease-out"><path fill="currentColor" d="M22 16 12 26l-1.4-1.4 8.6-8.6-8.6-8.6L12 6z"></path></svg></button></div></div><div class="rp-doc-layout__container"><aside class="rp-doc-layout__sidebar rp-scrollbar"></aside><div class="rp-doc-layout__doc"><main class="rp-doc-layout__doc-container"><div class="rp-doc rspress-doc"><!--$--><h1 class="rp-toc-include" id="vocs-色谱边缘工作站-mqtt-协议标准规范-草案"><a href="#vocs-色谱边缘工作站-mqtt-协议标准规范-草案" class="rp-header-anchor rp-link" aria-hidden="true">#</a>VOCs 色谱边缘工作站 MQTT 协议标准规范 (草案)<!-- --> </h1>
+<h2 class="rp-toc-include" id="1-背景与痛点分析"><a href="#1-背景与痛点分析" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1. 背景与痛点分析</h2>
+<p>在审阅原有的 <code>MQTT.md</code>（PEA780303型号）协议时，我们发现存在以下导致数据冗余和带宽浪费的痛点：</p>
+<ol>
+<li><strong>严重的数据冗余</strong>：
+<ul>
+<li>每次上报都在 Payload 中包含 <code>index</code>、<code>clientid</code>、<code>Node</code>、<code>mn</code> 和 <code>imei</code>，这些本质上都是同一个设备唯一标识的变体。</li>
+<li><code>factor</code> 因子字典中，每个因子都重复携带了 <code>name</code> (名称) 和 <code>unit</code> (单位)。对于 VOCs 这种动辄十几个组分的设备，每次都上传“非甲烷总烃”、“mg/m³”等固定元数据会造成极大的带宽浪费。</li>
+</ul>
+</li>
+<li><strong>动静数据未分离</strong>：
+<ul>
+<li>设备的 GPS 经纬度 (<code>lng</code>, <code>lat</code>)、IP 地址、ICCID 等几乎是不变的静态信息，却和传感器数据绑在一起高频上传。</li>
+</ul>
+</li>
+<li><strong>缺乏针对色谱的精细化分层</strong>：
+<ul>
+<li>VOCs 色谱工作站的数据分为几种完全不同的生命周期：<strong>周期性硬件状态</strong>（温度、压力，秒/分钟级）、<strong>分析结果</strong>（组分浓度，周期级 2-15 分钟）、<strong>系统日志</strong>（按需触发，15秒队列管控）。混在一个结构里会导致极大浪费。</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 class="rp-toc-include" id="2-核心优化原则"><a href="#2-核心优化原则" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2. 核心优化原则</h2>
+<p>为了适应大规模工控机部署和低带宽网络（IoT 物联网卡），并无缝对接 Elasticsearch：</p>
+<ol>
+<li><strong>依赖 Topic 路由提取 MN 号</strong>：
+<ul>
+<li>将 <code>MN</code>（即 ClientID / 唯一编码）放在 MQTT Topic 路径中。MQTT Broker (如 EMQX) 或 Logstash/Fluentd 订阅 Topic 时，可以自动从 Topic 提取 MN 并作为 Elasticsearch 的 <code>index</code> 路由键。Payload 内部不再重复发送 <code>MN</code> 和 <code>index</code>。</li>
+</ul>
+</li>
+<li><strong>动静分离，多 Topic 策略</strong>：
+<ul>
+<li>将上报分为 <code>info</code> (基础信息)、<code>status</code> (硬件工况)、<code>result</code> (分析结果) 和 <code>log</code> (运行日志) 四个独立的 Topic。</li>
+</ul>
+</li>
+<li><strong>因子扁平化（K-V键值对）</strong>：
+<ul>
+<li>去除 Payload 内部的中文名称和单位，全部使用<strong>标准因子代码</strong>（如参考 HJ212 的 <code>a24088</code> 代表非甲烷总烃）或简写英文 Key 作为键，值为 Float 类型。单位和名称由上位机或云平台在展示时统一映射。</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 class="rp-toc-include" id="3-topic-设计规范"><a href="#3-topic-设计规范" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3. Topic 设计规范</h2>
+<p>所有 Topic 的基础前缀为：<code>vocs/device/{MN}</code> （<code>{MN}</code> 替换为实际的设备唯一编码，与 ClientID 一致）。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th style="text-align:left">Topic 路径</th><th style="text-align:left">发送频率</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left"><code>vocs/device/{MN}/info</code></td><td style="text-align:left">开机时和每小时整点触发一次（可在界面关闭）</td><td style="text-align:left">设备静态信息（IP, ICCID, 经纬度, 固件版本等）</td></tr><tr><td style="text-align:left"><code>vocs/device/{MN}/status</code></td><td style="text-align:left">每 1 分钟上报一次（可在界面关闭）</td><td style="text-align:left">硬件工况（各路温度实测值、气路 EPC 压力实测值）</td></tr><tr><td style="text-align:left"><code>vocs/device/{MN}/result</code></td><td style="text-align:left">每次色谱分析完成时立即触发（可在界面关闭）</td><td style="text-align:left">色谱分析结果（NMHC, THC, CH4 及各组分浓度）</td></tr><tr><td style="text-align:left"><code>vocs/device/{MN}/log</code></td><td style="text-align:left">事件触发（受 15 秒队列限流管控，可在界面关闭）</td><td style="text-align:left">设备运行日志、报警事件、报错信息</td></tr></tbody></table></div>
+<hr/>
+<h2 class="rp-toc-include" id="4-payload-数据结构定义-json"><a href="#4-payload-数据结构定义-json" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4. Payload 数据结构定义 (JSON)</h2>
+<h3 class="rp-toc-include" id="41-设备信息-info"><a href="#41-设备信息-info" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.1 设备信息 (Info)</h3>
+<p><strong>Topic:</strong> <code>vocs/device/{MN}/info</code></p>
+<div class="rp-codeblock language-json"><div class="rp-codeblock__content"><div class="rp-codeblock__content__scroll-container rp-scrollbar rp-scrollbar--always"><pre class="shiki css-variables" style="background-color:var(--shiki-background);color:var(--shiki-foreground)" tabindex="0" data-lang="json"><code><span class="line"><span style="color:var(--shiki-foreground)">{</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;timestamp&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 1717488684</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;model&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-string-expression)"> &quot;VOC-Edge-V1&quot;</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;version&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-string-expression)"> &quot;v0.3.8&quot;</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;ip&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-string-expression)"> &quot;10.88.88.31&quot;</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;iccid&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-string-expression)"> &quot;898608401024D0015976&quot;</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;lng&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 121.411905</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;lat&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 31.124663</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;csq&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 24</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">}</span></span></code></pre></div><div class="rp-code-button-group"><button class="rp-code-button-group__button rp-code-wrap-button" title="Toggle code wrap" aria-label="Toggle code wrap"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrapped"><path fill="currentColor" d="M21 5H3v2h18zM3 19h7v-2H3zm0-6h15c1 0 2 .43 2 2s-1 2-2 2h-2v-2l-4 3 4 3v-2h2c2.95 0 4-1.27 4-4 0-2.72-1-4-4-4H3z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrap"><path fill="currentColor" d="M16 7H3V5h13zM3 19h13v-2H3zm19-7-4-3v2H3v2h15v2z"></path></svg></button><button class="rp-code-button-group__button rp-code-copy-button" title="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--copy"><path fill="currentColor" d="M20 8v12H8V8zm0-2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2"></path><path fill="currentColor" d="M4 16H2V4a2 2 0 0 1 2-2h12v2H4Z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--success"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z"></path></svg></button></div></div></div>
+<h3 class="rp-toc-include" id="42-硬件工况状态-status"><a href="#42-硬件工况状态-status" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.2 硬件工况状态 (Status)</h3>
+<p><strong>Topic:</strong> <code>vocs/device/{MN}/status</code>
+<em>注：只传实测值，不传设定值，以最扁平的格式传输。</em></p>
+<div class="rp-codeblock language-json"><div class="rp-codeblock__content"><div class="rp-codeblock__content__scroll-container rp-scrollbar rp-scrollbar--always"><pre class="shiki css-variables" style="background-color:var(--shiki-background);color:var(--shiki-foreground)" tabindex="0" data-lang="json"><code><span class="line"><span style="color:var(--shiki-foreground)">{</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;timestamp&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 1717488700</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;temp_inj1&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 105.1</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;temp_col&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 100.0</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;temp_det1&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 250.0</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;epc_carrier_psi&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 13.01</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;epc_h2_psi&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 60.05</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;epc_air_psi&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 200.12</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">}</span></span></code></pre></div><div class="rp-code-button-group"><button class="rp-code-button-group__button rp-code-wrap-button" title="Toggle code wrap" aria-label="Toggle code wrap"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrapped"><path fill="currentColor" d="M21 5H3v2h18zM3 19h7v-2H3zm0-6h15c1 0 2 .43 2 2s-1 2-2 2h-2v-2l-4 3 4 3v-2h2c2.95 0 4-1.27 4-4 0-2.72-1-4-4-4H3z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrap"><path fill="currentColor" d="M16 7H3V5h13zM3 19h13v-2H3zm19-7-4-3v2H3v2h15v2z"></path></svg></button><button class="rp-code-button-group__button rp-code-copy-button" title="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--copy"><path fill="currentColor" d="M20 8v12H8V8zm0-2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2"></path><path fill="currentColor" d="M4 16H2V4a2 2 0 0 1 2-2h12v2H4Z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--success"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z"></path></svg></button></div></div></div>
+<h3 class="rp-toc-include" id="43-分析结果-result"><a href="#43-分析结果-result" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.3 分析结果 (Result)</h3>
+<p><strong>Topic:</strong> <code>vocs/device/{MN}/result</code>
+<em>注：采用因子代码映射，剥离中文和单位。例如 a24088 为非甲烷总烃，a05001 为总烃，a05002 为甲烷。</em></p>
+<div class="rp-codeblock language-json"><div class="rp-codeblock__content"><div class="rp-codeblock__content__scroll-container rp-scrollbar rp-scrollbar--always"><pre class="shiki css-variables" style="background-color:var(--shiki-background);color:var(--shiki-foreground)" tabindex="0" data-lang="json"><code><span class="line"><span style="color:var(--shiki-foreground)">{</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;timestamp&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 1717488800</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;cycle_time&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 120</span><span style="color:var(--shiki-token-punctuation)">,</span><span style="color:var(--shiki-foreground)"> </span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;factors&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-foreground)"> {</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">    &quot;a24088&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 1.25</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">    &quot;a05001&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 2.45</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">    &quot;a05002&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 1.20</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">    &quot;benzene&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 0.05</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">    &quot;toluene&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 0.02</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  }</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">}</span></span></code></pre></div><div class="rp-code-button-group"><button class="rp-code-button-group__button rp-code-wrap-button" title="Toggle code wrap" aria-label="Toggle code wrap"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrapped"><path fill="currentColor" d="M21 5H3v2h18zM3 19h7v-2H3zm0-6h15c1 0 2 .43 2 2s-1 2-2 2h-2v-2l-4 3 4 3v-2h2c2.95 0 4-1.27 4-4 0-2.72-1-4-4-4H3z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrap"><path fill="currentColor" d="M16 7H3V5h13zM3 19h13v-2H3zm19-7-4-3v2H3v2h15v2z"></path></svg></button><button class="rp-code-button-group__button rp-code-copy-button" title="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--copy"><path fill="currentColor" d="M20 8v12H8V8zm0-2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2"></path><path fill="currentColor" d="M4 16H2V4a2 2 0 0 1 2-2h12v2H4Z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--success"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z"></path></svg></button></div></div></div>
+<h3 class="rp-toc-include" id="44-系统日志与报警-log"><a href="#44-系统日志与报警-log" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.4 系统日志与报警 (Log)</h3>
+<p><strong>Topic:</strong> <code>vocs/device/{MN}/log</code>
+<em>注：遵循【日志需队列功能，15秒覆盖一次】的核心规则，如果15秒内产生多条日志，将打包为一个数组上传，防止刷屏。</em></p>
+<div class="rp-codeblock language-json"><div class="rp-codeblock__content"><div class="rp-codeblock__content__scroll-container rp-scrollbar rp-scrollbar--always"><pre class="shiki css-variables" style="background-color:var(--shiki-background);color:var(--shiki-foreground)" tabindex="0" data-lang="json"><code><span class="line"><span style="color:var(--shiki-foreground)">{</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;timestamp&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 1717488815</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">  &quot;logs&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-foreground)"> [</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    {</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">      &quot;time&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 1717488802</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">      &quot;level&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-string-expression)"> &quot;INFO&quot;</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">      &quot;msg&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-string-expression)"> &quot;分析周期结束，开始计算面积&quot;</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    }</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    {</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">      &quot;time&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-constant)"> 1717488810</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">      &quot;level&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-string-expression)"> &quot;WARN&quot;</span><span style="color:var(--shiki-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--shiki-token-keyword)">      &quot;msg&quot;</span><span style="color:var(--shiki-token-punctuation)">:</span><span style="color:var(--shiki-token-string-expression)"> &quot;氢气压力波动，当前 58.2 psi&quot;</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    }</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">  ]</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">}</span></span></code></pre></div><div class="rp-code-button-group"><button class="rp-code-button-group__button rp-code-wrap-button" title="Toggle code wrap" aria-label="Toggle code wrap"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrapped"><path fill="currentColor" d="M21 5H3v2h18zM3 19h7v-2H3zm0-6h15c1 0 2 .43 2 2s-1 2-2 2h-2v-2l-4 3 4 3v-2h2c2.95 0 4-1.27 4-4 0-2.72-1-4-4-4H3z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrap"><path fill="currentColor" d="M16 7H3V5h13zM3 19h13v-2H3zm19-7-4-3v2H3v2h15v2z"></path></svg></button><button class="rp-code-button-group__button rp-code-copy-button" title="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--copy"><path fill="currentColor" d="M20 8v12H8V8zm0-2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2"></path><path fill="currentColor" d="M4 16H2V4a2 2 0 0 1 2-2h12v2H4Z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--success"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z"></path></svg></button></div></div></div>
+<hr/>
+<h2 class="rp-toc-include" id="5-云端-elasticsearch-路由与解析建议"><a href="#5-云端-elasticsearch-路由与解析建议" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5. 云端 ElasticSearch 路由与解析建议</h2>
+<ol>
+<li><strong>Logstash / Fluentd 接收端</strong>：
+<ul>
+<li>订阅通配符 Topic：<code>vocs/device/+/+</code></li>
+<li>使用正则或路径拆分，将 Topic 中的 <code>{MN}</code> 提取出来。</li>
+<li>动态拼接写入 ES 的索引名：<code>index =&gt; &quot;vocs-mqtt-%{MN}-%{+YYYY.MM}&quot;</code>。</li>
+</ul>
+</li>
+<li><strong>前端与云平台映射</strong>：
+<ul>
+<li>云端数据库维护一份 <code>Factor Dictionary</code>（如 <code>a24088</code> -&gt; <code>非甲烷总烃</code>，单位 <code>mg/m³</code>）。</li>
+<li>在前端查询和展示 ES 数据时，再将这些固定不变的名称和单位渲染上去。</li>
+</ul>
+</li>
+</ol><!--/$--></div><footer class="rp-doc-footer"><div class="rp-doc-footer__edit"></div><div class="rp-doc-footer__divider"></div><div class="rp-prev-next-page"><div class="rp-prev-next-page__placeholder"></div><div class="rp-prev-next-page__placeholder"></div></div></footer></main></div><aside class="rp-doc-layout__outline rp-scrollbar"><div class="rp-outline"><div class="rp-outline__title">ON THIS PAGE<svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg></div><nav class="rp-outline__toc rp-scrollbar"><a href="#1-背景与痛点分析" class="rp-toc-item rp-link" title="1. 背景与痛点分析" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">1. 背景与痛点分析</span></a><a href="#2-核心优化原则" class="rp-toc-item rp-link" title="2. 核心优化原则" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">2. 核心优化原则</span></a><a href="#3-topic-设计规范" class="rp-toc-item rp-link" title="3. Topic 设计规范" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">3. Topic 设计规范</span></a><a href="#4-payload-数据结构定义-json" class="rp-toc-item rp-link" title="4. Payload 数据结构定义 (JSON)" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">4. Payload 数据结构定义 (JSON)</span></a><a href="#41-设备信息-info" class="rp-toc-item rp-link" title="4.1 设备信息 (Info)" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.1 设备信息 (Info)</span></a><a href="#42-硬件工况状态-status" class="rp-toc-item rp-link" title="4.2 硬件工况状态 (Status)" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.2 硬件工况状态 (Status)</span></a><a href="#43-分析结果-result" class="rp-toc-item rp-link" title="4.3 分析结果 (Result)" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.3 分析结果 (Result)</span></a><a href="#44-系统日志与报警-log" class="rp-toc-item rp-link" title="4.4 系统日志与报警 (Log)" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.4 系统日志与报警 (Log)</span></a><a href="#5-云端-elasticsearch-路由与解析建议" class="rp-toc-item rp-link" title="5. 云端 ElasticSearch 路由与解析建议" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">5. 云端 ElasticSearch 路由与解析建议</span></a></nav><div class="rp-outline__divider"></div><div class="rp-outline__bottom"></div></div></aside></div></div>
+    <div id="__rspress_modal_container"></div>
+  </body>
+</html>

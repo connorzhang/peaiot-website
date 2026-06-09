@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PEABSS AI技能开发文档 - 企业文档中心 | 奕柏科技</title>
+<script>{;const saved = localStorage.getItem('rspress-theme-appearance');const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches;const isDark = !saved || saved === 'auto' ? preferDark : saved === 'dark';document.documentElement.classList.toggle('dark', isDark);document.documentElement.classList.toggle('rp-dark', isDark);document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';}</script>
+<link href="/static/css/styles.3acae6679e.css" rel="stylesheet">
+<script defer src="/static/js/styles.b10ef529e7.js"></script>
+<script defer src="/static/js/lib-react.b866a4fe50.js"></script>
+<script defer src="/static/js/lib-router.47ee6159f2.js"></script>
+<script defer src="/static/js/4653.96b19df9c5.js"></script>
+<script defer src="/static/js/index.571209b70a.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Rspress v2.0.13">
+<link rel="icon" href="/peaiot-logo.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="PEABSS AI技能开发文档 - 企业文档中心 | 奕柏科技">
+<meta name="description" content="涵盖硬件仪器、软件平台的全矩阵在线说明书与技术支持">
+<meta property="og:description" content="涵盖硬件仪器、软件平台的全矩阵在线说明书与技术支持"></head>
+
+  <body>
+    <div id="__rspress_root"><link rel="preload" as="image" href="/peaiot-logo.png"/><header class="rp-nav"><div class="rp-nav__left"><div class="rp-nav__title"><a href="/" class="rp-nav__title__link rp-link"><div class="rp-nav__title__logo"><img src="/peaiot-logo.png" alt="logo" id="logo" class="rspress-logo rp-nav__title__logo-image"/></div><span>企业文档中心</span></a></div></div><div class="rp-nav__right"><button class="rp-search-button"><div class="rp-search-button__content"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21" class="rp-search-button__icon"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg><span class="rp-search-button__word">Search</span></div><div class="rp-search-button__hotkey" style="opacity:0"><span></span><span>K</span></div></button><div class="rp-search-button--mobile"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg></div><ul class="rp-nav-menu rp-nav-menu--right"><li class="rp-nav-menu__item rp-nav-menu__item--active"><a href="/index.html" class="rp-nav-menu__item__container rp-link">产品手册目录</a></li><li class="rp-nav-menu__item"><a href="/explore.html" class="rp-nav-menu__item__container rp-link">探索项目</a></li></ul><div class="rp-nav__others"><div class="rp-nav-menu__divider"></div><div class="rp-switch-appearance"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" class="rp-switch-appearance__icon rp-switch-appearance__icon--sun"><path fill="currentColor" d="m7.001 15.848-1.226 1.226a.58.58 0 0 0 0 .818.58.58 0 0 0 .818 0l1.226-1.226a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0m-.352-8.735a.584.584 0 0 0 .825-.825L6.237 5.051a.584.584 0 0 0-.825.825zM5.011 11.07h-1.75a.584.584 0 0 0 0 1.167h1.75c.324 0 .584-.26.584-.583a.585.585 0 0 0-.584-.584m7.003-5.835c.324 0 .584-.26.584-.584V2.9a.58.58 0 0 0-.584-.584.58.58 0 0 0-.583.583V4.65c0 .323.262.584.583.584m5.616 1.621 1.226-1.225a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0l-1.226 1.225a.58.58 0 0 0 0 .818.576.576 0 0 0 .818 0m3.138 4.214h-1.75a.58.58 0 0 0-.584.584c0 .324.26.584.583.584h1.751a.584.584 0 1 0 0-1.167m-3.389 5.124a.584.584 0 0 0-.825.825l1.238 1.238a.584.584 0 0 0 .825-.826zm-5.365-9.795a5.256 5.256 0 0 0-5.257 5.258 5.256 5.256 0 0 0 5.257 5.257 5.256 5.256 0 0 0 5.257-5.257 5.256 5.256 0 0 0-5.257-5.258m0 11.675a.58.58 0 0 0-.583.583v1.751a.582.582 0 1 0 1.167 0v-1.75a.584.584 0 0 0-.584-.584"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" viewBox="0 0 19 19" class="rp-switch-appearance__icon rp-switch-appearance__icon--moon"><path fill="currentColor" d="M9.166 0a9.2 9.2 0 0 1 1.857.188.834.834 0 0 1 .042 1.623 4.47 4.47 0 1 0 5.457 5.457l.048-.135a.834.834 0 0 1 1.575.177q.186.902.188 1.856A9.168 9.168 0 1 1 9.166 0"></path></svg></div></div><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__sm"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg></button><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__md"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg><ul class="rp-hover-group rp-hover-group--hidden rp-hover-group--right"><div class="rp-nav-menu__others-mobile__container"><div class="rp-nav-hamburger__md__hover-group"><div class="rp-nav-screen-appearance"><div class="rp-nav-screen-appearance__left">Theme</div><div class="rp-nav-screen-appearance__right"></div></div><div class="rp-nav-screen-divider"></div></div></div></ul></button></div></header><div class="rp-doc-layout__menu"><div class="rp-sidebar-menu"><button type="button" class="rp-sidebar-menu__left"><svg width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M4 6h24v2H4zm0 18h24v2H4zm0-12h24v2H4zm0 6h24v2H4z"></path></svg><span>Menu</span></button><button type="button" class="rp-sidebar-menu__right"><span class="rp-sidebar-menu__right__text">ON THIS PAGE</span><svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg><svg width="1em" height="1em" viewBox="0 0 32 32" class="rp-sidebar-menu__right__icon" style="transform:rotate(0deg);transition:transform 0.2s ease-out"><path fill="currentColor" d="M22 16 12 26l-1.4-1.4 8.6-8.6-8.6-8.6L12 6z"></path></svg></button></div></div><div class="rp-doc-layout__container"><aside class="rp-doc-layout__sidebar rp-scrollbar"></aside><div class="rp-doc-layout__doc"><main class="rp-doc-layout__doc-container"><div class="rp-doc rspress-doc"><!--$--><h1 class="rp-toc-include" id="peabss-ai技能开发文档"><a href="#peabss-ai技能开发文档" class="rp-header-anchor rp-link" aria-hidden="true">#</a>PEABSS AI技能开发文档<!-- --> </h1>
+<h2 class="rp-toc-include" id="一系统架构"><a href="#一系统架构" class="rp-header-anchor rp-link" aria-hidden="true">#</a>一、系统架构</h2>
+<h3 class="rp-toc-include" id="1-技能服务架构"><a href="#1-技能服务架构" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1. 技能服务架构</h3>
+<p>PEABSS系统采用<strong>双服务架构</strong>来提供AI技能：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>服务</th><th>语言</th><th>运行方式</th><th>通信协议</th><th>职责</th></tr></thead><tbody><tr><td><strong>MCP服务</strong></td><td>Go</td><td>主进程内置</td><td>HTTP</td><td>系统核心技能、实时数据处理、设备管理</td></tr><tr><td><strong>Python AI服务</strong></td><td>Python</td><td>独立进程</td><td>gRPC</td><td>复杂AI分析、预测、模式识别</td></tr></tbody></table></div>
+<h3 class="rp-toc-include" id="2-技能注册机制"><a href="#2-技能注册机制" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2. 技能注册机制</h3>
+<h4 class="rp-toc-include" id="mcp服务go端"><a href="#mcp服务go端" class="rp-header-anchor rp-link" aria-hidden="true">#</a>MCP服务（Go端）</h4>
+<ul>
+<li><strong>注册方式</strong>：手动注册</li>
+<li><strong>注册入口</strong>：<code>portal/mcp/skills/device_skills.go</code> 中的 <code>GetDeviceSkills()</code></li>
+<li><strong>技能实现</strong>：实现 <code>interfaces.Skill</code> 接口</li>
+<li><strong>管理机制</strong>：<code>SkillRegistry</code> 技能注册中心</li>
+</ul>
+<h4 class="rp-toc-include" id="python-ai服务"><a href="#python-ai服务" class="rp-header-anchor rp-link" aria-hidden="true">#</a>Python AI服务</h4>
+<ul>
+<li><strong>注册方式</strong>：自动注册</li>
+<li><strong>注册入口</strong>：<code>python/ai_service/skills/skill_manager.py</code> 中的 <code>register_skills()</code></li>
+<li><strong>技能实现</strong>：继承 <code>Skill</code> 基类</li>
+<li><strong>管理机制</strong>：<code>SkillManager</code> 技能管理器</li>
+</ul>
+<h3 class="rp-toc-include" id="3-技能调用方式"><a href="#3-技能调用方式" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3. 技能调用方式</h3>
+<h4 class="rp-toc-include" id="mcp服务"><a href="#mcp服务" class="rp-header-anchor rp-link" aria-hidden="true">#</a>MCP服务</h4>
+<ul>
+<li><strong>接口</strong>：<code>POST /portal/mcp/call</code></li>
+<li><strong>参数</strong>：<code>{&quot;tool_name&quot;: &quot;skill_name&quot;, &quot;arguments&quot;: {&quot;param1&quot;: &quot;value1&quot;}}</code></li>
+<li><strong>返回</strong>：技能执行结果（JSON格式）</li>
+</ul>
+<h4 class="rp-toc-include" id="python-ai服务-1"><a href="#python-ai服务-1" class="rp-header-anchor rp-link" aria-hidden="true">#</a>Python AI服务</h4>
+<ul>
+<li><strong>接口</strong>：gRPC <code>ExecuteSkill</code></li>
+<li><strong>参数</strong>：<code>{&quot;skill_name&quot;: &quot;skill_name&quot;, &quot;parameters&quot;: {&quot;param1&quot;: &quot;value1&quot;}}</code></li>
+<li><strong>返回</strong>：<code>{&quot;success&quot;: true, &quot;result&quot;: &quot;result_data&quot;}</code></li>
+</ul>
+<h2 class="rp-toc-include" id="二已完成技能"><a href="#二已完成技能" class="rp-header-anchor rp-link" aria-hidden="true">#</a>二、已完成技能</h2>
+<h3 class="rp-toc-include" id="mcp服务go端-1"><a href="#mcp服务go端-1" class="rp-header-anchor rp-link" aria-hidden="true">#</a>MCP服务（Go端）</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>技能名称</th><th>功能描述</th><th>数据来源</th><th>状态</th></tr></thead><tbody><tr><td>get_device_list</td><td>获取设备列表</td><td>PostgreSQL</td><td>✅ 已完成</td></tr><tr><td>get_device_history</td><td>获取设备历史数据</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>get_device_rtd_data</td><td>获取设备实时数据</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>get_multiple_devices_latest_data</td><td>批量获取设备最新数据</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>get_device_factor_stat</td><td>获取设备因子统计数据</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>get_device_trend_data</td><td>获取设备趋势数据</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>check_device_status</td><td>检查设备在线状态</td><td>PostgreSQL</td><td>✅ 已完成</td></tr><tr><td>get_enterprise_device_status</td><td>统计企业设备状态</td><td>PostgreSQL</td><td>✅ 已完成</td></tr><tr><td>get_enterprise_all_devices_latest_data</td><td>获取企业所有设备最新数据</td><td>PostgreSQL + Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>get_environment_data</td><td>查询设备环境数据</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>compare_multi_device_data</td><td>多设备数据对比</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>analyze_environment_statistics</td><td>环境数据统计分析</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>detect_environment_anomaly</td><td>环境数据异常检测</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>predict_environment_anomaly</td><td>环境异常预测</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>predict_environment_trend</td><td>环境趋势预测</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>analyze_multi_factor_correlation</td><td>多因子相关性分析</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>get_environment_improvement_advice</td><td>环境改善建议</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>analyze_with_copilot</td><td>Copilot 分析</td><td>Elasticsearch + AI</td><td>✅ 已完成</td></tr><tr><td>analyze_multi_device_coordination</td><td>多设备协同分析</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>assess_environment_risk</td><td>环境风险评估</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>analyze_energy_consumption</td><td>能源消耗分析</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>assess_environment_compliance</td><td>环境合规评估</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>diagnose_device_failure</td><td>设备故障诊断</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>get_device_maintenance_advice</td><td>设备维护建议</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>get_enterprise_environment_overview</td><td>企业环境概览</td><td>PostgreSQL + Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>send_sms_notification</td><td>发送短信通知</td><td>外部服务</td><td>✅ 已完成</td></tr><tr><td>send_email_notification</td><td>发送邮件通知</td><td>外部服务</td><td>✅ 已完成</td></tr><tr><td>ollama_ai</td><td>Ollama AI 分析</td><td>外部服务</td><td>✅ 已完成</td></tr><tr><td>compare_historical_data</td><td>历史数据对比</td><td>Elasticsearch</td><td>✅ 已完成</td></tr><tr><td>visualize_environment_data</td><td>环境数据可视化</td><td>Elasticsearch</td><td>✅ 已完成</td></tr></tbody></table></div>
+<h3 class="rp-toc-include" id="python-ai服务-2"><a href="#python-ai服务-2" class="rp-header-anchor rp-link" aria-hidden="true">#</a>Python AI服务</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>技能名称</th><th>功能描述</th><th>状态</th></tr></thead><tbody><tr><td>device_list</td><td>获取设备列表</td><td>✅ 已完成</td></tr><tr><td>device_status</td><td>获取设备详细状态</td><td>✅ 已完成</td></tr><tr><td>check_device_status</td><td>检查设备在线状态</td><td>✅ 已完成</td></tr><tr><td>get_enterprise_device_status</td><td>统计企业设备状态</td><td>✅ 已完成</td></tr><tr><td>get_environment_data</td><td>查询设备环境数据</td><td>✅ 已完成</td></tr><tr><td>compare_multi_device_data</td><td>多设备数据对比</td><td>✅ 已完成</td></tr><tr><td>analyze_environment_statistics</td><td>环境数据统计分析</td><td>✅ 已完成</td></tr><tr><td>detect_environment_anomaly</td><td>环境数据异常检测</td><td>✅ 已完成</td></tr><tr><td>alarm_statistics</td><td>报警统计</td><td>✅ 已完成</td></tr><tr><td>data_analysis</td><td>数据分析</td><td>✅ 已完成</td></tr><tr><td>predict_environment_trend</td><td>环境数据预测分析</td><td>✅ 已完成</td></tr></tbody></table></div>
+<h2 class="rp-toc-include" id="三待开发技能"><a href="#三待开发技能" class="rp-header-anchor rp-link" aria-hidden="true">#</a>三、待开发技能</h2>
+<h3 class="rp-toc-include" id="高级技能基于es"><a href="#高级技能基于es" class="rp-header-anchor rp-link" aria-hidden="true">#</a>高级技能（基于ES）</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>技能名称</th><th>功能描述</th><th>数据来源</th><th>优先级</th><th>建议实现</th></tr></thead><tbody><tr><td>analyze_regional_environment</td><td>区域环境分析</td><td>Elasticsearch</td><td>P3</td><td>Python</td></tr><tr><td>assess_data_quality</td><td>环境数据质量评估</td><td>Elasticsearch</td><td>P3</td><td>Go</td></tr><tr><td>optimize_energy_consumption</td><td>能源消耗优化</td><td>Elasticsearch</td><td>P2</td><td>Python</td></tr><tr><td>intelligent_alarm_prediction</td><td>智能告警预测</td><td>Elasticsearch</td><td>P2</td><td>Python</td></tr></tbody></table></div>
+<h3 class="rp-toc-include" id="企业级技能综合"><a href="#企业级技能综合" class="rp-header-anchor rp-link" aria-hidden="true">#</a>企业级技能（综合）</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>技能名称</th><th>功能描述</th><th>数据来源</th><th>优先级</th><th>建议实现</th></tr></thead><tbody><tr><td>get_enterprise_anomaly_statistics</td><td>企业异常统计</td><td>PostgreSQL + Elasticsearch</td><td>P2</td><td>Go</td></tr><tr><td>analyze_enterprise_environment_trend</td><td>企业环境趋势</td><td>Elasticsearch</td><td>P3</td><td>Python</td></tr><tr><td>enterprise_compliance_report</td><td>企业合规性报告</td><td>Elasticsearch</td><td>P3</td><td>Python</td></tr><tr><td>enterprise_risk_management</td><td>企业风险管理</td><td>PostgreSQL + Elasticsearch</td><td>P2</td><td>Go</td></tr></tbody></table></div>
+<h2 class="rp-toc-include" id="四工具实现"><a href="#四工具实现" class="rp-header-anchor rp-link" aria-hidden="true">#</a>四、工具实现</h2>
+<h3 class="rp-toc-include" id="1-工具与技能的关系"><a href="#1-工具与技能的关系" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1. 工具与技能的关系</h3>
+<p>PEABSS系统采用<strong>技能（Skill）</strong>和<strong>工具（Tool）</strong>两套机制：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>机制</th><th>用途</th><th>实现接口</th><th>注册位置</th></tr></thead><tbody><tr><td><strong>技能（Skill）</strong></td><td>用于AI系统集成</td><td><code>interfaces.Skill</code></td><td><code>GetDeviceSkills()</code></td></tr><tr><td><strong>工具（Tool）</strong></td><td>用于传统API调用</td><td><code>Tool</code></td><td><code>registerTools()</code></td></tr></tbody></table></div>
+<h3 class="rp-toc-include" id="2-已实现的工具"><a href="#2-已实现的工具" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2. 已实现的工具</h3>
+<p>所有技能都已经有对应的工具实现，包括：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>工具名称</th><th>对应技能</th><th>功能描述</th></tr></thead><tbody><tr><td>get_device_list</td><td>DeviceListSkill</td><td>获取设备列表</td></tr><tr><td>get_device_history</td><td>DeviceHistorySkill</td><td>获取设备历史数据</td></tr><tr><td>get_device_rtd_data</td><td>DeviceRtdDataSkill</td><td>获取设备实时数据</td></tr><tr><td>get_multiple_devices_latest_data</td><td>MultipleDevicesLatestDataSkill</td><td>批量获取设备最新数据</td></tr><tr><td>get_device_factor_stat</td><td>DeviceFactorStatSkill</td><td>获取设备因子统计数据</td></tr><tr><td>get_device_trend_data</td><td>DeviceTrendDataSkill</td><td>获取设备趋势数据</td></tr><tr><td>check_device_status</td><td>DeviceStatusCheckSkill</td><td>检查设备在线状态</td></tr><tr><td>get_enterprise_device_status</td><td>EnterpriseDeviceStatusSkill</td><td>统计企业设备状态</td></tr><tr><td>get_enterprise_all_devices_latest_data</td><td>EnterpriseAllDevicesLatestDataSkill</td><td>获取企业所有设备最新数据</td></tr><tr><td>get_environment_data</td><td>EnvironmentDataQuerySkill</td><td>查询设备环境数据</td></tr><tr><td>compare_multi_device_data</td><td>MultiDeviceDataComparisonSkill</td><td>多设备数据对比</td></tr><tr><td>analyze_environment_statistics</td><td>EnvironmentStatisticsSkill</td><td>环境数据统计分析</td></tr><tr><td>detect_environment_anomaly</td><td>EnvironmentAnomalyDetectionSkill</td><td>环境数据异常检测</td></tr><tr><td>predict_environment_anomaly</td><td>EnvironmentAnomalyPredictionSkill</td><td>环境异常预测</td></tr><tr><td>predict_environment_trend</td><td>EnvironmentPredictionSkill</td><td>环境趋势预测</td></tr><tr><td>analyze_multi_factor_correlation</td><td>MultiFactorCorrelationSkill</td><td>多因子相关性分析</td></tr><tr><td>get_environment_improvement_advice</td><td>EnvironmentImprovementAdviceSkill</td><td>环境改善建议</td></tr><tr><td>analyze_with_copilot</td><td>CopilotAnalysisSkill</td><td>Copilot 分析</td></tr><tr><td>analyze_multi_device_coordination</td><td>MultiDeviceCoordinationAnalysisSkill</td><td>多设备协同分析</td></tr><tr><td>assess_environment_risk</td><td>EnvironmentRiskAssessmentSkill</td><td>环境风险评估</td></tr><tr><td>analyze_energy_consumption</td><td>EnergyConsumptionAnalysisSkill</td><td>能源消耗分析</td></tr><tr><td>assess_environment_compliance</td><td>EnvironmentComplianceSkill</td><td>环境合规评估</td></tr><tr><td>diagnose_device_failure</td><td>DeviceDiagnosisSkill</td><td>设备故障诊断</td></tr><tr><td>get_device_maintenance_advice</td><td>DeviceMaintenanceAdviceSkill</td><td>设备维护建议</td></tr><tr><td>get_enterprise_environment_overview</td><td>EnterpriseEnvironmentOverviewSkill</td><td>企业环境概览</td></tr><tr><td>send_sms_notification</td><td>SMSSkill</td><td>发送短信通知</td></tr><tr><td>send_email_notification</td><td>EmailSkill</td><td>发送邮件通知</td></tr><tr><td>ollama_ai</td><td>OllamaAISkill</td><td>Ollama AI 分析</td></tr><tr><td>compare_historical_data</td><td>HistoricalDataComparisonSkill</td><td>历史数据对比</td></tr><tr><td>visualize_environment_data</td><td>EnvironmentVisualizationSkill</td><td>环境数据可视化</td></tr></tbody></table></div>
+<h3 class="rp-toc-include" id="3-工具调用方式"><a href="#3-工具调用方式" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3. 工具调用方式</h3>
+<ul>
+<li><strong>接口</strong>：<code>POST /portal/mcp/call</code></li>
+<li><strong>参数</strong>：<code>{&quot;tool_name&quot;: &quot;tool_name&quot;, &quot;arguments&quot;: {&quot;param1&quot;: &quot;value1&quot;}}</code></li>
+<li><strong>返回</strong>：工具执行结果（JSON格式）</li>
+</ul>
+<h2 class="rp-toc-include" id="五技能开发规范"><a href="#五技能开发规范" class="rp-header-anchor rp-link" aria-hidden="true">#</a>五、技能开发规范</h2>
+<h3 class="rp-toc-include" id="1-命名规范"><a href="#1-命名规范" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1. 命名规范</h3>
+<ul>
+<li>技能名称使用小写字母，单词间用下划线分隔</li>
+<li>技能描述清晰简洁，说明技能的功能和用途</li>
+<li>保持Go端和Python端技能名称的一致性</li>
+</ul>
+<h3 class="rp-toc-include" id="2-接口规范"><a href="#2-接口规范" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2. 接口规范</h3>
+<ul>
+<li>
+<p><strong>Go端</strong>：实现 <code>interfaces.Skill</code> 接口</p>
+<ul>
+<li><code>Name()</code>：技能名称</li>
+<li><code>Description()</code>：技能描述</li>
+<li><code>Parameters()</code>：参数定义（JSON Schema）</li>
+<li><code>Execute()</code>：执行逻辑</li>
+</ul>
+</li>
+<li>
+<p><strong>Python端</strong>：继承 <code>Skill</code> 基类</p>
+<ul>
+<li><code>__init__()</code>：初始化技能</li>
+<li><code>get_parameters()</code>：参数定义</li>
+<li><code>execute()</code>：执行逻辑</li>
+</ul>
+</li>
+</ul>
+<h3 class="rp-toc-include" id="3-数据来源"><a href="#3-数据来源" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3. 数据来源</h3>
+<ul>
+<li>设备基本信息、在线状态：PostgreSQL</li>
+<li>环境监测数据、历史数据：Elasticsearch</li>
+</ul>
+<h3 class="rp-toc-include" id="4-性能优化"><a href="#4-性能优化" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4. 性能优化</h3>
+<ul>
+<li><strong>批量查询</strong>：使用批量查询减少网络开销</li>
+<li><strong>数据缓存</strong>：对频繁查询的数据进行缓存</li>
+<li><strong>并行处理</strong>：使用goroutine提高处理效率</li>
+<li><strong>数据过滤</strong>：只查询必要的字段和数据</li>
+</ul>
+<h3 class="rp-toc-include" id="5-安全规范"><a href="#5-安全规范" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5. 安全规范</h3>
+<ul>
+<li><strong>权限控制</strong>：验证用户对设备的访问权限</li>
+<li><strong>输入验证</strong>：严格验证技能参数</li>
+<li><strong>错误处理</strong>：提供清晰的错误信息</li>
+</ul>
+<h2 class="rp-toc-include" id="五技能开发流程"><a href="#五技能开发流程" class="rp-header-anchor rp-link" aria-hidden="true">#</a>五、技能开发流程</h2>
+<h3 class="rp-toc-include" id="1-技能设计"><a href="#1-技能设计" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1. 技能设计</h3>
+<ol>
+<li>确定技能的功能和用途</li>
+<li>定义技能的参数和返回格式</li>
+<li>选择合适的实现语言（Go或Python）</li>
+<li>设计技能的执行逻辑</li>
+</ol>
+<h3 class="rp-toc-include" id="2-技能实现"><a href="#2-技能实现" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2. 技能实现</h3>
+<ul>
+<li>
+<p><strong>Go端</strong>：</p>
+<ol>
+<li>在 <code>portal/mcp/skills/</code> 目录创建技能实现</li>
+<li>在 <code>GetDeviceSkills()</code> 中注册技能</li>
+<li>实现 <code>interfaces.Skill</code> 接口</li>
+</ol>
+</li>
+<li>
+<p><strong>Python端</strong>：</p>
+<ol>
+<li>在 <code>python/ai_service/skills/</code> 目录创建技能实现</li>
+<li>在 <code>skill_manager.py</code> 的 <code>register_skills()</code> 中注册技能</li>
+<li>继承 <code>Skill</code> 基类并实现相关方法</li>
+</ol>
+</li>
+</ul>
+<h3 class="rp-toc-include" id="3-技能测试"><a href="#3-技能测试" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3. 技能测试</h3>
+<ul>
+<li>测试技能的参数验证</li>
+<li>测试技能的执行逻辑</li>
+<li>测试技能的错误处理</li>
+<li>测试技能的性能和可靠性</li>
+</ul>
+<h3 class="rp-toc-include" id="4-技能部署"><a href="#4-技能部署" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4. 技能部署</h3>
+<ul>
+<li>重新启动服务以加载新技能</li>
+<li>验证技能是否正确注册</li>
+<li>测试技能的调用接口</li>
+</ul>
+<h2 class="rp-toc-include" id="六技能集成方式"><a href="#六技能集成方式" class="rp-header-anchor rp-link" aria-hidden="true">#</a>六、技能集成方式</h2>
+<h3 class="rp-toc-include" id="1-前端集成"><a href="#1-前端集成" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1. 前端集成</h3>
+<ul>
+<li>通过 <code>POST /portal/mcp/call</code> 接口调用MCP技能</li>
+<li>展示技能执行结果</li>
+<li>提供技能参数配置界面</li>
+</ul>
+<h3 class="rp-toc-include" id="2-ai系统集成"><a href="#2-ai系统集成" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2. AI系统集成</h3>
+<ul>
+<li>通过gRPC调用Python AI服务</li>
+<li>利用AI技能进行复杂分析</li>
+<li>实现智能决策和预测</li>
+</ul>
+<h3 class="rp-toc-include" id="3-系统内部集成"><a href="#3-系统内部集成" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3. 系统内部集成</h3>
+<ul>
+<li>其他服务通过内部API调用技能</li>
+<li>自动化流程中集成技能</li>
+<li>告警系统与技能集成</li>
+</ul>
+<h2 class="rp-toc-include" id="七技能管理最佳实践"><a href="#七技能管理最佳实践" class="rp-header-anchor rp-link" aria-hidden="true">#</a>七、技能管理最佳实践</h2>
+<h3 class="rp-toc-include" id="1-技能版本管理"><a href="#1-技能版本管理" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1. 技能版本管理</h3>
+<ul>
+<li>记录技能的版本信息</li>
+<li>保持技能接口的向后兼容性</li>
+<li>提供技能升级和回滚机制</li>
+</ul>
+<h3 class="rp-toc-include" id="2-技能监控"><a href="#2-技能监控" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2. 技能监控</h3>
+<ul>
+<li>监控技能的执行性能</li>
+<li>记录技能的调用频率和成功率</li>
+<li>识别异常技能和性能瓶颈</li>
+</ul>
+<h3 class="rp-toc-include" id="3-技能状态管理"><a href="#3-技能状态管理" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3. 技能状态管理</h3>
+<ul>
+<li><strong>状态监控</strong>：实时监控技能的健康状态</li>
+<li><strong>健康检查</strong>：定期执行技能健康检查</li>
+<li><strong>状态同步</strong>：技能状态的自动更新</li>
+<li><strong>调用保护</strong>：确保只调用可用的技能</li>
+<li><strong>API端点</strong>：
+<ul>
+<li><code>GET /portal/mcp/skill/status</code> - 获取所有技能状态</li>
+<li><code>GET /portal/mcp/skill/status/:skillName</code> - 获取指定技能状态</li>
+<li><code>POST /portal/mcp/skill/check/:skillName</code> - 检查技能健康状态</li>
+</ul>
+</li>
+</ul>
+<h3 class="rp-toc-include" id="4-技能文档"><a href="#4-技能文档" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4. 技能文档</h3>
+<ul>
+<li>为每个技能提供详细的文档</li>
+<li>说明技能的功能、参数和返回格式</li>
+<li>提供技能的使用示例</li>
+</ul>
+<h3 class="rp-toc-include" id="5-技能安全"><a href="#5-技能安全" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5. 技能安全</h3>
+<ul>
+<li>限制技能的访问权限</li>
+<li>防止技能被恶意调用</li>
+<li>保护敏感数据</li>
+</ul>
+<h2 class="rp-toc-include" id="八架构优化建议"><a href="#八架构优化建议" class="rp-header-anchor rp-link" aria-hidden="true">#</a>八、架构优化建议</h2>
+<h3 class="rp-toc-include" id="1-统一技能注册中心"><a href="#1-统一技能注册中心" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1. 统一技能注册中心</h3>
+<ul>
+<li>实现技能自动发现和注册机制</li>
+<li>提供统一的技能目录服务</li>
+<li>支持技能的动态注册和注销</li>
+</ul>
+<h3 class="rp-toc-include" id="2-api网关"><a href="#2-api网关" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2. API网关</h3>
+<ul>
+<li>统一对外接口</li>
+<li>智能路由到合适的服务</li>
+<li>负载均衡和容错</li>
+</ul>
+<h3 class="rp-toc-include" id="3-技能编排"><a href="#3-技能编排" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3. 技能编排</h3>
+<ul>
+<li>支持技能的组合和编排</li>
+<li>实现复杂的工作流</li>
+<li>提供技能的依赖管理</li>
+</ul>
+<h3 class="rp-toc-include" id="4-技能市场"><a href="#4-技能市场" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4. 技能市场</h3>
+<ul>
+<li>支持第三方技能的集成</li>
+<li>提供技能的评级和推荐</li>
+<li>实现技能的版本控制</li>
+</ul>
+<h2 class="rp-toc-include" id="九技能状态管理系统"><a href="#九技能状态管理系统" class="rp-header-anchor rp-link" aria-hidden="true">#</a>九、技能状态管理系统</h2>
+<h3 class="rp-toc-include" id="1-系统架构"><a href="#1-系统架构" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1. 系统架构</h3>
+<ul>
+<li><strong>状态管理器</strong>：<code>SkillStatusManager</code> 负责管理技能状态</li>
+<li><strong>健康检查</strong>：定期执行技能健康检查</li>
+<li><strong>状态存储</strong>：内存存储技能状态，支持持久化</li>
+<li><strong>API接口</strong>：提供技能状态查询和管理接口</li>
+</ul>
+<h3 class="rp-toc-include" id="2-技能状态结构"><a href="#2-技能状态结构" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2. 技能状态结构</h3>
+<div class="rp-codeblock language-go"><div class="rp-codeblock__content"><div class="rp-codeblock__content__scroll-container rp-scrollbar rp-scrollbar--always"><pre class="shiki css-variables" style="background-color:var(--shiki-background);color:var(--shiki-foreground)" tabindex="0" data-lang="go"><code><span class="line"><span style="color:var(--shiki-token-keyword)">type</span><span style="color:var(--shiki-token-function)"> SkillStatus</span><span style="color:var(--shiki-token-keyword)"> struct</span><span style="color:var(--shiki-foreground)"> {</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    Name        </span><span style="color:var(--shiki-token-keyword)">string</span><span style="color:var(--shiki-token-comment)">    // 技能名称</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    Available   </span><span style="color:var(--shiki-token-keyword)">bool</span><span style="color:var(--shiki-token-comment)">      // 是否可用</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    LastCheck   </span><span style="color:var(--shiki-token-function)">time</span><span style="color:var(--shiki-foreground)">.</span><span style="color:var(--shiki-token-function)">Time</span><span style="color:var(--shiki-token-comment)"> // 最后检查时间</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    Error       </span><span style="color:var(--shiki-token-keyword)">string</span><span style="color:var(--shiki-token-comment)">    // 错误信息</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">    HealthScore </span><span style="color:var(--shiki-token-keyword)">float64</span><span style="color:var(--shiki-token-comment)">   // 健康评分</span></span>
+<span class="line"><span style="color:var(--shiki-foreground)">}</span></span></code></pre></div><div class="rp-code-button-group"><button class="rp-code-button-group__button rp-code-wrap-button" title="Toggle code wrap" aria-label="Toggle code wrap"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrapped"><path fill="currentColor" d="M21 5H3v2h18zM3 19h7v-2H3zm0-6h15c1 0 2 .43 2 2s-1 2-2 2h-2v-2l-4 3 4 3v-2h2c2.95 0 4-1.27 4-4 0-2.72-1-4-4-4H3z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrap"><path fill="currentColor" d="M16 7H3V5h13zM3 19h13v-2H3zm19-7-4-3v2H3v2h15v2z"></path></svg></button><button class="rp-code-button-group__button rp-code-copy-button" title="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--copy"><path fill="currentColor" d="M20 8v12H8V8zm0-2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2"></path><path fill="currentColor" d="M4 16H2V4a2 2 0 0 1 2-2h12v2H4Z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--success"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z"></path></svg></button></div></div></div>
+<h3 class="rp-toc-include" id="3-健康检查机制"><a href="#3-健康检查机制" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3. 健康检查机制</h3>
+<ul>
+<li><strong>检查频率</strong>：默认每5分钟执行一次</li>
+<li><strong>检查方式</strong>：调用技能的健康检查方法</li>
+<li><strong>结果处理</strong>：根据检查结果更新技能状态</li>
+</ul>
+<h3 class="rp-toc-include" id="4-状态同步机制"><a href="#4-状态同步机制" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4. 状态同步机制</h3>
+<ul>
+<li><strong>执行前检查</strong>：调用技能前检查状态</li>
+<li><strong>执行后更新</strong>：根据执行结果更新状态</li>
+<li><strong>异常处理</strong>：捕获技能执行异常并更新状态</li>
+</ul>
+<h3 class="rp-toc-include" id="5-集成方式"><a href="#5-集成方式" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5. 集成方式</h3>
+<ul>
+<li><strong>技能注册</strong>：注册技能时自动添加状态</li>
+<li><strong>技能执行</strong>：执行技能时检查和更新状态</li>
+<li><strong>服务启动</strong>：启动时初始化技能状态</li>
+</ul>
+<h2 class="rp-toc-include" id="十技术栈"><a href="#十技术栈" class="rp-header-anchor rp-link" aria-hidden="true">#</a>十、技术栈</h2>
+<h3 class="rp-toc-include" id="go端"><a href="#go端" class="rp-header-anchor rp-link" aria-hidden="true">#</a>Go端</h3>
+<ul>
+<li>Go 1.20+</li>
+<li>PostgreSQL</li>
+<li>Elasticsearch</li>
+<li>gRPC</li>
+</ul>
+<h3 class="rp-toc-include" id="python端"><a href="#python端" class="rp-header-anchor rp-link" aria-hidden="true">#</a>Python端</h3>
+<ul>
+<li>Python 3.9+</li>
+<li>NumPy（用于数据处理）</li>
+<li>LangChain</li>
+<li>gRPC</li>
+</ul>
+<h2 class="rp-toc-include" id="十一总结"><a href="#十一总结" class="rp-header-anchor rp-link" aria-hidden="true">#</a>十一、总结</h2>
+<p>PEABSS系统采用双服务架构来提供AI技能，充分利用了Go和Python的优势：</p>
+<ol>
+<li><strong>技术互补</strong>：Go处理系统核心逻辑和实时数据，Python处理复杂的AI分析</li>
+<li><strong>功能分离</strong>：清晰的职责划分，便于维护和扩展</li>
+<li><strong>可扩展性</strong>：可以独立升级和扩展两端的功能</li>
+<li><strong>可靠性</strong>：一个服务故障不影响另一个服务</li>
+<li><strong>状态管理</strong>：完善的技能状态管理系统，确保技能的可靠性</li>
+</ol>
+<p>通过合理的技能开发规范和管理机制，系统能够提供高质量的AI技能，满足不同场景的需求。未来，通过进一步的架构优化，可以实现更灵活、更强大的技能生态系统。</p><!--/$--></div><footer class="rp-doc-footer"><div class="rp-doc-footer__edit"></div><div class="rp-doc-footer__divider"></div><div class="rp-prev-next-page"><div class="rp-prev-next-page__placeholder"></div><div class="rp-prev-next-page__placeholder"></div></div></footer></main></div><aside class="rp-doc-layout__outline rp-scrollbar"><div class="rp-outline"><div class="rp-outline__title">ON THIS PAGE<svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg></div><nav class="rp-outline__toc rp-scrollbar"><a href="#一系统架构" class="rp-toc-item rp-link" title="一、系统架构" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">一、系统架构</span></a><a href="#1-技能服务架构" class="rp-toc-item rp-link" title="1. 技能服务架构" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">1. 技能服务架构</span></a><a href="#2-技能注册机制" class="rp-toc-item rp-link" title="2. 技能注册机制" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">2. 技能注册机制</span></a><a href="#mcp服务go端" class="rp-toc-item rp-link" title="MCP服务（Go端）" style="padding-left:24px" data-depth="2"><span class="rp-toc-item__text rp-doc">MCP服务（Go端）</span></a><a href="#python-ai服务" class="rp-toc-item rp-link" title="Python AI服务" style="padding-left:24px" data-depth="2"><span class="rp-toc-item__text rp-doc">Python AI服务</span></a><a href="#3-技能调用方式" class="rp-toc-item rp-link" title="3. 技能调用方式" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3. 技能调用方式</span></a><a href="#mcp服务" class="rp-toc-item rp-link" title="MCP服务" style="padding-left:24px" data-depth="2"><span class="rp-toc-item__text rp-doc">MCP服务</span></a><a href="#python-ai服务-1" class="rp-toc-item rp-link" title="Python AI服务" style="padding-left:24px" data-depth="2"><span class="rp-toc-item__text rp-doc">Python AI服务</span></a><a href="#二已完成技能" class="rp-toc-item rp-link" title="二、已完成技能" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">二、已完成技能</span></a><a href="#mcp服务go端-1" class="rp-toc-item rp-link" title="MCP服务（Go端）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">MCP服务（Go端）</span></a><a href="#python-ai服务-2" class="rp-toc-item rp-link" title="Python AI服务" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">Python AI服务</span></a><a href="#三待开发技能" class="rp-toc-item rp-link" title="三、待开发技能" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">三、待开发技能</span></a><a href="#高级技能基于es" class="rp-toc-item rp-link" title="高级技能（基于ES）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">高级技能（基于ES）</span></a><a href="#企业级技能综合" class="rp-toc-item rp-link" title="企业级技能（综合）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">企业级技能（综合）</span></a><a href="#四工具实现" class="rp-toc-item rp-link" title="四、工具实现" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">四、工具实现</span></a><a href="#1-工具与技能的关系" class="rp-toc-item rp-link" title="1. 工具与技能的关系" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">1. 工具与技能的关系</span></a><a href="#2-已实现的工具" class="rp-toc-item rp-link" title="2. 已实现的工具" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">2. 已实现的工具</span></a><a href="#3-工具调用方式" class="rp-toc-item rp-link" title="3. 工具调用方式" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3. 工具调用方式</span></a><a href="#五技能开发规范" class="rp-toc-item rp-link" title="五、技能开发规范" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">五、技能开发规范</span></a><a href="#1-命名规范" class="rp-toc-item rp-link" title="1. 命名规范" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">1. 命名规范</span></a><a href="#2-接口规范" class="rp-toc-item rp-link" title="2. 接口规范" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">2. 接口规范</span></a><a href="#3-数据来源" class="rp-toc-item rp-link" title="3. 数据来源" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3. 数据来源</span></a><a href="#4-性能优化" class="rp-toc-item rp-link" title="4. 性能优化" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4. 性能优化</span></a><a href="#5-安全规范" class="rp-toc-item rp-link" title="5. 安全规范" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">5. 安全规范</span></a><a href="#五技能开发流程" class="rp-toc-item rp-link" title="五、技能开发流程" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">五、技能开发流程</span></a><a href="#1-技能设计" class="rp-toc-item rp-link" title="1. 技能设计" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">1. 技能设计</span></a><a href="#2-技能实现" class="rp-toc-item rp-link" title="2. 技能实现" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">2. 技能实现</span></a><a href="#3-技能测试" class="rp-toc-item rp-link" title="3. 技能测试" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3. 技能测试</span></a><a href="#4-技能部署" class="rp-toc-item rp-link" title="4. 技能部署" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4. 技能部署</span></a><a href="#六技能集成方式" class="rp-toc-item rp-link" title="六、技能集成方式" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">六、技能集成方式</span></a><a href="#1-前端集成" class="rp-toc-item rp-link" title="1. 前端集成" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">1. 前端集成</span></a><a href="#2-ai系统集成" class="rp-toc-item rp-link" title="2. AI系统集成" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">2. AI系统集成</span></a><a href="#3-系统内部集成" class="rp-toc-item rp-link" title="3. 系统内部集成" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3. 系统内部集成</span></a><a href="#七技能管理最佳实践" class="rp-toc-item rp-link" title="七、技能管理最佳实践" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">七、技能管理最佳实践</span></a><a href="#1-技能版本管理" class="rp-toc-item rp-link" title="1. 技能版本管理" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">1. 技能版本管理</span></a><a href="#2-技能监控" class="rp-toc-item rp-link" title="2. 技能监控" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">2. 技能监控</span></a><a href="#3-技能状态管理" class="rp-toc-item rp-link" title="3. 技能状态管理" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3. 技能状态管理</span></a><a href="#4-技能文档" class="rp-toc-item rp-link" title="4. 技能文档" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4. 技能文档</span></a><a href="#5-技能安全" class="rp-toc-item rp-link" title="5. 技能安全" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">5. 技能安全</span></a><a href="#八架构优化建议" class="rp-toc-item rp-link" title="八、架构优化建议" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">八、架构优化建议</span></a><a href="#1-统一技能注册中心" class="rp-toc-item rp-link" title="1. 统一技能注册中心" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">1. 统一技能注册中心</span></a><a href="#2-api网关" class="rp-toc-item rp-link" title="2. API网关" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">2. API网关</span></a><a href="#3-技能编排" class="rp-toc-item rp-link" title="3. 技能编排" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3. 技能编排</span></a><a href="#4-技能市场" class="rp-toc-item rp-link" title="4. 技能市场" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4. 技能市场</span></a><a href="#九技能状态管理系统" class="rp-toc-item rp-link" title="九、技能状态管理系统" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">九、技能状态管理系统</span></a><a href="#1-系统架构" class="rp-toc-item rp-link" title="1. 系统架构" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">1. 系统架构</span></a><a href="#2-技能状态结构" class="rp-toc-item rp-link" title="2. 技能状态结构" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">2. 技能状态结构</span></a><a href="#3-健康检查机制" class="rp-toc-item rp-link" title="3. 健康检查机制" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3. 健康检查机制</span></a><a href="#4-状态同步机制" class="rp-toc-item rp-link" title="4. 状态同步机制" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4. 状态同步机制</span></a><a href="#5-集成方式" class="rp-toc-item rp-link" title="5. 集成方式" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">5. 集成方式</span></a><a href="#十技术栈" class="rp-toc-item rp-link" title="十、技术栈" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">十、技术栈</span></a><a href="#go端" class="rp-toc-item rp-link" title="Go端" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">Go端</span></a><a href="#python端" class="rp-toc-item rp-link" title="Python端" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">Python端</span></a><a href="#十一总结" class="rp-toc-item rp-link" title="十一、总结" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">十一、总结</span></a></nav><div class="rp-outline__divider"></div><div class="rp-outline__bottom"></div></div></aside></div></div>
+    <div id="__rspress_modal_container"></div>
+  </body>
+</html>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>色谱工作站标准协议化及开发进度里程碑报告 - 企业文档中心 | 奕柏科技</title>
+<script>{;const saved = localStorage.getItem('rspress-theme-appearance');const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches;const isDark = !saved || saved === 'auto' ? preferDark : saved === 'dark';document.documentElement.classList.toggle('dark', isDark);document.documentElement.classList.toggle('rp-dark', isDark);document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';}</script>
+<link href="/static/css/styles.3acae6679e.css" rel="stylesheet">
+<script defer src="/static/js/styles.b10ef529e7.js"></script>
+<script defer src="/static/js/lib-react.b866a4fe50.js"></script>
+<script defer src="/static/js/lib-router.47ee6159f2.js"></script>
+<script defer src="/static/js/4653.96b19df9c5.js"></script>
+<script defer src="/static/js/index.571209b70a.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Rspress v2.0.13">
+<link rel="icon" href="/peaiot-logo.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="色谱工作站标准协议化及开发进度里程碑报告 - 企业文档中心 | 奕柏科技">
+<meta name="description" content="涵盖硬件仪器、软件平台的全矩阵在线说明书与技术支持">
+<meta property="og:description" content="涵盖硬件仪器、软件平台的全矩阵在线说明书与技术支持"></head>
+
+  <body>
+    <div id="__rspress_root"><link rel="preload" as="image" href="/peaiot-logo.png"/><header class="rp-nav"><div class="rp-nav__left"><div class="rp-nav__title"><a href="/" class="rp-nav__title__link rp-link"><div class="rp-nav__title__logo"><img src="/peaiot-logo.png" alt="logo" id="logo" class="rspress-logo rp-nav__title__logo-image"/></div><span>企业文档中心</span></a></div></div><div class="rp-nav__right"><button class="rp-search-button"><div class="rp-search-button__content"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21" class="rp-search-button__icon"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg><span class="rp-search-button__word">Search</span></div><div class="rp-search-button__hotkey" style="opacity:0"><span></span><span>K</span></div></button><div class="rp-search-button--mobile"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg></div><ul class="rp-nav-menu rp-nav-menu--right"><li class="rp-nav-menu__item rp-nav-menu__item--active"><a href="/index.html" class="rp-nav-menu__item__container rp-link">产品手册目录</a></li><li class="rp-nav-menu__item"><a href="/explore.html" class="rp-nav-menu__item__container rp-link">探索项目</a></li></ul><div class="rp-nav__others"><div class="rp-nav-menu__divider"></div><div class="rp-switch-appearance"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" class="rp-switch-appearance__icon rp-switch-appearance__icon--sun"><path fill="currentColor" d="m7.001 15.848-1.226 1.226a.58.58 0 0 0 0 .818.58.58 0 0 0 .818 0l1.226-1.226a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0m-.352-8.735a.584.584 0 0 0 .825-.825L6.237 5.051a.584.584 0 0 0-.825.825zM5.011 11.07h-1.75a.584.584 0 0 0 0 1.167h1.75c.324 0 .584-.26.584-.583a.585.585 0 0 0-.584-.584m7.003-5.835c.324 0 .584-.26.584-.584V2.9a.58.58 0 0 0-.584-.584.58.58 0 0 0-.583.583V4.65c0 .323.262.584.583.584m5.616 1.621 1.226-1.225a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0l-1.226 1.225a.58.58 0 0 0 0 .818.576.576 0 0 0 .818 0m3.138 4.214h-1.75a.58.58 0 0 0-.584.584c0 .324.26.584.583.584h1.751a.584.584 0 1 0 0-1.167m-3.389 5.124a.584.584 0 0 0-.825.825l1.238 1.238a.584.584 0 0 0 .825-.826zm-5.365-9.795a5.256 5.256 0 0 0-5.257 5.258 5.256 5.256 0 0 0 5.257 5.257 5.256 5.256 0 0 0 5.257-5.257 5.256 5.256 0 0 0-5.257-5.258m0 11.675a.58.58 0 0 0-.583.583v1.751a.582.582 0 1 0 1.167 0v-1.75a.584.584 0 0 0-.584-.584"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" viewBox="0 0 19 19" class="rp-switch-appearance__icon rp-switch-appearance__icon--moon"><path fill="currentColor" d="M9.166 0a9.2 9.2 0 0 1 1.857.188.834.834 0 0 1 .042 1.623 4.47 4.47 0 1 0 5.457 5.457l.048-.135a.834.834 0 0 1 1.575.177q.186.902.188 1.856A9.168 9.168 0 1 1 9.166 0"></path></svg></div></div><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__sm"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg></button><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__md"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg><ul class="rp-hover-group rp-hover-group--hidden rp-hover-group--right"><div class="rp-nav-menu__others-mobile__container"><div class="rp-nav-hamburger__md__hover-group"><div class="rp-nav-screen-appearance"><div class="rp-nav-screen-appearance__left">Theme</div><div class="rp-nav-screen-appearance__right"></div></div><div class="rp-nav-screen-divider"></div></div></div></ul></button></div></header><div class="rp-doc-layout__menu"><div class="rp-sidebar-menu"><button type="button" class="rp-sidebar-menu__left"><svg width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M4 6h24v2H4zm0 18h24v2H4zm0-12h24v2H4zm0 6h24v2H4z"></path></svg><span>Menu</span></button><button type="button" class="rp-sidebar-menu__right"><span class="rp-sidebar-menu__right__text">ON THIS PAGE</span><svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg><svg width="1em" height="1em" viewBox="0 0 32 32" class="rp-sidebar-menu__right__icon" style="transform:rotate(0deg);transition:transform 0.2s ease-out"><path fill="currentColor" d="M22 16 12 26l-1.4-1.4 8.6-8.6-8.6-8.6L12 6z"></path></svg></button></div></div><div class="rp-doc-layout__container"><aside class="rp-doc-layout__sidebar rp-scrollbar"></aside><div class="rp-doc-layout__doc"><main class="rp-doc-layout__doc-container"><div class="rp-doc rspress-doc"><!--$--><h1 class="rp-toc-include" id="色谱工作站标准协议化及开发进度里程碑报告"><a href="#色谱工作站标准协议化及开发进度里程碑报告" class="rp-header-anchor rp-link" aria-hidden="true">#</a>色谱工作站标准协议化及开发进度里程碑报告<!-- --> </h1>
+<h2 class="rp-toc-include" id="1-项目背景与开发模式"><a href="#1-项目背景与开发模式" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1. 项目背景与开发模式</h2>
+<p>本项目旨在将传统的色谱工作站重构为符合现代实验室自动化标准的物联网智能边缘节点。
+<strong>开发模式</strong>：AI 辅助单兵敏捷开发（AI Pair Programming）。摒弃繁杂的团队管理流程，采用“需求直达代码”、“边跑边重构”的极简流程。所有的业务目标转化为精确的 TODO 步骤并全自动闭环执行。</p>
+<h2 class="rp-toc-include" id="2-国际标准协议实现现状及对比矩阵"><a href="#2-国际标准协议实现现状及对比矩阵" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2. 国际标准协议实现现状及对比矩阵</h2>
+<p>根据对代码库（<code>standard_proxy.go</code>、<code>sila2/server.go</code>、<code>opcua/server.go</code>）的深度分析，当前标准协议实现进度如下：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>标准/协议</th><th>目标规范</th><th>当前实现状态</th><th>待开发 / 缺失部分</th></tr></thead><tbody><tr><td><strong>SiLA 2</strong></td><td>gRPC / 实验室自动化标准</td><td><strong>部分完成 (API层代理)</strong><br/>- 完成了遗留 REST API 到 SiLA 2 的 URI 代理映射<br/>- 建立了基础的 gRPC Server (Start/Stop/State)</td><td><strong>待补全 (强标准化对接 LIMS 必需)</strong><br/>- 缺少完整功能(Features)的 <code>.proto</code> 定义（如温度/阀门/EPC服务）<br/>- 需要将内部组件的控制逻辑直接接入 gRPC 服务层</td></tr><tr><td><strong>OPC-UA LADS</strong></td><td>实验室分析设备标准模型</td><td><strong>雏形阶段</strong><br/>- 搭建了 OPC-UA Server 基础框架<br/>- 映射了顶层状态 (TwinState) 和 循环次数</td><td><strong>重点攻坚 (根据最新需求)</strong><br/>- <strong>完整的设备报警树 (Alarm &amp; Condition Tree)</strong><br/>- <strong>安全审计追踪 (Audit Trail)</strong> 模型<br/>- 内部模块（如检测器、柱箱）细分层级节点映射</td></tr><tr><td><strong>AnIML</strong></td><td>分析数据结构化标准</td><td><strong>JSON 兼容 (完成度较高)</strong><br/>- Method, Process, History 的核心结构已采用 AnIML 概念重构<br/>- 前后端交互以 AnIML 语义的 JSON 格式传输</td><td><strong>迭代优化</strong><br/>- (根据决策) 暂不需要严格的 XML 导出，保持高效的 JSON 即可<br/>- 需要在数据结构中补充审计信息(User, Timestamp, Reason)以配合 LADS 审计要求</td></tr><tr><td><strong>外部扩展接口</strong></td><td>工业现场泛用总线</td><td><strong>部分实现 (MQTT预留)</strong><br/>- 仅存在环境变量 <code>MQTT_CLIENT_ID</code> 预留</td><td><strong>新增规划 (核心数据外发需求)</strong><br/>- 需设计统一的 <code>DataPublisher</code> 扩展接口<br/>- 补充实现 Modbus RTU / Modbus TCP / CAN 总线对外数据及分析结果的实时下发</td></tr></tbody></table></div>
+<h2 class="rp-toc-include" id="3-已完成功能清单-completed"><a href="#3-已完成功能清单-completed" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3. 已完成功能清单 (Completed)</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""/> <strong>底层硬件解耦 (HAL)</strong>：完成遗留协议驱动 (<code>LegacyGCKCDriver</code>) 和散件模块化驱动 (<code>ModularDriver</code>) 的彻底分离，建立统一的 <code>DigitalTwin</code> 数字孪生层。</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""/> <strong>标准路由代理网关</strong>：在 <code>standard_proxy.go</code> 中，将历史包袱接口完美无感映射至 <code>/api/sila2/v1/...</code> 和 <code>/api/animl/v1/...</code>。</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""/> <strong>全自动化CI/CD流</strong>：基于红线规则，实现一键交叉编译、增量极速部署 (rsync over SSH)、非阻塞后台服务重启及版本号自动递增。</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""/> <strong>前端业务逻辑标准化适配</strong>：<code>settings.js</code> / <code>live.js</code> / <code>method.js</code> 等核心交互页面已切换至标准化 API URI，并修复了本地 TCD 与测试机 FID 在散件与遗留模式下并发引起的事件控制和波形刷新重置的严重 Bug。</li>
+</ul>
+<h2 class="rp-toc-include" id="4-缺失与未来规划功能-pending--future"><a href="#4-缺失与未来规划功能-pending--future" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4. 缺失与未来规划功能 (Pending &amp; Future)</h2>
+<p>结合最新的系统级需求反馈（“需要强标准化对接LIMS”、“需要完整报警与审计树”、“需要扩展接口发送数据”），梳理出以下演进方向：</p>
+<h3 class="rp-toc-include" id="41-深度-sila-2-集成-面向-limscds-强对接"><a href="#41-深度-sila-2-集成-面向-limscds-强对接" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.1 深度 SiLA 2 集成 (面向 LIMS/CDS 强对接)</h3>
+<ul>
+<li>编写规范的 SiLA 2 <code>.proto</code> 文件集合，涵盖 <code>ValveControllerService</code>、<code>TemperatureControllerService</code>、<code>PneumaticControllerService</code>、<code>DetectorService</code> 等。</li>
+<li>将 gRPC Handler 与 <code>DigitalTwin</code> 模块深度绑定，替代当前仅作为 HTTP 路由映射的浅层集成方案。</li>
+</ul>
+<h3 class="rp-toc-include" id="42-opc-ua-lads-完整报警与审计体系"><a href="#42-opc-ua-lads-完整报警与审计体系" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.2 OPC-UA LADS 完整报警与审计体系</h3>
+<ul>
+<li><strong>报警系统</strong>：在现有的 OPC-UA 树中建立标准的 <code>Alarms &amp; Conditions</code> 模型，当硬件或系统出现异常（如连接断开、温度超限报警、基线异常）时，触发符合规范的 OPC-UA Event。</li>
+<li><strong>审计追踪 (Audit Trail)</strong>：将每一次人为的参数修改（如改变分析方法设定、修改保护温度）、启动/停止操作进行留痕，并以标准的 OPC-UA 事件或 AnIML JSON 节点持久化保存，实现全流程防篡改与溯源。</li>
+</ul>
+<h3 class="rp-toc-include" id="43-工业现场扩展网关接口-extension-data-publisher"><a href="#43-工业现场扩展网关接口-extension-data-publisher" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.3 工业现场扩展网关接口 (Extension Data Publisher)</h3>
+<ul>
+<li>建立基于 Go 语言 Interface 的插件化 <code>DataPublisher</code> 发布者机制。</li>
+<li><strong>MQTT</strong>：实现分析结果(Pollutants)和设备实时运行状态的云端上报。</li>
+<li><strong>Modbus TCP / RTU (Slave 模式)</strong>：将最终的分析含量（如 CH4、NMHC 的浓度值 mg/m³）以及基础状态映射为标准的保持寄存器 (Holding Registers)，供外部环境监测站 PLC 或工控上位机直接拉取读取。</li>
+<li><strong>CAN 总线</strong>：预留基于 SocketCAN 或串口透传的实时广播扩展能力。</li>
+</ul>
+<h2 class="rp-toc-include" id="5-开发里程碑规划-milestones"><a href="#5-开发里程碑规划-milestones" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5. 开发里程碑规划 (Milestones)</h2>
+<ul>
+<li>
+<p><strong>Milestone 1: 标准协议完善与后端状态机自主运行 (已完成)</strong></p>
+<ul>
+<li>修复 <code>opcua/server.go</code> 的编译错误，成功将 LADS 状态机、目标循环次数、报警占位及审计占位节点接入 DigitalTwin。</li>
+<li>将前端请求全面对齐 SiLA 2/OPC-UA 标准：修改 <code>app.js</code>, <code>process.js</code>, <code>report.js</code> 所有的内部接口为 <code>api/sila2/v1/...</code> 与 <code>api/animl/v1/...</code>。</li>
+<li>修正了 SiLA2 代理中 <code>StartAnalysis</code> 缺失重置会话导致的 TCD 谱图不刷新 Bug（在 <code>sila2_binding.go</code> 中主动触发 <code>resetAllSessions</code>）。</li>
+<li>后端引擎 <code>engine_scheduler.go</code> 已实现完全自主运行。基于 <code>DigitalTwin</code> 配置，循环分析将完全在后台执行，前端即便关闭也绝不影响色谱运行流转。</li>
+</ul>
+</li>
+<li>
+<p><strong>Milestone 2: MQTT/Modbus及数采仪扩展物联网能力 (已完成)</strong></p>
+<ul>
+<li>设计了统一对外发送数据的 <code>DataPublisher</code> 接口及 <code>GlobalPublisher</code> 全局单例。</li>
+<li>完成对工厂车间级通用协议的支持：基于 <code>paho.mqtt</code> 上报实时结果、状态与报警；基于 <code>mbserver</code> 建立 Modbus TCP/RTU 从机模式暴露核心状态。</li>
+<li>深度整合高级配置：MQTT 与数采仪强绑定用户配置的设备唯一编码 (<code>DeviceNo</code> / <code>ClientID</code>) 及自定义 <code>MqttTopic</code>，并彻底清除了旧版代码中散落的数据外发碎片，实现统一网关路由。</li>
+<li>修复了环保数采仪（HJ212）谱图文件上传功能，对齐了标准的 <code>/cgi-bin/mediafileupload/file</code> 接口。</li>
+</ul>
+</li>
+</ul>
+<h2 class="rp-toc-include" id="6-即时可执行待办事项-todo-list"><a href="#6-即时可执行待办事项-todo-list" class="rp-header-anchor rp-link" aria-hidden="true">#</a>6. 即时可执行待办事项 (TODO List)</h2>
+<ol class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""/> <strong>修复编译错误</strong>：处理 <code>opcua/server.go</code> 中的 <code>alarmsNode</code> 与 <code>auditNode</code> 变量声明未使用问题。</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""/> <strong>完善 OPC-UA LADS 节点</strong>：扩写 <code>DigitalTwin</code> 模型以包含 <code>ActiveAlarms</code> 与 <code>LastAuditLog</code> 并同步更新节点状态。</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""/> <strong>修复 TCD 谱图重启问题</strong>：在 <code>sila2_binding.go</code> 的 <code>StartAnalysis</code> API 中加入 <code>resetAllSessions</code> 逻辑，确保循环流转重置时间戳。</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""/> <strong>前端全面对齐标准协议</strong>：重构 <code>app.js</code>（特别是 <code>sendCmd</code>），<code>process.js</code> 和 <code>report.js</code>，全部替换为 <code>SiLA 2</code> 与 <code>AnIML</code> 代理路由。</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""/> <strong>后端自主运行验证</strong>：确认 <code>engine_scheduler.go</code> 的循环计算机制脱离前端依赖，完全根据底层 <code>DigitalTwin</code> 及 <code>CycleCount</code> 独立运行。</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""/> <strong>Milestone 2 数据分发机制</strong>：设计并完成了 MQTT 及 Modbus 外发数据的 <code>GlobalPublisher</code> 机制。</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""/> <strong>扩展接口联调与修正</strong>：修复 MQTT 唯一编码读取遗漏问题，修复 MQTT Topic 层级拼装问题，修复环保数采仪 HTTP 谱图上传 501 路径报错问题，确保对接标准外部系统。</li>
+</ol>
+<ul>
+<li><strong>Milestone 3: 数据导出接口彻底原生标准化 (已完成)</strong>
+<ul>
+<li>彻底废弃了遗留的 /api/v1/results/nmhc/export.csv 和 /api/history/export.csv 导出路由及其代理转发。</li>
+<li>将 CSV 导出、NMHC 专用 CSV 导出和 XML (AnIML) 导出直接重构并挂载到标准的 DataExportService 命名空间下：
+<ul>
+<li>/api/animl/v1/DataExportService/ExportCSV</li>
+<li>/api/animl/v1/DataExportService/ExportNMHC</li>
+<li>/api/animl/v1/DataExportService/ExportXML</li>
+</ul>
+</li>
+<li>修复了因为依赖旧版内存存储 (
+mhcStore) 导致导出 CSV 文件为空（只有表头）的严重 Bug，现已直接对接底层的 SQLite JSON 存储引擎 (pstore) 并动态解析数据字段。</li>
+<li>彻底解决了 update_frontend_api.ps1 在 Windows 下追加多重 BOM 导致前端页面黑屏的语法错误。</li>
+</ul>
+</li>
+</ul><!--/$--></div><footer class="rp-doc-footer"><div class="rp-doc-footer__edit"></div><div class="rp-doc-footer__divider"></div><div class="rp-prev-next-page"><div class="rp-prev-next-page__placeholder"></div><div class="rp-prev-next-page__placeholder"></div></div></footer></main></div><aside class="rp-doc-layout__outline rp-scrollbar"><div class="rp-outline"><div class="rp-outline__title">ON THIS PAGE<svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg></div><nav class="rp-outline__toc rp-scrollbar"><a href="#1-项目背景与开发模式" class="rp-toc-item rp-link" title="1. 项目背景与开发模式" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">1. 项目背景与开发模式</span></a><a href="#2-国际标准协议实现现状及对比矩阵" class="rp-toc-item rp-link" title="2. 国际标准协议实现现状及对比矩阵" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">2. 国际标准协议实现现状及对比矩阵</span></a><a href="#3-已完成功能清单-completed" class="rp-toc-item rp-link" title="3. 已完成功能清单 (Completed)" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">3. 已完成功能清单 (Completed)</span></a><a href="#4-缺失与未来规划功能-pending--future" class="rp-toc-item rp-link" title="4. 缺失与未来规划功能 (Pending &amp; Future)" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">4. 缺失与未来规划功能 (Pending &amp; Future)</span></a><a href="#41-深度-sila-2-集成-面向-limscds-强对接" class="rp-toc-item rp-link" title="4.1 深度 SiLA 2 集成 (面向 LIMS/CDS 强对接)" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.1 深度 SiLA 2 集成 (面向 LIMS/CDS 强对接)</span></a><a href="#42-opc-ua-lads-完整报警与审计体系" class="rp-toc-item rp-link" title="4.2 OPC-UA LADS 完整报警与审计体系" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.2 OPC-UA LADS 完整报警与审计体系</span></a><a href="#43-工业现场扩展网关接口-extension-data-publisher" class="rp-toc-item rp-link" title="4.3 工业现场扩展网关接口 (Extension Data Publisher)" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.3 工业现场扩展网关接口 (Extension Data Publisher)</span></a><a href="#5-开发里程碑规划-milestones" class="rp-toc-item rp-link" title="5. 开发里程碑规划 (Milestones)" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">5. 开发里程碑规划 (Milestones)</span></a><a href="#6-即时可执行待办事项-todo-list" class="rp-toc-item rp-link" title="6. 即时可执行待办事项 (TODO List)" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">6. 即时可执行待办事项 (TODO List)</span></a></nav><div class="rp-outline__divider"></div><div class="rp-outline__bottom"></div></div></aside></div></div>
+    <div id="__rspress_modal_container"></div>
+  </body>
+</html>

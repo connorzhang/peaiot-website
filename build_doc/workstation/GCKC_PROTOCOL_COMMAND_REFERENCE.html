@@ -1,0 +1,1449 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GCKC 色谱主板协议（命令&#x2F;帧格式）说明（源码整理版） - 企业文档中心 | 奕柏科技</title>
+<script>{;const saved = localStorage.getItem('rspress-theme-appearance');const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches;const isDark = !saved || saved === 'auto' ? preferDark : saved === 'dark';document.documentElement.classList.toggle('dark', isDark);document.documentElement.classList.toggle('rp-dark', isDark);document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';}</script>
+<link href="/static/css/styles.3acae6679e.css" rel="stylesheet">
+<script defer src="/static/js/styles.b10ef529e7.js"></script>
+<script defer src="/static/js/lib-react.b866a4fe50.js"></script>
+<script defer src="/static/js/lib-router.47ee6159f2.js"></script>
+<script defer src="/static/js/4653.96b19df9c5.js"></script>
+<script defer src="/static/js/index.571209b70a.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Rspress v2.0.13">
+<link rel="icon" href="/peaiot-logo.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GCKC 色谱主板协议（命令/帧格式）说明（源码整理版） - 企业文档中心 | 奕柏科技">
+<meta name="description" content="目标：像“Modbus 寄存器说明”一样，把色谱主板（GC 主板）与工作站之间的 GCKC TCP 协议整理成可查的“命令字典 + 报文格式 + 字段说明”。范围：仅覆盖主板↔工作站主站链路（TCP 25001/8000，帧头 GCKC）。不包含 502/503 的从站 Modbus-like 协议（见 SLAVE_STATION.md 与 MODBUS_STANDARD_MAP.md）。数据来源：以旧版 WinForms 工作站 IBrainChrom2018 的协议实现（TcpServerSocket）与当前 Go Collector 的协议实现（src/edge/internal/protocol/gckc、chromsend143）为依据。若某些字段在源码中未被使用/未解码，会明确标为“未知/待抓包验证”。">
+<meta property="og:description" content="目标：像“Modbus 寄存器说明”一样，把色谱主板（GC 主板）与工作站之间的 GCKC TCP 协议整理成可查的“命令字典 + 报文格式 + 字段说明”。范围：仅覆盖主板↔工作站主站链路（TCP 25001/8000，帧头 GCKC）。不包含 502/503 的从站 Modbus-like 协议（见 SLAVE_STATION.md 与 MODBUS_STANDARD_MAP.md）。数据来源：以旧版 WinForms 工作站 IBrainChrom2018 的协议实现（TcpServerSocket）与当前 Go Collector 的协议实现（src/edge/internal/protocol/gckc、chromsend143）为依据。若某些字段在源码中未被使用/未解码，会明确标为“未知/待抓包验证”。"></head>
+
+  <body>
+    <div id="__rspress_root"><link rel="preload" as="image" href="/peaiot-logo.png"/><header class="rp-nav"><div class="rp-nav__left"><div class="rp-nav__title"><a href="/" class="rp-nav__title__link rp-link"><div class="rp-nav__title__logo"><img src="/peaiot-logo.png" alt="logo" id="logo" class="rspress-logo rp-nav__title__logo-image"/></div><span>企业文档中心</span></a></div></div><div class="rp-nav__right"><button class="rp-search-button"><div class="rp-search-button__content"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21" class="rp-search-button__icon"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg><span class="rp-search-button__word">Search</span></div><div class="rp-search-button__hotkey" style="opacity:0"><span></span><span>K</span></div></button><div class="rp-search-button--mobile"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg></div><ul class="rp-nav-menu rp-nav-menu--right"><li class="rp-nav-menu__item rp-nav-menu__item--active"><a href="/index.html" class="rp-nav-menu__item__container rp-link">产品手册目录</a></li><li class="rp-nav-menu__item"><a href="/explore.html" class="rp-nav-menu__item__container rp-link">探索项目</a></li></ul><div class="rp-nav__others"><div class="rp-nav-menu__divider"></div><div class="rp-switch-appearance"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" class="rp-switch-appearance__icon rp-switch-appearance__icon--sun"><path fill="currentColor" d="m7.001 15.848-1.226 1.226a.58.58 0 0 0 0 .818.58.58 0 0 0 .818 0l1.226-1.226a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0m-.352-8.735a.584.584 0 0 0 .825-.825L6.237 5.051a.584.584 0 0 0-.825.825zM5.011 11.07h-1.75a.584.584 0 0 0 0 1.167h1.75c.324 0 .584-.26.584-.583a.585.585 0 0 0-.584-.584m7.003-5.835c.324 0 .584-.26.584-.584V2.9a.58.58 0 0 0-.584-.584.58.58 0 0 0-.583.583V4.65c0 .323.262.584.583.584m5.616 1.621 1.226-1.225a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0l-1.226 1.225a.58.58 0 0 0 0 .818.576.576 0 0 0 .818 0m3.138 4.214h-1.75a.58.58 0 0 0-.584.584c0 .324.26.584.583.584h1.751a.584.584 0 1 0 0-1.167m-3.389 5.124a.584.584 0 0 0-.825.825l1.238 1.238a.584.584 0 0 0 .825-.826zm-5.365-9.795a5.256 5.256 0 0 0-5.257 5.258 5.256 5.256 0 0 0 5.257 5.257 5.256 5.256 0 0 0 5.257-5.257 5.256 5.256 0 0 0-5.257-5.258m0 11.675a.58.58 0 0 0-.583.583v1.751a.582.582 0 1 0 1.167 0v-1.75a.584.584 0 0 0-.584-.584"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" viewBox="0 0 19 19" class="rp-switch-appearance__icon rp-switch-appearance__icon--moon"><path fill="currentColor" d="M9.166 0a9.2 9.2 0 0 1 1.857.188.834.834 0 0 1 .042 1.623 4.47 4.47 0 1 0 5.457 5.457l.048-.135a.834.834 0 0 1 1.575.177q.186.902.188 1.856A9.168 9.168 0 1 1 9.166 0"></path></svg></div></div><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__sm"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg></button><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__md"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg><ul class="rp-hover-group rp-hover-group--hidden rp-hover-group--right"><div class="rp-nav-menu__others-mobile__container"><div class="rp-nav-hamburger__md__hover-group"><div class="rp-nav-screen-appearance"><div class="rp-nav-screen-appearance__left">Theme</div><div class="rp-nav-screen-appearance__right"></div></div><div class="rp-nav-screen-divider"></div></div></div></ul></button></div></header><div class="rp-doc-layout__menu"><div class="rp-sidebar-menu"><button type="button" class="rp-sidebar-menu__left"><svg width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M4 6h24v2H4zm0 18h24v2H4zm0-12h24v2H4zm0 6h24v2H4z"></path></svg><span>Menu</span></button><button type="button" class="rp-sidebar-menu__right"><span class="rp-sidebar-menu__right__text">ON THIS PAGE</span><svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg><svg width="1em" height="1em" viewBox="0 0 32 32" class="rp-sidebar-menu__right__icon" style="transform:rotate(0deg);transition:transform 0.2s ease-out"><path fill="currentColor" d="M22 16 12 26l-1.4-1.4 8.6-8.6-8.6-8.6L12 6z"></path></svg></button></div></div><div class="rp-doc-layout__container"><aside class="rp-doc-layout__sidebar rp-scrollbar"></aside><div class="rp-doc-layout__doc"><main class="rp-doc-layout__doc-container"><div class="rp-doc rspress-doc"><!--$--><h1 class="rp-toc-include" id="gckc-色谱主板协议命令帧格式说明源码整理版"><a href="#gckc-色谱主板协议命令帧格式说明源码整理版" class="rp-header-anchor rp-link" aria-hidden="true">#</a>GCKC 色谱主板协议（命令/帧格式）说明（源码整理版）<!-- --> </h1>
+<blockquote>
+<p>目标：像“Modbus 寄存器说明”一样，把色谱主板（GC 主板）与工作站之间的 <strong>GCKC TCP 协议</strong>整理成可查的“命令字典 + 报文格式 + 字段说明”。<br/>
+范围：仅覆盖主板↔工作站主站链路（TCP 25001/8000，帧头 <code>GCKC</code>）。不包含 502/503 的从站 Modbus-like 协议（见 <a href="file:///d:/GIT/VS2022/Chromatography-workstation/docs/SLAVE_STATION.md" class="rp-link">SLAVE_STATION.md</a> 与 <a href="file:///d:/GIT/VS2022/Chromatography-workstation/docs/MODBUS_STANDARD_MAP.md" class="rp-link">MODBUS_STANDARD_MAP.md</a>）。<br/>
+数据来源：以旧版 WinForms 工作站 <code>IBrainChrom2018</code> 的协议实现（<code>TcpServerSocket</code>）与当前 Go Collector 的协议实现（<code>src/edge/internal/protocol/gckc</code>、<code>chromsend143</code>）为依据。若某些字段在源码中未被使用/未解码，会明确标为“未知/待抓包验证”。</p>
+</blockquote>
+<hr/>
+<h2 class="rp-toc-include" id="1-传输与端口"><a href="#1-传输与端口" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1. 传输与端口</h2>
+<ul>
+<li><strong>工作站作为 TCP Server</strong>，主板作为 TCP Client 连接。</li>
+<li>监听端口：
+<ul>
+<li><code>25001/TCP</code>：主端口（主站 Main Server）</li>
+<li><code>8000/TCP</code>：同协议的额外监听（旧版兼容）</li>
+</ul>
+</li>
+<li>关键实现与入口：
+<ul>
+<li>旧版收包：<code>TcpServerSocket.OneDataReceive</code> → <code>AnalyseReceivedData</code>
+<ul>
+<li><a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/TcpServerSocket.cs" class="rp-link">TcpServerSocket.cs</a></li>
+</ul>
+</li>
+<li>Go 收包：<code>gckc.StreamDecoder</code> → <code>gckc.Decode</code> → <code>processFrame</code>
+<ul>
+<li><a href="file:///d:/GIT/VS2022/Chromatography-workstation/src/edge/internal/protocol/gckc/stream.go" class="rp-link">stream.go</a> / <a href="file:///d:/GIT/VS2022/Chromatography-workstation/src/edge/internal/protocol/gckc/frame.go" class="rp-link">frame.go</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr/>
+<h2 class="rp-toc-include" id="2-帧格式固定外壳"><a href="#2-帧格式固定外壳" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2. 帧格式（固定外壳）</h2>
+<h3 class="rp-toc-include" id="21-总结构"><a href="#21-总结构" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2.1 总结构</h3>
+<div class="rp-codeblock language-txt"><div class="rp-codeblock__content"><div class="rp-codeblock__content__scroll-container rp-scrollbar rp-scrollbar--always"><pre class="shiki css-variables" style="background-color:var(--shiki-background);color:var(--shiki-foreground)" tabindex="0" data-lang="txt"><code><span class="line"><span>Frame = Header(4) + Len(2) + Body(Len) + CRC(1)</span></span>
+<span class="line"><span>Header = ASCII &quot;GCKC&quot;</span></span>
+<span class="line"><span>Len    = uint16 big-endian，表示 Body 的字节数</span></span>
+<span class="line"><span>CRC    = uint8，对 Body 逐字节查表累积校验（见下）</span></span></code></pre></div><div class="rp-code-button-group"><button class="rp-code-button-group__button rp-code-wrap-button" title="Toggle code wrap" aria-label="Toggle code wrap"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrapped"><path fill="currentColor" d="M21 5H3v2h18zM3 19h7v-2H3zm0-6h15c1 0 2 .43 2 2s-1 2-2 2h-2v-2l-4 3 4 3v-2h2c2.95 0 4-1.27 4-4 0-2.72-1-4-4-4H3z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-button-group__icon--wrap"><path fill="currentColor" d="M16 7H3V5h13zM3 19h13v-2H3zm19-7-4-3v2H3v2h15v2z"></path></svg></button><button class="rp-code-button-group__button rp-code-copy-button" title="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--copy"><path fill="currentColor" d="M20 8v12H8V8zm0-2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2"></path><path fill="currentColor" d="M4 16H2V4a2 2 0 0 1 2-2h12v2H4Z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="rp-code-button-group__icon rp-code-copy-button__icon rp-code-copy-button__icon--success"><path fill="currentColor" d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z"></path></svg></button></div></div></div>
+<p>Body 固定前缀：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>字段</th><th style="text-align:right">长度</th><th style="text-align:right">偏移（从 Body 开始）</th><th>编码/说明</th></tr></thead><tbody><tr><td>DeviceID</td><td style="text-align:right">16</td><td style="text-align:right">0</td><td>ASCII 字符串，右侧 <code>0x00</code> 补齐（Go <code>Encode</code> 也是 16 bytes）</td></tr><tr><td>Seq</td><td style="text-align:right">2</td><td style="text-align:right">16</td><td><code>uint16</code> big-endian 序列号（旧版 <code>short_0++</code>，Go <code>Frame.Seq</code>）</td></tr><tr><td>Cmd</td><td style="text-align:right">1</td><td style="text-align:right">18</td><td>命令号（十进制/十六进制都常用）</td></tr><tr><td>Payload</td><td style="text-align:right">N</td><td style="text-align:right">19</td><td>依 Cmd 不同</td></tr></tbody></table></div>
+<p>参考实现：</p>
+<ul>
+<li>Go 编解码：<a href="file:///d:/GIT/VS2022/Chromatography-workstation/src/edge/internal/protocol/gckc/frame.go#L11-L63" class="rp-link">frame.go</a></li>
+<li>旧版说明：<a href="file:///d:/GIT/VS2022/Chromatography-workstation/docs/MASTER_STATION.md#L53-L74" class="rp-link">MASTER_STATION.md</a></li>
+</ul>
+<h3 class="rp-toc-include" id="22-crc校验算法"><a href="#22-crc校验算法" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2.2 CRC（校验算法）</h3>
+<ul>
+<li>CRC 为 <strong>1 字节</strong>，对 <code>Body</code> 逐字节滚动查表：
+<ul>
+<li>旧版：<code>IBrainConvert.BitByBitNo(body, idxSt=0, length=bodyLen)</code>
+<ul>
+<li><a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/IBrainConvert.cs#L251-L260" class="rp-link">IBrainConvert.cs</a></li>
+</ul>
+</li>
+<li>Go：<code>gckc.CRC(body)</code>（同一张 256 表）
+<ul>
+<li><a href="file:///d:/GIT/VS2022/Chromatography-workstation/src/edge/internal/protocol/gckc/crc.go#L32-L38" class="rp-link">crc.go</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 class="rp-toc-include" id="23-设备-id-特殊兼容"><a href="#23-设备-id-特殊兼容" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2.3 设备 ID 特殊兼容</h3>
+<p>旧版对 <code>DeviceID==&quot;709131284A484845&quot;</code> 有占位替换逻辑（把占位 ID 替换成当前连接 ID），联调时抓包可能遇到：</p>
+<ul>
+<li><a href="file:///d:/GIT/VS2022/Chromatography-workstation/docs/MASTER_STATION.md#L75-L82" class="rp-link">MASTER_STATION.md</a></li>
+</ul>
+<hr/>
+<h2 class="rp-toc-include" id="3-常见字段编码约定payload-内部用得多"><a href="#3-常见字段编码约定payload-内部用得多" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3. 常见字段编码约定（payload 内部用得多）</h2>
+<h3 class="rp-toc-include" id="31-整数与端序"><a href="#31-整数与端序" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3.1 整数与端序</h3>
+<ul>
+<li><code>Len</code>、<code>Seq</code>：big-endian</li>
+<li>payload 内多处出现 <code>u16 = b[i]*256 + b[i+1]</code>（big-endian）</li>
+</ul>
+<h3 class="rp-toc-include" id="32-bcd十进制压缩温度数值"><a href="#32-bcd十进制压缩温度数值" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3.2 BCD（十进制压缩）温度/数值</h3>
+<p>旧版多处用 BCD（例如温度）：</p>
+<ul>
+<li>2 字节 BCD → <code>d1 d2 d3 . d4</code>（一位小数），并支持负号编码
+<ul>
+<li>旧版 <code>IBrainConvert.ByteArray2Float</code> / Go <code>bcd2Temp1</code>（实现等价）</li>
+<li>Go 版温度解析在 <code>parseTemps143</code></li>
+</ul>
+</li>
+</ul>
+<h3 class="rp-toc-include" id="33-65535无效值"><a href="#33-65535无效值" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3.3 “655.35”无效值</h3>
+<p>旧版 EPC 上报中把 <code>655.35</code> 视为无效（显示 <code>--</code>）：</p>
+<ul>
+<li><a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/TcpServerSocket.cs#L1665-L1676" class="rp-link">Answer159</a></li>
+</ul>
+<hr/>
+<h2 class="rp-toc-include" id="4-命令总览命令字典"><a href="#4-命令总览命令字典" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4. 命令总览（命令字典）</h2>
+<h3 class="rp-toc-include" id="41-旧版内置命令号名称字典基础集"><a href="#41-旧版内置命令号名称字典基础集" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.1 旧版内置“命令号→名称”字典（基础集）</h3>
+<p>旧版在 <code>GC08_GCs.lsItems</code> 内维护了一份“常用命令/应答”的对照表（建议作为阅读入口）：</p>
+<ul>
+<li><a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/GC08_GCs.cs#L81-L157" class="rp-link">GC08_GCs.cs</a></li>
+</ul>
+<p>这份表覆盖了 <strong>0~67</strong>、以及常见应答 <strong>128~195</strong>，但不包含全部扩展命令（例如 249<del>253、234</del>239、216~218 等）。</p>
+<h3 class="rp-toc-include" id="42-命令分类索引建议按域理解"><a href="#42-命令分类索引建议按域理解" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.2 命令分类索引（建议按域理解）</h3>
+<ul>
+<li><strong>采集/分析流程</strong>：16/17/18/19/22/23（及应答 144/145/146/147/150/151）；循环参数 4/12（及应答 132/140）</li>
+<li><strong>实时数据流</strong>：143（温度+检测器点列）、159（EPC 气路实测）</li>
+<li><strong>控温/程序升温/事件表</strong>：0/1/2（查询）与 8/9/10（设置），应答 128/129/130/136/137/138；事件表1 101/228/229</li>
+<li><strong>EPC 参数/名称/控制</strong>：33/34/36/37/38/39/40/41（及应答 161~169）</li>
+<li><strong>网络/名称/使能</strong>：48/49/64/65/66/67（及应答 176/177/192~195）</li>
+<li><strong>扩展/专项</strong>：249<del>253（点火门限/高压），48/50（查询/设置点火时长，及应答 178/181），250/251（查询/报警），234/236（保护温度），238/239（多位阀使能），216</del>218（液相泵）等</li>
+</ul>
+<hr/>
+<h2 class="rp-toc-include" id="5-详细命令说明表格"><a href="#5-详细命令说明表格" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5. 详细命令说明（表格）</h2>
+<blockquote>
+<p>说明：下表把“发送/接收格式”写成 <strong>Body.Payload</strong> 的结构（Frame 外壳固定不再重复）。<br/>
+如果 payload 在源码中只是透传 <code>InsDeviceManager.GetXXX()</code>，这里先给“结构来源/用途”，后续需要再补“字段逐项解释”（这通常需要结合 <code>InsDeviceManager</code> 的字节布局或抓包逐字节对照）。</p>
+</blockquote>
+<h3 class="rp-toc-include" id="51-采集分析流程命令"><a href="#51-采集分析流程命令" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.1 采集/分析流程命令</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th style="text-align:right">Cmd(dec/hex)</th><th>方向</th><th>名称（旧版）</th><th>Payload（请求）</th><th>Payload（应答/推送）</th><th>说明</th></tr></thead><tbody><tr><td style="text-align:right">16 / 0x10</td><td>WS→GC</td><td>控温反转 (Toggle)</td><td>无</td><td>144 应答</td><td>翻转温控状态（开变关/关变开）。旧版代码误认为开始/停止</td></tr><tr><td style="text-align:right">17 / 0x11</td><td>WS→GC</td><td>无效/未使用</td><td>无</td><td>145 应答</td><td>旧版代码误认为开始/停止，底层硬件实际无效</td></tr><tr><td style="text-align:right">18 / 0x12</td><td>WS→GC</td><td>启动全部样品分析</td><td>无</td><td>146 应答</td><td>多通道自动分析开始</td></tr><tr><td style="text-align:right">19 / 0x13</td><td>WS→GC</td><td>样品全部分析停止</td><td>无</td><td>147 应答</td><td>多通道停止</td></tr><tr><td style="text-align:right">22 / 0x16</td><td>WS→GC</td><td>启动指定通道开始分析</td><td><code>channel</code> 1B（旧版：当前通道号；Go：query 参数 channel）</td><td>150 应答</td><td>单通道开始；主板在到达自动进样循环间隔后，也会主动发送 150，此时上位机用于作为新一轮循环的开始信号。</td></tr><tr><td style="text-align:right">23 / 0x17</td><td>WS→GC</td><td>指定通道分析停止</td><td><code>channel</code> 1B（或 mask）</td><td>151 应答</td><td>单通道停止</td></tr><tr><td style="text-align:right">245 / 0xF5</td><td>WS→GC</td><td>到采集时间请求停止（旧版自动）</td><td><code>channelMask</code> 1B</td><td>（未在字典内命名）</td><td>旧版在到“停止时间/采集时间”后会 <code>SendCmd(245, mask)</code> 触发停止（见 <a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/TcpServerSocket.cs#L2732-L2960" class="rp-link">CheckDtcChannels</a>）。当前重构版已改为“到点仅出数”。</td></tr><tr><td style="text-align:right">4 / 0x04</td><td>WS→GC</td><td>查询自动进样时间参数</td><td>无</td><td>132/140 应答</td><td>查询循环时间参数</td></tr><tr><td style="text-align:right">12 / 0x0C</td><td>WS→GC</td><td>设置自动进样时间参数</td><td>6字节 BCD (间隔与次数等)</td><td>无</td><td>下发循环间隔(min)与循环次数。格式：[0-1] FloatToBCD(间隔); [2-3] IntToBCD(次数); [4] 进样消耗时间; [5] 进样点亮时间</td></tr></tbody></table></div>
+<p>通道字段说明：</p>
+<ul>
+<li><code>SendCmd(byte cmd, byte channelMask)</code> 的 payload 规则：默认 1 字节，22/23 会写入 <code>sglNumberStart/sglNumberEnd</code>，其他命令直接回传 <code>{mask}</code>
+<ul>
+<li><a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/TcpServerSocket.cs#L2253-L2268" class="rp-link">method_15</a></li>
+</ul>
+</li>
+</ul>
+<h3 class="rp-toc-include" id="52-实时数据推送cmd143chromsend"><a href="#52-实时数据推送cmd143chromsend" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.2 实时数据推送：Cmd=143（ChromSend）</h3>
+<p><strong>方向</strong>：GC→WS（主板主动推送）<br/>
+<strong>用途</strong>：同时承载：</p>
+<ul>
+<li>温度（至少 6 路 BCD 温度；旧版还从 payload 尾部解析额外 2 路温度）</li>
+<li>检测器数据块（点列）——每个数据块包含 detectorType、采样频率、点列</li>
+</ul>
+<h4 class="rp-toc-include" id="521-payload-结构基于-go-chromsend143parseall-与旧版逻辑一致"><a href="#521-payload-结构基于-go-chromsend143parseall-与旧版逻辑一致" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.2.1 payload 结构（基于 Go <code>chromsend143.ParseAll</code> 与旧版逻辑一致）</h4>
+<p>固定头（最少 20 字节，旧版要求 <code>len&gt;=20</code>）：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th style="text-align:right">偏移（payload）</th><th style="text-align:right">长度</th><th>字段</th><th>说明</th></tr></thead><tbody><tr><td style="text-align:right">0..11</td><td style="text-align:right">12</td><td>温度区</td><td>6 路 2B BCD 温度（旧版 <code>Class44.float_0[0..5]</code>）；Go 当前用于 inj1/col/det1/（留）/inj2</td></tr><tr><td style="text-align:right">18</td><td style="text-align:right">1</td><td>count</td><td>数据块数量（detector block 数）</td></tr><tr><td style="text-align:right">19..</td><td style="text-align:right">N</td><td>blocks</td><td><code>count</code> 个数据块顺序排列</td></tr></tbody></table></div>
+<p>每个 detector block：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>字段</th><th style="text-align:right">长度</th><th>说明</th></tr></thead><tbody><tr><td>detType</td><td style="text-align:right">1</td><td>检测器/通道类型码（常见：0x40/0x41/0x50/0x51）</td></tr><tr><td>rsv1</td><td style="text-align:right">1</td><td>未使用/保留</td></tr><tr><td>rsv2</td><td style="text-align:right">1</td><td>未使用/保留</td></tr><tr><td>freqByte</td><td style="text-align:right">1</td><td>频率字节；点数 <code>points=freqByte*10</code>；采样率 <code>freq10=freqByte*10</code>（Hz）；<code>dtS=1/freq10</code></td></tr><tr><td>values</td><td style="text-align:right"><code>points*4</code></td><td>每点 4 字节“BCD 小数”编码（含符号位），需换算为 pA 值</td></tr></tbody></table></div>
+<p>对应实现：</p>
+<ul>
+<li>Go 解析：<a href="file:///d:/GIT/VS2022/Chromatography-workstation/src/edge/internal/protocol/chromsend143/parse.go#L31-L115" class="rp-link">parse.go</a></li>
+</ul>
+<h4 class="rp-toc-include" id="522-通道映射dettype--channel"><a href="#522-通道映射dettype--channel" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.2.2 通道映射（detType → channel）</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th style="text-align:right">detType</th><th style="text-align:right">channel</th></tr></thead><tbody><tr><td style="text-align:right">0x40 (64)</td><td style="text-align:right">0</td></tr><tr><td style="text-align:right">0x41 (65)</td><td style="text-align:right">1</td></tr><tr><td style="text-align:right">0x50 (80)</td><td style="text-align:right">2</td></tr><tr><td style="text-align:right">0x51 (81)</td><td style="text-align:right">3</td></tr></tbody></table></div>
+<p>见 <a href="file:///d:/GIT/VS2022/Chromatography-workstation/src/edge/internal/protocol/chromsend143/parse.go#L117-L130" class="rp-link">channelFromDetectorType</a>。</p>
+<h4 class="rp-toc-include" id="523-点值换算raw--pa"><a href="#523-点值换算raw--pa" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.2.3 点值换算（raw → pA）</h4>
+<p>Go 版当前实现了旧版一致风格的变换（平方/衰减系数/放大），用于把 4B BCD 小数转换成最终曲线值：</p>
+<ul>
+<li><a href="file:///d:/GIT/VS2022/Chromatography-workstation/src/edge/internal/protocol/chromsend143/parse.go#L132-L152" class="rp-link">transform</a></li>
+</ul>
+<h4 class="rp-toc-include" id="524-旧版额外温度payload-尾部-2-路"><a href="#524-旧版额外温度payload-尾部-2-路" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.2.4 旧版额外温度（payload 尾部 2 路）</h4>
+<p>旧版会从 payload <strong>末尾</strong>解析两路温度（AUX3/COL2），公式 <code>(u16 - 10000)/100</code>：</p>
+<ul>
+<li><a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/TcpServerSocket.cs#L1087-L1091" class="rp-link">AnalyseReceivedData_ChromSend 末尾解析</a></li>
+</ul>
+<blockquote>
+<p>注：这两路温度在不同固件可能并非总存在；建议以抓包确认 payload 尾部是否固定带 4 字节。</p>
+</blockquote>
+<h3 class="rp-toc-include" id="53-epc-气路实测推送cmd159"><a href="#53-epc-气路实测推送cmd159" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.3 EPC 气路实测推送：Cmd=159</h3>
+<p><strong>方向</strong>：GC→WS（主板主动推送）<br/>
+<strong>用途</strong>：推送多路 EPC（压力/流量/状态）。旧版显示为 EPCControl 的“输入/实测(psi)/实测(sccm)”等列。</p>
+<h4 class="rp-toc-include" id="531-payload-结构基于旧版-answer159"><a href="#531-payload-结构基于旧版-answer159" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.3.1 payload 结构（基于旧版 <code>Answer159</code>）</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th style="text-align:right">偏移</th><th style="text-align:right">长度</th><th>字段</th><th>说明</th></tr></thead><tbody><tr><td style="text-align:right">0</td><td style="text-align:right">1</td><td>n</td><td>EPC 条目数量</td></tr><tr><td style="text-align:right">1..</td><td style="text-align:right">变长</td><td>items</td><td>n 个条目依次排列</td></tr></tbody></table></div>
+<p>每个条目（按旧版读取顺序）：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>字段</th><th style="text-align:right">长度</th><th>说明</th></tr></thead><tbody><tr><td>typeOrIdx?</td><td style="text-align:right">1</td><td>旧版每条目开始会 <code>num2++</code> 跳过 1B，疑似 type/idx（待确认）</td></tr><tr><td>inputPsi?</td><td style="text-align:right">2</td><td><code>u16/100</code>，旧版变量 <code>num3</code>（显示列“输入(psi)”）</td></tr><tr><td>actualPsi</td><td style="text-align:right">2</td><td><code>u16/100</code>，旧版变量 <code>num4</code>（显示列“实测(psi)”）</td></tr><tr><td>actualSccm</td><td style="text-align:right">2</td><td><code>u16/100</code>，旧版变量 <code>mydouble</code>（显示列“实测(sccm)”）</td></tr><tr><td>unknown</td><td style="text-align:right">1~2</td><td>旧版调用 <code>Byte2ToInt(mybyte, num2)</code>（读 2B BCD）但只 <code>num2++</code>，说明这里存在“2B 字段+状态字节重叠/实现缺陷/协议压缩”，需抓包校准</td></tr><tr><td>state</td><td style="text-align:right">1</td><td>旧版 <code>myByte</code>（用于开关/状态）</td></tr></tbody></table></div>
+<h3 class="rp-toc-include" id="54-专项扩展点火时长与-ip-地址重要避坑"><a href="#54-专项扩展点火时长与-ip-地址重要避坑" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.4 专项扩展：点火时长与 IP 地址（重要避坑）</h3>
+<blockquote>
+<p><strong>安全红线</strong>：由于点火时长的应答指令与 IP 地址配置极易混淆，上位机必须严格区分解析，绝对禁止“盲写”测试，防止将错误数据覆盖到主板 EEPROM（例如将 IP 段 192 写入点火时长导致 192 秒极限异常）。</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th style="text-align:right">Cmd(dec/hex)</th><th>方向</th><th>名称</th><th>Payload</th><th>说明</th></tr></thead><tbody><tr><td style="text-align:right">48 / 0x30</td><td>WS→GC</td><td>查询点火时长</td><td>无</td><td><code>Cmd 178</code> 或 <code>181</code> 应答</td></tr><tr><td style="text-align:right">50 / 0x32</td><td>WS→GC</td><td>设置点火时长</td><td>1字节 <code>duration</code> (秒)</td><td>将点火时长烧录到主板 EEPROM 中（通常为 10 秒以内）。</td></tr><tr><td style="text-align:right">178, 181</td><td>GC→WS</td><td>点火时长应答</td><td>1字节 <code>duration</code></td><td>主动上报或对 <code>Cmd 48</code> 的回应。</td></tr><tr><td style="text-align:right">49 / 0x31</td><td>WS→GC</td><td>设置 IP 地址</td><td>6字节 (IP[4] + Port[2])</td><td>设定主板的网络参数，极度危险。</td></tr><tr><td style="text-align:right">176, 177</td><td>GC→WS</td><td>查询 IP 应答</td><td>6字节 (IP[4] + Port[2])</td><td>回应上位机或主动上报当前 IP。第一个字节通常是 <code>192</code>。旧版代码在收到该报文时会触发 <code>Answer176()</code>。绝对不能当做点火时长（181）处理。</td></tr></tbody></table></div>
+<p>对应实现：</p>
+<ul>
+<li><a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/TcpServerSocket.cs#L1640-L1684" class="rp-link">Answer159</a></li>
+</ul>
+<h4 class="rp-toc-include" id="532-当前-go重构侧处理方式"><a href="#532-当前-go重构侧处理方式" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.3.2 当前 Go/重构侧处理方式</h4>
+<p>当前 Go Collector 为了让 UI 可配置映射（载气/氢气/空气索引不固定），会在 telemetry 事件中带出：</p>
+<ul>
+<li><code>epc[]</code>：<code>[{psi,sccm}, ...]</code>（按条目序号 0..n-1）</li>
+<li>并保留旧的 <code>carrier/h2/air</code> 三路字段作为兼容（默认取前 3 路）</li>
+</ul>
+<p>实现见：</p>
+<ul>
+<li><code>telemetryEvent.Epc</code>： <a href="file:///d:/GIT/VS2022/Chromatography-workstation/src/edge/cmd/collector/main.go#L74-L99" class="rp-link">main.go</a></li>
+<li><code>Cmd=159</code> 处理： <a href="file:///d:/GIT/VS2022/Chromatography-workstation/src/edge/cmd/collector/main.go#L445-L487" class="rp-link">processFrame</a></li>
+</ul>
+<h3 class="rp-toc-include" id="54-控温程序升温事件表查询设置"><a href="#54-控温程序升温事件表查询设置" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.4 控温/程序升温/事件表（查询/设置）</h3>
+<p>这组命令的特点是：<strong>请求 payload 可能为空（查询）或为一个结构体字节块（设置）</strong>；应答 payload 为同结构体字节块。结构体的字节布局由 <code>InsDeviceManager.GetXXX()</code> 与 <code>SetXXX(byte[])</code> 决定。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th style="text-align:right">Cmd</th><th>方向</th><th>名称</th><th>Payload（请求）</th><th style="text-align:right">应答 Cmd</th><th>Payload（应答）</th><th>结构来源</th></tr></thead><tbody><tr><td style="text-align:right">0</td><td>WS→GC</td><td>控温参数查询</td><td>无</td><td style="text-align:right">128</td><td>TempSetedList</td><td>返回 24 字节：前 12 字节 6 路设定，后 12 字节 6 路保护</td></tr><tr><td style="text-align:right">8</td><td>WS→GC</td><td>控温参数设置</td><td>24 字节</td><td style="text-align:right">136</td><td>（确认/回读）</td><td>同 Cmd 0 的 24 字节结构</td></tr><tr><td style="text-align:right">1</td><td>WS→GC</td><td>程序升温参数查询</td><td>无</td><td style="text-align:right">129</td><td>TempSettingList</td><td><code>GetTempSettingList/SetTempSettingList</code></td></tr><tr><td style="text-align:right">9</td><td>WS→GC</td><td>程序升温参数设置</td><td>TempSettingList</td><td style="text-align:right">137</td><td>（确认/回读）</td><td>同上</td></tr><tr><td style="text-align:right">2</td><td>WS→GC</td><td>外部事件表0查询</td><td>无</td><td style="text-align:right">130</td><td>EventTable0</td><td><code>GetEventTable0/SetEventTable0</code></td></tr><tr><td style="text-align:right">10</td><td>WS→GC</td><td>外部事件表0设置</td><td>EventTable0</td><td style="text-align:right">138</td><td>（确认/回读）</td><td>同上</td></tr><tr><td style="text-align:right">100</td><td>WS→GC</td><td>外部事件表1查询</td><td>无</td><td style="text-align:right">228</td><td>EventTable1</td><td><code>GetEventTable1</code></td></tr><tr><td style="text-align:right">101</td><td>WS→GC</td><td>外部事件表1设置</td><td>EventTable1</td><td style="text-align:right">229</td><td>—</td><td><code>WriteEventTable1</code></td></tr><tr><td style="text-align:right">228</td><td>GC→WS</td><td>外部事件表1查询应答</td><td>—</td><td style="text-align:right">—</td><td>—</td><td>返回 96 字节 BCD 矩阵对应事件 5~8</td></tr><tr><td style="text-align:right">211</td><td>GC→WS</td><td>外部事件开关状态应答</td><td>—</td><td style="text-align:right">—</td><td>byte[25] 为 eventState</td><td><a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/TcpServerSocket.cs#L1832-L1842" class="rp-link">Answer211</a></td></tr><tr><td style="text-align:right">212</td><td>GC→WS</td><td>外部事件开关设置应答</td><td>—</td><td style="text-align:right">—</td><td>复用缓存 <code>byte_0</code></td><td><a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/TcpServerSocket.cs#L1844-L1853" class="rp-link">Answer212</a></td></tr></tbody></table></div>
+<blockquote>
+<p>注：上表的“结构体字节布局”如果你确实需要做到“寄存器级别逐字段”，建议下一步把 <code>InsDeviceManager</code> 的 <code>GetTempSetedList/GetTempSettingList/GetEventTable0/...</code> 的实现逐字段拆解并补充到本文件（这部分工作量较大，但可以做到完全对照）。</p>
+</blockquote>
+<h3 class="rp-toc-include" id="55-epc-参数名称控制查询设置"><a href="#55-epc-参数名称控制查询设置" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.5 EPC 参数/名称/控制（查询/设置）</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th style="text-align:right">Cmd</th><th>方向</th><th>名称</th><th>Payload</th><th>应答</th><th>说明</th></tr></thead><tbody><tr><td style="text-align:right">35</td><td>WS→GC</td><td>查询气路配置</td><td>无</td><td>163</td><td>气路配置块</td></tr><tr><td style="text-align:right">33</td><td>WS→GC</td><td>EPC设定参数查询</td><td>无</td><td>161</td><td>EPC设定参数块</td></tr><tr><td style="text-align:right">34</td><td>WS→GC</td><td>EPC参数设定</td><td>（结构块）</td><td>162</td><td>EPC设定返回</td></tr><tr><td style="text-align:right">36</td><td>WS→GC</td><td>查询EPC模块工作参数</td><td><code>type</code> 等（见 <code>SendCmd_36</code>）</td><td>164</td><td>EPC 模块参数返回</td></tr><tr><td style="text-align:right">37</td><td>WS→GC</td><td>设置EPC模块工作参数</td><td><code>type+params</code>（见 <code>SendCmd_37</code>）</td><td>165</td><td>设置返回</td></tr><tr><td style="text-align:right">38</td><td>WS→GC</td><td>查询EPC名称</td><td>无</td><td>166</td><td>EPC 名称块</td></tr><tr><td style="text-align:right">39</td><td>WS→GC</td><td>设置EPC名称</td><td>名称块</td><td>167</td><td>设置返回</td></tr><tr><td style="text-align:right">40</td><td>WS→GC</td><td>EPC控制状态查询</td><td>无</td><td>168</td><td>状态返回</td></tr><tr><td style="text-align:right">41</td><td>WS→GC</td><td>EPC控制</td><td><code>epcGasType</code> 1B（旧版固定 0）</td><td>169</td><td>控制返回</td></tr></tbody></table></div>
+<p>对应入口（旧版 payload 组包）：</p>
+<ul>
+<li><code>SendCmd_Convert</code> 的 33/36/37/39/41 分支：<a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/TcpServerSocket.cs#L2514-L2550" class="rp-link">TcpServerSocket.cs</a></li>
+</ul>
+<h3 class="rp-toc-include" id="56-网络名称使能"><a href="#56-网络名称使能" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.6 网络/名称/使能</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th style="text-align:right">Cmd</th><th>方向</th><th>名称</th><th>Payload</th><th>应答</th><th>说明</th></tr></thead><tbody><tr><td style="text-align:right">48</td><td>WS→GC</td><td>查询网络参数</td><td>无</td><td>176</td><td>返回网络参数块</td></tr><tr><td style="text-align:right">49</td><td>WS→GC</td><td>设置网络参数</td><td>网络参数块</td><td>177</td><td>设置返回</td></tr><tr><td style="text-align:right">64</td><td>WS→GC</td><td>查询控区名称</td><td>无</td><td>192</td><td>返回控区名称</td></tr><tr><td style="text-align:right">65</td><td>WS→GC</td><td>设置控区名称</td><td>名称块（见 <code>SendCmd_65</code>）</td><td>193</td><td>设置返回</td></tr><tr><td style="text-align:right">66</td><td>WS→GC</td><td>控温使能查询</td><td>无</td><td>194</td><td>返回 enable 位</td></tr><tr><td style="text-align:right">67</td><td>WS→GC</td><td>控温使能设置</td><td>enable 位（Bit 5=Inj1, Bit 4=Col, Bit 3=Det1, Bit 2=Inj2, Bit 1=Det2, Bit 0=Det3）</td><td>195</td><td>设置返回</td></tr><tr><td style="text-align:right">111</td><td>WS→GC</td><td>设置多位阀使能（扩展）</td><td>复选框 bitset</td><td>239</td><td>设置返回</td></tr><tr><td style="text-align:right">238</td><td>GC→WS</td><td>多位阀使能查询应答（扩展）</td><td>—</td><td>—</td><td>旧版收侧更新 <code>multivalveEnable</code></td></tr></tbody></table></div>
+<h3 class="rp-toc-include" id="57-扩展专项命令旧版实现中出现"><a href="#57-扩展专项命令旧版实现中出现" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.7 扩展/专项命令（旧版实现中出现）</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th style="text-align:right">Cmd</th><th>方向</th><th>名称/用途</th><th>Payload（已知）</th><th>说明</th></tr></thead><tbody><tr><td style="text-align:right">249</td><td>WS→GC</td><td>设置点火门限</td><td>2B：<code>fire1*10</code>、<code>fire2*10</code>（各 1B）</td><td>旧版 UI 文本框组包（见 <code>SendCmd_Convert case 249</code>）</td></tr><tr><td style="text-align:right">250</td><td>WS→GC / GC→WS</td><td>查询点火门限 / 查询应答</td><td>请求无；应答读 <code>frame[25..26]</code> <code>/10</code></td><td>旧版应答更新 UI（见 <a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/TcpServerSocket.cs#L610-L623" class="rp-link">AnalyseReceivedData case 250</a>）</td></tr><tr><td style="text-align:right">251</td><td>GC→WS</td><td>主板异常报警码</td><td>影响 <code>StateYiqi/bError</code> 与 Modbus 镜像</td><td><a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/TcpServerSocket.cs#L624-L655" class="rp-link">AnalyseReceivedData case 251</a></td></tr><tr><td style="text-align:right">252</td><td>WS→GC</td><td>设置高压</td><td>3B：<code>highV(u16BE)</code> + <code>index(1B)</code></td><td><a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/TcpServerSocket.cs#L2642-L2664" class="rp-link">SendCmd_Convert case 252</a></td></tr><tr><td style="text-align:right">253</td><td>WS→GC / GC→WS</td><td>查询高压 / 查询应答</td><td>请求 1B index；应答读 <code>frame[25..26]</code></td><td><a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/TcpServerSocket.cs#L2665-L2667" class="rp-link">SendCmd_Convert case 253</a></td></tr><tr><td style="text-align:right">234/236</td><td>GC→WS</td><td>控温保护参数查询/设置应答</td><td>结构块</td><td>旧版收侧 <code>SetTempProtectList</code></td></tr><tr><td style="text-align:right">216/217/218</td><td>GC→WS</td><td>液相泵相关</td><td>payload 未完全拆解</td><td>旧版存在 <code>Answer217/Answer218</code></td></tr><tr><td style="text-align:right">224/225/226/227</td><td>GC→WS</td><td>进样器型号/参数查询设置应答</td><td>结构块</td><td>旧版 <code>injectSet.ReadFromByte</code> 等</td></tr></tbody></table></div>
+<hr/>
+<h2 class="rp-toc-include" id="6-完整协议落地建议把未知字段补齐到可发布程度"><a href="#6-完整协议落地建议把未知字段补齐到可发布程度" class="rp-header-anchor rp-link" aria-hidden="true">#</a>6. “完整协议”落地建议（把未知字段补齐到可发布程度）</h2>
+<p>如果你要做到“像 Modbus 寄存器文档一样，字段级 100% 明确”，建议按下面顺序补全（每步都有明确产出）：</p>
+<ol>
+<li><strong>按命令号抓包对齐</strong>
+<ul>
+<li>抓一轮完整流程：上电→查询参数→开始分析→143/159持续→停止→出数→再次循环</li>
+<li>每个 Cmd 保存 3~5 条样本帧（包含不同通道/不同状态）</li>
+</ul>
+</li>
+<li><strong>把所有“结构块 payload”解码逐字段落表</strong>
+<ul>
+<li>目标类：<code>InsDeviceManager</code> 的 <code>Get*/Set*</code> 相关方法（控温/程序升温/事件表/EPC配置/网络参数/控区名称/使能位等）</li>
+</ul>
+</li>
+<li><strong>把 EPC(159) 的条目结构彻底校准</strong>
+<ul>
+<li>当前旧版实现对 <code>Byte2ToInt</code> 的步进疑似不一致，需要用抓包确认 “unknown 字段”到底是 2B 还是 1B</li>
+</ul>
+</li>
+<li><strong>建立版本标识</strong>
+<ul>
+<li>在文档首页增加“固件版本/硬件版本号 Cmd=5/133 的样本”，把协议差异归档为“版本差异表”</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 class="rp-toc-include" id="7-参考入口源码"><a href="#7-参考入口源码" class="rp-header-anchor rp-link" aria-hidden="true">#</a>7. 参考入口（源码）</h2>
+<ul>
+<li>主站协议总览：<a href="file:///d:/GIT/VS2022/Chromatography-workstation/docs/MASTER_STATION.md" class="rp-link">MASTER_STATION.md</a></li>
+<li>旧版收发与命令分发：
+<ul>
+<li><a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/TcpServerSocket.cs" class="rp-link">TcpServerSocket.cs</a></li>
+<li>命令字典：<a href="file:///d:/GIT/VS2022/Chromatography-workstation/IBrainChrom2018/GC08_GCs.cs#L81-L157" class="rp-link">GC08_GCs.cs</a></li>
+</ul>
+</li>
+<li>Go 协议实现：
+<ul>
+<li>GCKC 编解码：<a href="file:///d:/GIT/VS2022/Chromatography-workstation/src/edge/internal/protocol/gckc/frame.go" class="rp-link">frame.go</a></li>
+<li>143 数据块解析：<a href="file:///d:/GIT/VS2022/Chromatography-workstation/src/edge/internal/protocol/chromsend143/parse.go" class="rp-link">parse.go</a></li>
+</ul>
+</li>
+</ul>
+<hr/>
+<h2 class="rp-toc-include" id="附录-a命令号清单源码枚举"><a href="#附录-a命令号清单源码枚举" class="rp-header-anchor rp-link" aria-hidden="true">#</a>附录 A：命令号清单（源码枚举）</h2>
+<blockquote>
+<p>本清单用于回答“有哪些命令号存在”。名称来自 <code>GC08_GCs.lsItems</code> + <code>TcpServerSocket.AnalyseReceivedData/SendCmd_Convert</code> 的实际出现情况；未命名的标记为“（未命名/待补充）”。</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th style="text-align:right">Cmd(dec/hex)</th><th>名称（若已知）</th></tr></thead><tbody><tr><td style="text-align:right">0 / 0x00</td><td>控温参数查询</td></tr><tr><td style="text-align:right">1 / 0x01</td><td>程序升温参数查询</td></tr><tr><td style="text-align:right">2 / 0x02</td><td>外部事件参数查询</td></tr><tr><td style="text-align:right">3 / 0x03</td><td>设置执行文件号</td></tr><tr><td style="text-align:right">4 / 0x04</td><td>自动进样时间查询</td></tr><tr><td style="text-align:right">5 / 0x05</td><td>硬件版本号查询</td></tr><tr><td style="text-align:right">6 / 0x06</td><td>执行文件号查询</td></tr><tr><td style="text-align:right">7 / 0x07</td><td>设置仪器序列号</td></tr><tr><td style="text-align:right">8 / 0x08</td><td>控温参数设置</td></tr><tr><td style="text-align:right">9 / 0x09</td><td>程序升温参数设置</td></tr><tr><td style="text-align:right">10 / 0x0A</td><td>外部事件参数设置</td></tr><tr><td style="text-align:right">11 / 0x0B</td><td>设置时钟</td></tr><tr><td style="text-align:right">12 / 0x0C</td><td>设置自动进样时间</td></tr><tr><td style="text-align:right">13 / 0x0D</td><td>检测器参数查询</td></tr><tr><td style="text-align:right">14 / 0x0E</td><td>检测器参数设置</td></tr><tr><td style="text-align:right">16 / 0x10</td><td>控温反转 (Toggle)</td></tr><tr><td style="text-align:right">17 / 0x11</td><td>无效/未使用 (旧版误用)</td></tr><tr><td style="text-align:right">18 / 0x12</td><td>启动全部样品分析</td></tr><tr><td style="text-align:right">19 / 0x13</td><td>样品全部分析停止</td></tr><tr><td style="text-align:right">20 / 0x14</td><td>启动FID1点火</td></tr><tr><td style="text-align:right">21 / 0x15</td><td>启动FID2点火</td></tr><tr><td style="text-align:right">22 / 0x16</td><td>启动指定通道开始分析</td></tr><tr><td style="text-align:right">23 / 0x17</td><td>指定通道分析停止</td></tr><tr><td style="text-align:right">24 / 0x18</td><td>（未命名/待补充）</td></tr><tr><td style="text-align:right">33 / 0x21</td><td>EPC设定参数查询</td></tr><tr><td style="text-align:right">34 / 0x22</td><td>EPC参数设定</td></tr><tr><td style="text-align:right">35 / 0x23</td><td>查询气路配置</td></tr><tr><td style="text-align:right">36 / 0x24</td><td>查询EPC模块工作参数</td></tr><tr><td style="text-align:right">37 / 0x25</td><td>设置查询EPC模块工作参数</td></tr><tr><td style="text-align:right">38 / 0x26</td><td>查询EPC名称</td></tr><tr><td style="text-align:right">39 / 0x27</td><td>设置EPC名称</td></tr><tr><td style="text-align:right">40 / 0x28</td><td>EPC控制状态查询</td></tr><tr><td style="text-align:right">41 / 0x29</td><td>EPC控制</td></tr><tr><td style="text-align:right">48 / 0x30</td><td>查询网络参数</td></tr><tr><td style="text-align:right">49 / 0x31</td><td>设置网络参数</td></tr><tr><td style="text-align:right">50 / 0x32</td><td>设置点火时长（旧版 SendCmd_Convert）</td></tr><tr><td style="text-align:right">53 / 0x35</td><td>（未命名/待补充）</td></tr><tr><td style="text-align:right">60 / 0x3C</td><td>（未命名/待补充）</td></tr><tr><td style="text-align:right">61 / 0x3D</td><td>设定工作站量程（旧版 UI）</td></tr><tr><td style="text-align:right">62 / 0x3E</td><td>（未命名/待补充）</td></tr><tr><td style="text-align:right">63 / 0x3F</td><td>短信报警（旧版 GetSmsAlarm）</td></tr><tr><td style="text-align:right">64 / 0x40</td><td>查询控区名称</td></tr><tr><td style="text-align:right">65 / 0x41</td><td>设置控区名称</td></tr><tr><td style="text-align:right">66 / 0x42</td><td>控温使能查询</td></tr><tr><td style="text-align:right">67 / 0x43</td><td>控温使能设置</td></tr><tr><td style="text-align:right">69 / 0x45</td><td>流量/气路状态（旧版 GetFlowState）</td></tr><tr><td style="text-align:right">80 / 0x50</td><td>短信/提示设置（GetSmsSetiingInfo）</td></tr><tr><td style="text-align:right">89 / 0x59</td><td>（未命名/待补充）</td></tr><tr><td style="text-align:right">90 / 0x5A</td><td>液相信息（旧版 GetLiquidInfo）</td></tr><tr><td style="text-align:right">91 / 0x5B</td><td>（旧版走 case 90 分支的 fallthrough，待确认）</td></tr><tr><td style="text-align:right">97 / 0x61</td><td>自动进样器参数设置（旧版 injectSet.GetByte）</td></tr><tr><td style="text-align:right">99 / 0x63</td><td>自动进样器控制位（旧版 AutoInjCtrl）</td></tr><tr><td style="text-align:right">100 / 0x64</td><td>（未命名/待补充）</td></tr><tr><td style="text-align:right">101 / 0x65</td><td>外部事件表1参数设置（旧版）</td></tr><tr><td style="text-align:right">104 / 0x68</td><td>复位多位阀（旧版）</td></tr><tr><td style="text-align:right">106 / 0x6A</td><td>控温保护参数设置（旧版）</td></tr><tr><td style="text-align:right">110 / 0x6E</td><td>（未命名/待补充）</td></tr><tr><td style="text-align:right">111 / 0x6F</td><td>设置多位阀使能（旧版）</td></tr><tr><td style="text-align:right">128 / 0x80</td><td>控温参数查询应答</td></tr><tr><td style="text-align:right">129 / 0x81</td><td>程序升温参数查询应答</td></tr><tr><td style="text-align:right">130 / 0x82</td><td>外部事件参数查询应答</td></tr><tr><td style="text-align:right">131 / 0x83</td><td>设置执行文件号应答</td></tr><tr><td style="text-align:right">132 / 0x84</td><td>自动进样时间查询应答</td></tr><tr><td style="text-align:right">133 / 0x85</td><td>硬件版本号查询应答</td></tr><tr><td style="text-align:right">134 / 0x86</td><td>执行文件号查询应答</td></tr><tr><td style="text-align:right">135 / 0x87</td><td>设置仪器序列号应答</td></tr><tr><td style="text-align:right">136 / 0x88</td><td>控温参数设置应答</td></tr><tr><td style="text-align:right">137 / 0x89</td><td>程序升温参数设置应答</td></tr><tr><td style="text-align:right">138 / 0x8A</td><td>外部事件参数设置应答</td></tr><tr><td style="text-align:right">139 / 0x8B</td><td>设置时钟应答</td></tr><tr><td style="text-align:right">140 / 0x8C</td><td>设置自动进样时间应答</td></tr><tr><td style="text-align:right">141 / 0x8D</td><td>检测器参数查询应答</td></tr><tr><td style="text-align:right">142 / 0x8E</td><td>检测器参数设置应答</td></tr><tr><td style="text-align:right">143 / 0x8F</td><td>温度数据/检测器数据流（主板推送）</td></tr><tr><td style="text-align:right">144 / 0x90</td><td>控温反转应答</td></tr><tr><td style="text-align:right">145 / 0x91</td><td>无效应答 (旧版误用)</td></tr><tr><td style="text-align:right">146 / 0x92</td><td>启动全部样品分析应答</td></tr><tr><td style="text-align:right">147 / 0x93</td><td>样品全部分析停止应答</td></tr><tr><td style="text-align:right">150 / 0x96</td><td>启动指定通道分析应答</td></tr><tr><td style="text-align:right">151 / 0x97</td><td>指定通道分析停止应答</td></tr><tr><td style="text-align:right">159 / 0x9F</td><td>EPC数据（主板推送）</td></tr><tr><td style="text-align:right">161 / 0xA1</td><td>EPC设定参数查询返回</td></tr><tr><td style="text-align:right">162 / 0xA2</td><td>EPC参数设定返回</td></tr><tr><td style="text-align:right">163 / 0xA3</td><td>查询气路配置应答</td></tr><tr><td style="text-align:right">164 / 0xA4</td><td>查询EPC模块工作参数应答</td></tr><tr><td style="text-align:right">165 / 0xA5</td><td>设置查询EPC模块工作参数应答</td></tr><tr><td style="text-align:right">166 / 0xA6</td><td>查询EPC名称应答</td></tr><tr><td style="text-align:right">167 / 0xA7</td><td>设置EPC名称应答</td></tr><tr><td style="text-align:right">168 / 0xA8</td><td>EPC控制状态查询返回</td></tr><tr><td style="text-align:right">169 / 0xA9</td><td>EPC控制返回</td></tr><tr><td style="text-align:right">172 / 0xAC</td><td>EPS 用于何处查询应答（旧版仅显示描述）</td></tr><tr><td style="text-align:right">175 / 0xAF</td><td>（旧版用于高压显示，名称在字典中写“自动进样器数据”，需抓包确认）</td></tr><tr><td style="text-align:right">176 / 0xB0</td><td>查询网络参数应答</td></tr><tr><td style="text-align:right">177 / 0xB1</td><td>设置网络参数应答</td></tr><tr><td style="text-align:right">178 / 0xB2</td><td>点火时长设置应答（旧版提及）</td></tr><tr><td style="text-align:right">181 / 0xB5</td><td>点火时长查询应答</td></tr><tr><td style="text-align:right">188 / 0xBC</td><td>工作站量程查询应答</td></tr><tr><td style="text-align:right">189 / 0xBD</td><td>工作站量程设置应答</td></tr><tr><td style="text-align:right">190 / 0xBE</td><td>是否鸣叫指令查询应答</td></tr><tr><td style="text-align:right">191 / 0xBF</td><td>是否鸣叫指令设置应答</td></tr><tr><td style="text-align:right">192 / 0xC0</td><td>查询控区名称应答</td></tr><tr><td style="text-align:right">193 / 0xC1</td><td>设置控区名称应答</td></tr><tr><td style="text-align:right">194 / 0xC2</td><td>控温使能查询应答</td></tr><tr><td style="text-align:right">195 / 0xC3</td><td>控温使能设置应答</td></tr><tr><td style="text-align:right">208 / 0xD0</td><td>鸣叫及文字提示应答</td></tr><tr><td style="text-align:right">211 / 0xD3</td><td>外部事件开关状态应答</td></tr><tr><td style="text-align:right">212 / 0xD4</td><td>外部事件开关设置应答</td></tr><tr><td style="text-align:right">216 / 0xD8</td><td>液相泵开关应答</td></tr><tr><td style="text-align:right">217 / 0xD9</td><td>液相泵状态查询应答</td></tr><tr><td style="text-align:right">218 / 0xDA</td><td>液相泵控制状态设置应答</td></tr><tr><td style="text-align:right">224 / 0xE0</td><td>进样器型号查询应答</td></tr><tr><td style="text-align:right">225 / 0xE1</td><td>进样器型号设置应答</td></tr><tr><td style="text-align:right">226 / 0xE2</td><td>进样器参数查询应答</td></tr><tr><td style="text-align:right">227 / 0xE3</td><td>进样器参数设置应答</td></tr><tr><td style="text-align:right">228 / 0xE4</td><td>外部事件表1查询应答</td></tr><tr><td style="text-align:right">229 / 0xE5</td><td>外部事件表1设置应答</td></tr><tr><td style="text-align:right">232 / 0xE8</td><td>复位多位阀返回</td></tr><tr><td style="text-align:right">234 / 0xEA</td><td>控温保护参数查询应答</td></tr><tr><td style="text-align:right">236 / 0xEC</td><td>控温保护参数设置应答</td></tr><tr><td style="text-align:right">238 / 0xEE</td><td>多位阀使能查询应答</td></tr><tr><td style="text-align:right">239 / 0xEF</td><td>多位阀使能设置应答</td></tr><tr><td style="text-align:right">245 / 0xF5</td><td>到采集时间请求停止（旧版自动）</td></tr><tr><td style="text-align:right">249 / 0xF9</td><td>点火门限设置</td></tr><tr><td style="text-align:right">250 / 0xFA</td><td>点火门限查询应答</td></tr><tr><td style="text-align:right">251 / 0xFB</td><td>主板异常报警码</td></tr><tr><td style="text-align:right">252 / 0xFC</td><td>高压设置</td></tr><tr><td style="text-align:right">253 / 0xFD</td><td>高压查询/应答</td></tr></tbody></table></div><!--/$--></div><footer class="rp-doc-footer"><div class="rp-doc-footer__edit"></div><div class="rp-doc-footer__divider"></div><div class="rp-prev-next-page"><div class="rp-prev-next-page__placeholder"></div><div class="rp-prev-next-page__placeholder"></div></div></footer></main></div><aside class="rp-doc-layout__outline rp-scrollbar"><div class="rp-outline"><div class="rp-outline__title">ON THIS PAGE<svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg></div><nav class="rp-outline__toc rp-scrollbar"><a href="#1-传输与端口" class="rp-toc-item rp-link" title="1. 传输与端口" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">1. 传输与端口</span></a><a href="#2-帧格式固定外壳" class="rp-toc-item rp-link" title="2. 帧格式（固定外壳）" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">2. 帧格式（固定外壳）</span></a><a href="#21-总结构" class="rp-toc-item rp-link" title="2.1 总结构" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">2.1 总结构</span></a><a href="#22-crc校验算法" class="rp-toc-item rp-link" title="2.2 CRC（校验算法）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">2.2 CRC（校验算法）</span></a><a href="#23-设备-id-特殊兼容" class="rp-toc-item rp-link" title="2.3 设备 ID 特殊兼容" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">2.3 设备 ID 特殊兼容</span></a><a href="#3-常见字段编码约定payload-内部用得多" class="rp-toc-item rp-link" title="3. 常见字段编码约定（payload 内部用得多）" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">3. 常见字段编码约定（payload 内部用得多）</span></a><a href="#31-整数与端序" class="rp-toc-item rp-link" title="3.1 整数与端序" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3.1 整数与端序</span></a><a href="#32-bcd十进制压缩温度数值" class="rp-toc-item rp-link" title="3.2 BCD（十进制压缩）温度/数值" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3.2 BCD（十进制压缩）温度/数值</span></a><a href="#33-65535无效值" class="rp-toc-item rp-link" title="3.3 “655.35”无效值" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3.3 “655.35”无效值</span></a><a href="#4-命令总览命令字典" class="rp-toc-item rp-link" title="4. 命令总览（命令字典）" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">4. 命令总览（命令字典）</span></a><a href="#41-旧版内置命令号名称字典基础集" class="rp-toc-item rp-link" title="4.1 旧版内置“命令号→名称”字典（基础集）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.1 旧版内置“命令号→名称”字典（基础集）</span></a><a href="#42-命令分类索引建议按域理解" class="rp-toc-item rp-link" title="4.2 命令分类索引（建议按域理解）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.2 命令分类索引（建议按域理解）</span></a><a href="#5-详细命令说明表格" class="rp-toc-item rp-link" title="5. 详细命令说明（表格）" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">5. 详细命令说明（表格）</span></a><a href="#51-采集分析流程命令" class="rp-toc-item rp-link" title="5.1 采集/分析流程命令" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">5.1 采集/分析流程命令</span></a><a href="#52-实时数据推送cmd143chromsend" class="rp-toc-item rp-link" title="5.2 实时数据推送：Cmd=143（ChromSend）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">5.2 实时数据推送：Cmd=143（ChromSend）</span></a><a href="#521-payload-结构基于-go-chromsend143parseall-与旧版逻辑一致" class="rp-toc-item rp-link" title="5.2.1 payload 结构（基于 Go chromsend143.ParseAll 与旧版逻辑一致）" style="padding-left:24px" data-depth="2"><span class="rp-toc-item__text rp-doc">5.2.1 payload 结构（基于 Go <code>chromsend143.ParseAll</code> 与旧版逻辑一致）</span></a><a href="#522-通道映射dettype--channel" class="rp-toc-item rp-link" title="5.2.2 通道映射（detType → channel）" style="padding-left:24px" data-depth="2"><span class="rp-toc-item__text rp-doc">5.2.2 通道映射（detType → channel）</span></a><a href="#523-点值换算raw--pa" class="rp-toc-item rp-link" title="5.2.3 点值换算（raw → pA）" style="padding-left:24px" data-depth="2"><span class="rp-toc-item__text rp-doc">5.2.3 点值换算（raw → pA）</span></a><a href="#524-旧版额外温度payload-尾部-2-路" class="rp-toc-item rp-link" title="5.2.4 旧版额外温度（payload 尾部 2 路）" style="padding-left:24px" data-depth="2"><span class="rp-toc-item__text rp-doc">5.2.4 旧版额外温度（payload 尾部 2 路）</span></a><a href="#53-epc-气路实测推送cmd159" class="rp-toc-item rp-link" title="5.3 EPC 气路实测推送：Cmd=159" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">5.3 EPC 气路实测推送：Cmd=159</span></a><a href="#531-payload-结构基于旧版-answer159" class="rp-toc-item rp-link" title="5.3.1 payload 结构（基于旧版 Answer159）" style="padding-left:24px" data-depth="2"><span class="rp-toc-item__text rp-doc">5.3.1 payload 结构（基于旧版 <code>Answer159</code>）</span></a><a href="#54-专项扩展点火时长与-ip-地址重要避坑" class="rp-toc-item rp-link" title="5.4 专项扩展：点火时长与 IP 地址（重要避坑）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">5.4 专项扩展：点火时长与 IP 地址（重要避坑）</span></a><a href="#532-当前-go重构侧处理方式" class="rp-toc-item rp-link" title="5.3.2 当前 Go/重构侧处理方式" style="padding-left:24px" data-depth="2"><span class="rp-toc-item__text rp-doc">5.3.2 当前 Go/重构侧处理方式</span></a><a href="#54-控温程序升温事件表查询设置" class="rp-toc-item rp-link" title="5.4 控温/程序升温/事件表（查询/设置）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">5.4 控温/程序升温/事件表（查询/设置）</span></a><a href="#55-epc-参数名称控制查询设置" class="rp-toc-item rp-link" title="5.5 EPC 参数/名称/控制（查询/设置）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">5.5 EPC 参数/名称/控制（查询/设置）</span></a><a href="#56-网络名称使能" class="rp-toc-item rp-link" title="5.6 网络/名称/使能" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">5.6 网络/名称/使能</span></a><a href="#57-扩展专项命令旧版实现中出现" class="rp-toc-item rp-link" title="5.7 扩展/专项命令（旧版实现中出现）" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">5.7 扩展/专项命令（旧版实现中出现）</span></a><a href="#6-完整协议落地建议把未知字段补齐到可发布程度" class="rp-toc-item rp-link" title="6. “完整协议”落地建议（把未知字段补齐到可发布程度）" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">6. “完整协议”落地建议（把未知字段补齐到可发布程度）</span></a><a href="#7-参考入口源码" class="rp-toc-item rp-link" title="7. 参考入口（源码）" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">7. 参考入口（源码）</span></a><a href="#附录-a命令号清单源码枚举" class="rp-toc-item rp-link" title="附录 A：命令号清单（源码枚举）" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">附录 A：命令号清单（源码枚举）</span></a></nav><div class="rp-outline__divider"></div><div class="rp-outline__bottom"></div></div></aside></div></div>
+    <div id="__rspress_modal_container"></div>
+  </body>
+</html>

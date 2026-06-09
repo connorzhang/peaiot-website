@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PeaBSS 用户手册 - 企业文档中心 | 奕柏科技</title>
+<script>{;const saved = localStorage.getItem('rspress-theme-appearance');const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches;const isDark = !saved || saved === 'auto' ? preferDark : saved === 'dark';document.documentElement.classList.toggle('dark', isDark);document.documentElement.classList.toggle('rp-dark', isDark);document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';}</script>
+<link href="/static/css/styles.3acae6679e.css" rel="stylesheet">
+<script defer src="/static/js/styles.b10ef529e7.js"></script>
+<script defer src="/static/js/lib-react.b866a4fe50.js"></script>
+<script defer src="/static/js/lib-router.47ee6159f2.js"></script>
+<script defer src="/static/js/4653.96b19df9c5.js"></script>
+<script defer src="/static/js/index.571209b70a.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Rspress v2.0.13">
+<link rel="icon" href="/peaiot-logo.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="PeaBSS 用户手册 - 企业文档中心 | 奕柏科技">
+<meta name="description" content="涵盖硬件仪器、软件平台的全矩阵在线说明书与技术支持">
+<meta property="og:description" content="涵盖硬件仪器、软件平台的全矩阵在线说明书与技术支持"></head>
+
+  <body>
+    <div id="__rspress_root"><link rel="preload" as="image" href="/peaiot-logo.png"/><header class="rp-nav"><div class="rp-nav__left"><div class="rp-nav__title"><a href="/" class="rp-nav__title__link rp-link"><div class="rp-nav__title__logo"><img src="/peaiot-logo.png" alt="logo" id="logo" class="rspress-logo rp-nav__title__logo-image"/></div><span>企业文档中心</span></a></div></div><div class="rp-nav__right"><button class="rp-search-button"><div class="rp-search-button__content"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21" class="rp-search-button__icon"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg><span class="rp-search-button__word">Search</span></div><div class="rp-search-button__hotkey" style="opacity:0"><span></span><span>K</span></div></button><div class="rp-search-button--mobile"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 20 21"><path fill="currentColor" d="M8.333 1.913A6.667 6.667 0 0 1 15 8.58c0 1.54-.525 2.957-1.402 4.085l4.49 4.492a.834.834 0 0 1-1.177 1.178l-4.491-4.49a6.64 6.64 0 0 1-4.087 1.402 6.667 6.667 0 0 1 0-13.334m0 1.667a5 5 0 1 0 0 10 5 5 0 0 0 0-10"></path></svg></div><ul class="rp-nav-menu rp-nav-menu--right"><li class="rp-nav-menu__item rp-nav-menu__item--active"><a href="/index.html" class="rp-nav-menu__item__container rp-link">产品手册目录</a></li><li class="rp-nav-menu__item"><a href="/explore.html" class="rp-nav-menu__item__container rp-link">探索项目</a></li></ul><div class="rp-nav__others"><div class="rp-nav-menu__divider"></div><div class="rp-switch-appearance"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" class="rp-switch-appearance__icon rp-switch-appearance__icon--sun"><path fill="currentColor" d="m7.001 15.848-1.226 1.226a.58.58 0 0 0 0 .818.58.58 0 0 0 .818 0l1.226-1.226a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0m-.352-8.735a.584.584 0 0 0 .825-.825L6.237 5.051a.584.584 0 0 0-.825.825zM5.011 11.07h-1.75a.584.584 0 0 0 0 1.167h1.75c.324 0 .584-.26.584-.583a.585.585 0 0 0-.584-.584m7.003-5.835c.324 0 .584-.26.584-.584V2.9a.58.58 0 0 0-.584-.584.58.58 0 0 0-.583.583V4.65c0 .323.262.584.583.584m5.616 1.621 1.226-1.225a.58.58 0 0 0 0-.818.58.58 0 0 0-.818 0l-1.226 1.225a.58.58 0 0 0 0 .818.576.576 0 0 0 .818 0m3.138 4.214h-1.75a.58.58 0 0 0-.584.584c0 .324.26.584.583.584h1.751a.584.584 0 1 0 0-1.167m-3.389 5.124a.584.584 0 0 0-.825.825l1.238 1.238a.584.584 0 0 0 .825-.826zm-5.365-9.795a5.256 5.256 0 0 0-5.257 5.258 5.256 5.256 0 0 0 5.257 5.257 5.256 5.256 0 0 0 5.257-5.257 5.256 5.256 0 0 0-5.257-5.258m0 11.675a.58.58 0 0 0-.583.583v1.751a.582.582 0 1 0 1.167 0v-1.75a.584.584 0 0 0-.584-.584"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" viewBox="0 0 19 19" class="rp-switch-appearance__icon rp-switch-appearance__icon--moon"><path fill="currentColor" d="M9.166 0a9.2 9.2 0 0 1 1.857.188.834.834 0 0 1 .042 1.623 4.47 4.47 0 1 0 5.457 5.457l.048-.135a.834.834 0 0 1 1.575.177q.186.902.188 1.856A9.168 9.168 0 1 1 9.166 0"></path></svg></div></div><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__sm"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg></button><button aria-label="mobile hamburger" class="rp-nav-hamburger rp-nav-hamburger__md"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 21 21"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667" d="M3.645 5.225h13.333M3.645 10.225h13.333M3.645 15.225h13.333"></path></svg><ul class="rp-hover-group rp-hover-group--hidden rp-hover-group--right"><div class="rp-nav-menu__others-mobile__container"><div class="rp-nav-hamburger__md__hover-group"><div class="rp-nav-screen-appearance"><div class="rp-nav-screen-appearance__left">Theme</div><div class="rp-nav-screen-appearance__right"></div></div><div class="rp-nav-screen-divider"></div></div></div></ul></button></div></header><div class="rp-doc-layout__menu"><div class="rp-sidebar-menu"><button type="button" class="rp-sidebar-menu__left"><svg width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M4 6h24v2H4zm0 18h24v2H4zm0-12h24v2H4zm0 6h24v2H4z"></path></svg><span>Menu</span></button><button type="button" class="rp-sidebar-menu__right"><span class="rp-sidebar-menu__right__text">ON THIS PAGE</span><svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg><svg width="1em" height="1em" viewBox="0 0 32 32" class="rp-sidebar-menu__right__icon" style="transform:rotate(0deg);transition:transform 0.2s ease-out"><path fill="currentColor" d="M22 16 12 26l-1.4-1.4 8.6-8.6-8.6-8.6L12 6z"></path></svg></button></div></div><div class="rp-doc-layout__container"><aside class="rp-doc-layout__sidebar rp-scrollbar"></aside><div class="rp-doc-layout__doc"><main class="rp-doc-layout__doc-container"><div class="rp-doc rspress-doc"><!--$--><h1 class="rp-toc-include" id="peabss-用户手册"><a href="#peabss-用户手册" class="rp-header-anchor rp-link" aria-hidden="true">#</a>PeaBSS 用户手册<!-- --> </h1>
+<h2 class="rp-toc-include" id="1-系统概述"><a href="#1-系统概述" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1. 系统概述</h2>
+<p>PeaBSS（豌豆易联业务服务支撑系统）是一个专业的环保物联网平台，用于环保监测设备的数据采集、存储、分析和可视化。本系统支持多种环保监测协议，提供实时数据监控、告警管理、数据分析和智能报表等功能。</p>
+<h3 class="rp-toc-include" id="11-系统特点"><a href="#11-系统特点" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1.1 系统特点</h3>
+<ul>
+<li><strong>多协议支持</strong>: 支持 HJ212、MQTT、Modbus 等多种设备协议</li>
+<li><strong>实时监控</strong>: 实时采集和展示设备数据</li>
+<li><strong>智能分析</strong>: 基于 AI 的数据分析和预测</li>
+<li><strong>地理信息集成</strong>: 结合 GIS 地图展示设备分布和状态</li>
+<li><strong>多端访问</strong>: 支持 Web 端和移动 APP 访问</li>
+<li><strong>告警管理</strong>: 基于阈值的告警和多渠道通知</li>
+</ul>
+<h3 class="rp-toc-include" id="12-适用场景"><a href="#12-适用场景" class="rp-header-anchor rp-link" aria-hidden="true">#</a>1.2 适用场景</h3>
+<ul>
+<li><strong>环境监测</strong>: 空气质量、水质、噪声等环境参数监测</li>
+<li><strong>工业环保</strong>: 工厂废气、废水排放监测</li>
+<li><strong>城市环境</strong>: 城市空气质量监测网络</li>
+<li><strong>园区监测</strong>: 产业园区环境监测</li>
+<li><strong>建筑工地</strong>: 扬尘、噪声监测</li>
+</ul>
+<h2 class="rp-toc-include" id="2-快速入门"><a href="#2-快速入门" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2. 快速入门</h2>
+<h3 class="rp-toc-include" id="21-登录系统"><a href="#21-登录系统" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2.1 登录系统</h3>
+<ol>
+<li><strong>打开浏览器</strong>，输入系统地址（默认：<a href="http://localhost:1870%EF%BC%89" target="_blank" rel="noopener noreferrer" class="rp-link">http://localhost:1870）</a></li>
+<li><strong>输入用户名和密码</strong>
+<ul>
+<li>管理员账号: admin / Adm@#2022!</li>
+<li>普通用户账号: master / opr123</li>
+</ul>
+</li>
+<li><strong>点击登录</strong>进入系统</li>
+</ol>
+<h3 class="rp-toc-include" id="22-系统界面"><a href="#22-系统界面" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2.2 系统界面</h3>
+<ul>
+<li><strong>左侧菜单</strong>: 系统功能导航</li>
+<li><strong>顶部导航</strong>: 系统标题、用户信息、退出按钮</li>
+<li><strong>主内容区</strong>: 功能模块内容</li>
+<li><strong>底部状态栏</strong>: 系统版本、状态信息</li>
+</ul>
+<h3 class="rp-toc-include" id="23-首次使用"><a href="#23-首次使用" class="rp-header-anchor rp-link" aria-hidden="true">#</a>2.3 首次使用</h3>
+<ol>
+<li><strong>初始化数据库</strong>: 首次使用需要运行 <code>./peabss -initdb</code> 初始化数据库</li>
+<li><strong>添加设备</strong>: 在设备管理中添加监测设备</li>
+<li><strong>配置告警</strong>: 设置设备告警阈值</li>
+<li><strong>查看数据</strong>: 在数据监测中查看设备数据</li>
+<li><strong>设置大屏</strong>: 配置 GIS 大屏和 AI BI 大屏</li>
+</ol>
+<h2 class="rp-toc-include" id="3-设备管理"><a href="#3-设备管理" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3. 设备管理</h2>
+<h3 class="rp-toc-include" id="31-设备列表"><a href="#31-设备列表" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3.1 设备列表</h3>
+<ul>
+<li><strong>查看设备</strong>: 在左侧菜单中点击「设备管理」→「设备列表」</li>
+<li><strong>搜索设备</strong>: 使用搜索框按设备名称、MN 号等搜索设备</li>
+<li><strong>筛选设备</strong>: 按组织、项目、状态等筛选设备</li>
+<li><strong>设备详情</strong>: 点击设备名称查看详细信息</li>
+</ul>
+<h3 class="rp-toc-include" id="32-添加设备"><a href="#32-添加设备" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3.2 添加设备</h3>
+<ol>
+<li><strong>点击添加按钮</strong>: 在设备列表页面点击「添加」按钮</li>
+<li><strong>填写设备信息</strong>:
+<ul>
+<li>设备名称: 设备的显示名称</li>
+<li>MN 号: 设备唯一标识符</li>
+<li>设备类型: 选择设备类型（如 peaedge、dtu 等）</li>
+<li>组织 ID: 选择设备所属组织</li>
+<li>项目 ID: 选择设备所属项目</li>
+<li>安装地址: 设备安装位置</li>
+<li>GPS 坐标: 设备经纬度（用于 GIS 大屏）</li>
+</ul>
+</li>
+<li><strong>保存设备</strong>: 点击「保存」按钮</li>
+</ol>
+<h3 class="rp-toc-include" id="33-设备状态"><a href="#33-设备状态" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3.3 设备状态</h3>
+<ul>
+<li><strong>在线状态</strong>: 设备正常连接，显示绿色</li>
+<li><strong>离线状态</strong>: 设备断开连接，显示红色</li>
+<li><strong>未知状态</strong>: 设备状态未知，显示灰色</li>
+</ul>
+<h3 class="rp-toc-include" id="34-设备数据同步"><a href="#34-设备数据同步" class="rp-header-anchor rp-link" aria-hidden="true">#</a>3.4 设备数据同步</h3>
+<ol>
+<li><strong>选择设备</strong>: 在设备列表中选择需要同步数据的设备</li>
+<li><strong>点击同步按钮</strong>: 点击「同步因子」按钮</li>
+<li><strong>等待同步完成</strong>: 系统会自动分析设备历史数据，同步因子信息</li>
+</ol>
+<h2 class="rp-toc-include" id="4-数据监测"><a href="#4-数据监测" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4. 数据监测</h2>
+<h3 class="rp-toc-include" id="41-实时数据"><a href="#41-实时数据" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.1 实时数据</h3>
+<ul>
+<li><strong>查看实时数据</strong>: 在左侧菜单中点击「数据监测」→「实时数据」</li>
+<li><strong>选择设备</strong>: 选择需要查看的设备</li>
+<li><strong>查看因子</strong>: 查看设备的各个监测因子数据</li>
+<li><strong>数据刷新</strong>: 页面会自动刷新实时数据</li>
+</ul>
+<h3 class="rp-toc-include" id="42-历史数据"><a href="#42-历史数据" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.2 历史数据</h3>
+<ol>
+<li><strong>选择设备</strong>: 选择需要查看历史数据的设备</li>
+<li><strong>设置时间范围</strong>: 选择开始时间和结束时间</li>
+<li><strong>选择因子</strong>: 选择需要查看的监测因子</li>
+<li><strong>查看数据</strong>: 系统会显示选定时间范围内的历史数据</li>
+<li><strong>导出数据</strong>: 点击「导出」按钮导出数据为 Excel 文件</li>
+</ol>
+<h3 class="rp-toc-include" id="43-数据报表"><a href="#43-数据报表" class="rp-header-anchor rp-link" aria-hidden="true">#</a>4.3 数据报表</h3>
+<ul>
+<li><strong>日报表</strong>: 查看每日数据汇总</li>
+<li><strong>周报表</strong>: 查看每周数据汇总</li>
+<li><strong>月报表</strong>: 查看每月数据汇总</li>
+<li><strong>自定义报表</strong>: 设置自定义时间范围的报表</li>
+</ul>
+<h2 class="rp-toc-include" id="5-告警管理"><a href="#5-告警管理" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5. 告警管理</h2>
+<h3 class="rp-toc-include" id="51-告警配置"><a href="#51-告警配置" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.1 告警配置</h3>
+<ol>
+<li><strong>选择设备</strong>: 在设备列表中选择需要配置告警的设备</li>
+<li><strong>点击告警配置</strong>: 点击「告警配置」按钮</li>
+<li><strong>设置阈值</strong>: 为每个监测因子设置告警阈值</li>
+<li><strong>选择告警方式</strong>: 启用短信告警、微信告警等</li>
+<li><strong>保存配置</strong>: 点击「保存」按钮</li>
+</ol>
+<h3 class="rp-toc-include" id="52-告警列表"><a href="#52-告警列表" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.2 告警列表</h3>
+<ul>
+<li><strong>查看告警</strong>: 在左侧菜单中点击「告警管理」→「告警列表」</li>
+<li><strong>筛选告警</strong>: 按设备、时间、级别等筛选告警</li>
+<li><strong>处理告警</strong>: 点击告警记录进行处理</li>
+<li><strong>告警统计</strong>: 查看告警统计信息</li>
+</ul>
+<h3 class="rp-toc-include" id="53-告警通知"><a href="#53-告警通知" class="rp-header-anchor rp-link" aria-hidden="true">#</a>5.3 告警通知</h3>
+<ul>
+<li><strong>短信通知</strong>: 向指定手机号发送告警短信</li>
+<li><strong>微信通知</strong>: 向指定微信用户发送告警通知</li>
+<li><strong>邮件通知</strong>: 向指定邮箱发送告警邮件</li>
+</ul>
+<h2 class="rp-toc-include" id="6-大屏展示"><a href="#6-大屏展示" class="rp-header-anchor rp-link" aria-hidden="true">#</a>6. 大屏展示</h2>
+<h3 class="rp-toc-include" id="61-gis-大屏"><a href="#61-gis-大屏" class="rp-header-anchor rp-link" aria-hidden="true">#</a>6.1 GIS 大屏</h3>
+<ul>
+<li><strong>访问大屏</strong>: 在左侧菜单中点击「大屏展示」→「GIS 大屏」</li>
+<li><strong>查看设备分布</strong>: 在地图上查看设备分布情况</li>
+<li><strong>设备状态</strong>: 地图上的设备图标显示设备状态</li>
+<li><strong>数据趋势</strong>: 查看设备数据趋势图表</li>
+<li><strong>系统状态</strong>: 查看系统健康状态</li>
+</ul>
+<h3 class="rp-toc-include" id="62-ai-bi-大屏"><a href="#62-ai-bi-大屏" class="rp-header-anchor rp-link" aria-hidden="true">#</a>6.2 AI BI 大屏</h3>
+<ul>
+<li><strong>访问大屏</strong>: 在左侧菜单中点击「大屏展示」→「AI BI 大屏」</li>
+<li><strong>智能分析</strong>: 查看 AI 生成的数据分析报告</li>
+<li><strong>数据可视化</strong>: 查看各种数据可视化图表</li>
+<li><strong>AI 交互</strong>: 与 AI 对话，获取数据分析和预测</li>
+<li><strong>系统监控</strong>: 查看系统运行状态</li>
+</ul>
+<h2 class="rp-toc-include" id="7-系统管理"><a href="#7-系统管理" class="rp-header-anchor rp-link" aria-hidden="true">#</a>7. 系统管理</h2>
+<h3 class="rp-toc-include" id="71-用户管理"><a href="#71-用户管理" class="rp-header-anchor rp-link" aria-hidden="true">#</a>7.1 用户管理</h3>
+<ul>
+<li><strong>添加用户</strong>: 在左侧菜单中点击「系统管理」→「用户管理」→「添加」</li>
+<li><strong>编辑用户</strong>: 点击用户列表中的「编辑」按钮</li>
+<li><strong>删除用户</strong>: 点击用户列表中的「删除」按钮</li>
+<li><strong>设置权限</strong>: 为用户设置角色和权限</li>
+</ul>
+<h3 class="rp-toc-include" id="72-组织管理"><a href="#72-组织管理" class="rp-header-anchor rp-link" aria-hidden="true">#</a>7.2 组织管理</h3>
+<ul>
+<li><strong>添加组织</strong>: 在左侧菜单中点击「系统管理」→「组织管理」→「添加」</li>
+<li><strong>编辑组织</strong>: 点击组织列表中的「编辑」按钮</li>
+<li><strong>删除组织</strong>: 点击组织列表中的「删除」按钮</li>
+</ul>
+<h3 class="rp-toc-include" id="73-项目管理"><a href="#73-项目管理" class="rp-header-anchor rp-link" aria-hidden="true">#</a>7.3 项目管理</h3>
+<ul>
+<li><strong>添加项目</strong>: 在左侧菜单中点击「系统管理」→「项目管理」→「添加」</li>
+<li><strong>编辑项目</strong>: 点击项目列表中的「编辑」按钮</li>
+<li><strong>删除项目</strong>: 点击项目列表中的「删除」按钮</li>
+</ul>
+<h3 class="rp-toc-include" id="74-系统配置"><a href="#74-系统配置" class="rp-header-anchor rp-link" aria-hidden="true">#</a>7.4 系统配置</h3>
+<ul>
+<li><strong>基本配置</strong>: 在左侧菜单中点击「系统管理」→「系统配置」</li>
+<li><strong>修改配置</strong>: 修改系统标题、语言、开发模式等</li>
+<li><strong>保存配置</strong>: 点击「保存」按钮</li>
+</ul>
+<h3 class="rp-toc-include" id="75-版本管理"><a href="#75-版本管理" class="rp-header-anchor rp-link" aria-hidden="true">#</a>7.5 版本管理</h3>
+<ul>
+<li><strong>查看版本</strong>: 在左侧菜单中点击「系统管理」→「版本管理」</li>
+<li><strong>添加版本</strong>: 点击「添加」按钮添加新版本</li>
+<li><strong>编辑版本</strong>: 点击版本列表中的「编辑」按钮</li>
+<li><strong>删除版本</strong>: 点击版本列表中的「删除」按钮</li>
+</ul>
+<h2 class="rp-toc-include" id="8-移动-app-使用"><a href="#8-移动-app-使用" class="rp-header-anchor rp-link" aria-hidden="true">#</a>8. 移动 APP 使用</h2>
+<h3 class="rp-toc-include" id="81-app-下载"><a href="#81-app-下载" class="rp-header-anchor rp-link" aria-hidden="true">#</a>8.1 APP 下载</h3>
+<ul>
+<li><strong>Android</strong>: 从系统版本管理中下载 APK 文件</li>
+<li><strong>iOS</strong>: 从 App Store 搜索「PeaBSS」下载</li>
+</ul>
+<h3 class="rp-toc-include" id="82-app-登录"><a href="#82-app-登录" class="rp-header-anchor rp-link" aria-hidden="true">#</a>8.2 APP 登录</h3>
+<ul>
+<li><strong>输入服务器地址</strong>: 输入 PeaBSS 服务器地址</li>
+<li><strong>输入用户名和密码</strong>: 使用系统账号登录</li>
+<li><strong>点击登录</strong>: 进入 APP 主界面</li>
+</ul>
+<h3 class="rp-toc-include" id="83-app-功能"><a href="#83-app-功能" class="rp-header-anchor rp-link" aria-hidden="true">#</a>8.3 APP 功能</h3>
+<ul>
+<li><strong>设备列表</strong>: 查看所有设备列表</li>
+<li><strong>设备详情</strong>: 查看设备详细信息和实时数据</li>
+<li><strong>数据图表</strong>: 查看设备数据趋势图表</li>
+<li><strong>告警通知</strong>: 接收设备告警通知</li>
+<li><strong>系统消息</strong>: 查看系统消息</li>
+</ul>
+<h2 class="rp-toc-include" id="9-故障处理"><a href="#9-故障处理" class="rp-header-anchor rp-link" aria-hidden="true">#</a>9. 故障处理</h2>
+<h3 class="rp-toc-include" id="91-常见问题"><a href="#91-常见问题" class="rp-header-anchor rp-link" aria-hidden="true">#</a>9.1 常见问题</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>问题</th><th>原因</th><th>解决方案</th></tr></thead><tbody><tr><td>设备离线</td><td>网络连接问题</td><td>检查设备网络连接，重启设备</td></tr><tr><td>数据异常</td><td>传感器故障</td><td>检查传感器状态，校准传感器</td></tr><tr><td>系统登录失败</td><td>账号密码错误</td><td>检查账号密码，联系管理员重置</td></tr><tr><td>告警不触发</td><td>阈值设置错误</td><td>检查告警阈值设置，重新配置</td></tr><tr><td>数据不更新</td><td>设备通信问题</td><td>检查设备通信状态，重启设备</td></tr></tbody></table></div>
+<h3 class="rp-toc-include" id="92-故障排查"><a href="#92-故障排查" class="rp-header-anchor rp-link" aria-hidden="true">#</a>9.2 故障排查</h3>
+<ol>
+<li><strong>检查设备状态</strong>: 查看设备是否在线</li>
+<li><strong>检查网络连接</strong>: 检查设备网络连接是否正常</li>
+<li><strong>查看系统日志</strong>: 查看系统日志找出错误原因</li>
+<li><strong>重启设备</strong>: 尝试重启设备</li>
+<li><strong>联系技术支持</strong>: 如果问题无法解决，联系技术支持</li>
+</ol>
+<h2 class="rp-toc-include" id="10-最佳实践"><a href="#10-最佳实践" class="rp-header-anchor rp-link" aria-hidden="true">#</a>10. 最佳实践</h2>
+<h3 class="rp-toc-include" id="101-设备管理"><a href="#101-设备管理" class="rp-header-anchor rp-link" aria-hidden="true">#</a>10.1 设备管理</h3>
+<ul>
+<li><strong>规范命名</strong>: 设备名称应清晰明了，包含位置信息</li>
+<li><strong>定期检查</strong>: 定期检查设备状态和数据</li>
+<li><strong>备份配置</strong>: 定期备份设备配置</li>
+</ul>
+<h3 class="rp-toc-include" id="102-数据管理"><a href="#102-数据管理" class="rp-header-anchor rp-link" aria-hidden="true">#</a>10.2 数据管理</h3>
+<ul>
+<li><strong>设置合理阈值</strong>: 根据实际情况设置合理的告警阈值</li>
+<li><strong>定期清理数据</strong>: 定期清理过期数据，保持系统性能</li>
+<li><strong>数据备份</strong>: 定期备份重要数据</li>
+</ul>
+<h3 class="rp-toc-include" id="103-系统维护"><a href="#103-系统维护" class="rp-header-anchor rp-link" aria-hidden="true">#</a>10.3 系统维护</h3>
+<ul>
+<li><strong>定期更新</strong>: 定期更新系统版本</li>
+<li><strong>监控系统</strong>: 定期监控系统性能和状态</li>
+<li><strong>安全检查</strong>: 定期进行安全检查和漏洞扫描</li>
+</ul>
+<h3 class="rp-toc-include" id="104-告警管理"><a href="#104-告警管理" class="rp-header-anchor rp-link" aria-hidden="true">#</a>10.4 告警管理</h3>
+<ul>
+<li><strong>分级管理</strong>: 根据告警严重程度进行分级管理</li>
+<li><strong>及时处理</strong>: 及时处理告警，避免告警堆积</li>
+<li><strong>优化配置</strong>: 根据实际情况优化告警配置</li>
+</ul>
+<h2 class="rp-toc-include" id="11-联系支持"><a href="#11-联系支持" class="rp-header-anchor rp-link" aria-hidden="true">#</a>11. 联系支持</h2>
+<h3 class="rp-toc-include" id="111-技术支持"><a href="#111-技术支持" class="rp-header-anchor rp-link" aria-hidden="true">#</a>11.1 技术支持</h3>
+<ul>
+<li><strong>电话支持</strong>: 400-123-4567</li>
+<li><strong>邮件支持</strong>: <a href="mailto:support@peaiot.com" target="_blank" rel="noopener noreferrer" class="rp-link">support@peaiot.com</a></li>
+<li><strong>在线支持</strong>: 系统内在线客服</li>
+</ul>
+<h3 class="rp-toc-include" id="112-常见问题"><a href="#112-常见问题" class="rp-header-anchor rp-link" aria-hidden="true">#</a>11.2 常见问题</h3>
+<ul>
+<li><strong>知识库</strong>: 访问 <a href="https://docs.peaiot.com" target="_blank" rel="noopener noreferrer" class="rp-link">https://docs.peaiot.com</a> 查看常见问题</li>
+<li><strong>社区论坛</strong>: 访问 <a href="https://forum.peaiot.com" target="_blank" rel="noopener noreferrer" class="rp-link">https://forum.peaiot.com</a> 参与讨论</li>
+<li><strong>GitHub Issues</strong>: 提交 bug 报告和功能请求</li>
+</ul>
+<h3 class="rp-toc-include" id="113-培训服务"><a href="#113-培训服务" class="rp-header-anchor rp-link" aria-hidden="true">#</a>11.3 培训服务</h3>
+<ul>
+<li><strong>现场培训</strong>: 提供现场系统使用培训</li>
+<li><strong>远程培训</strong>: 提供远程系统使用培训</li>
+<li><strong>培训文档</strong>: 提供详细的培训文档</li>
+</ul>
+<h2 class="rp-toc-include" id="12-附录"><a href="#12-附录" class="rp-header-anchor rp-link" aria-hidden="true">#</a>12. 附录</h2>
+<h3 class="rp-toc-include" id="121-设备协议"><a href="#121-设备协议" class="rp-header-anchor rp-link" aria-hidden="true">#</a>12.1 设备协议</h3>
+<ul>
+<li><strong>HJ212</strong>: 环保监测设备标准协议</li>
+<li><strong>MQTT</strong>: 物联网设备通信协议</li>
+<li><strong>Modbus</strong>: 工业设备通信协议</li>
+</ul>
+<h3 class="rp-toc-include" id="122-数据格式"><a href="#122-数据格式" class="rp-header-anchor rp-link" aria-hidden="true">#</a>12.2 数据格式</h3>
+<ul>
+<li><strong>实时数据</strong>: 设备实时采集的数据</li>
+<li><strong>历史数据</strong>: 设备历史存储的数据</li>
+<li><strong>统计数据</strong>: 经过统计处理的数据</li>
+</ul>
+<h3 class="rp-toc-include" id="123-告警级别"><a href="#123-告警级别" class="rp-header-anchor rp-link" aria-hidden="true">#</a>12.3 告警级别</h3>
+<ul>
+<li><strong>紧急</strong>: 需要立即处理的告警</li>
+<li><strong>重要</strong>: 需要及时处理的告警</li>
+<li><strong>一般</strong>: 需要关注的告警</li>
+<li><strong>提示</strong>: 信息性告警</li>
+</ul>
+<h3 class="rp-toc-include" id="124-系统端口"><a href="#124-系统端口" class="rp-header-anchor rp-link" aria-hidden="true">#</a>12.4 系统端口</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rp-table-scroll-container rp-scrollbar"><table><thead><tr><th>服务</th><th>端口</th><th>说明</th></tr></thead><tbody><tr><td>Web 服务</td><td>1870</td><td>Web 管理界面</td></tr><tr><td>HJ212 服务</td><td>1872</td><td>HJ212 协议服务</td></tr><tr><td>门户服务</td><td>1875</td><td>APP 接口服务</td></tr></tbody></table></div>
+<h3 class="rp-toc-include" id="125-浏览器支持"><a href="#125-浏览器支持" class="rp-header-anchor rp-link" aria-hidden="true">#</a>12.5 浏览器支持</h3>
+<ul>
+<li><strong>Chrome</strong>: 最新版本</li>
+<li><strong>Firefox</strong>: 最新版本</li>
+<li><strong>Edge</strong>: 最新版本</li>
+<li><strong>Safari</strong>: 最新版本</li>
+</ul>
+<h3 class="rp-toc-include" id="126-移动-app-支持"><a href="#126-移动-app-支持" class="rp-header-anchor rp-link" aria-hidden="true">#</a>12.6 移动 APP 支持</h3>
+<ul>
+<li><strong>Android</strong>: 6.0 及以上</li>
+<li><strong>iOS</strong>: 12.0 及以上</li>
+</ul><!--/$--></div><footer class="rp-doc-footer"><div class="rp-doc-footer__edit"></div><div class="rp-doc-footer__divider"></div><div class="rp-prev-next-page"><div class="rp-prev-next-page__placeholder"></div><div class="rp-prev-next-page__placeholder"></div></div></footer></main></div><aside class="rp-doc-layout__outline rp-scrollbar"><div class="rp-outline"><div class="rp-outline__title">ON THIS PAGE<svg width="14" height="14" class="rp-progress-circle"><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-divider-light)" stroke-width="2"></circle><circle cx="7" cy="7" r="6" stroke-linecap="round" fill="none" stroke="var(--rp-c-brand)" stroke-width="2" stroke-dasharray="37.69911184307752" stroke-dashoffset="37.69911184307752" transform="rotate(-90 7 7)" style="transition:stroke-dashoffset 0.3s"></circle></svg></div><nav class="rp-outline__toc rp-scrollbar"><a href="#1-系统概述" class="rp-toc-item rp-link" title="1. 系统概述" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">1. 系统概述</span></a><a href="#11-系统特点" class="rp-toc-item rp-link" title="1.1 系统特点" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">1.1 系统特点</span></a><a href="#12-适用场景" class="rp-toc-item rp-link" title="1.2 适用场景" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">1.2 适用场景</span></a><a href="#2-快速入门" class="rp-toc-item rp-link" title="2. 快速入门" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">2. 快速入门</span></a><a href="#21-登录系统" class="rp-toc-item rp-link" title="2.1 登录系统" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">2.1 登录系统</span></a><a href="#22-系统界面" class="rp-toc-item rp-link" title="2.2 系统界面" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">2.2 系统界面</span></a><a href="#23-首次使用" class="rp-toc-item rp-link" title="2.3 首次使用" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">2.3 首次使用</span></a><a href="#3-设备管理" class="rp-toc-item rp-link" title="3. 设备管理" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">3. 设备管理</span></a><a href="#31-设备列表" class="rp-toc-item rp-link" title="3.1 设备列表" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3.1 设备列表</span></a><a href="#32-添加设备" class="rp-toc-item rp-link" title="3.2 添加设备" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3.2 添加设备</span></a><a href="#33-设备状态" class="rp-toc-item rp-link" title="3.3 设备状态" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3.3 设备状态</span></a><a href="#34-设备数据同步" class="rp-toc-item rp-link" title="3.4 设备数据同步" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">3.4 设备数据同步</span></a><a href="#4-数据监测" class="rp-toc-item rp-link" title="4. 数据监测" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">4. 数据监测</span></a><a href="#41-实时数据" class="rp-toc-item rp-link" title="4.1 实时数据" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.1 实时数据</span></a><a href="#42-历史数据" class="rp-toc-item rp-link" title="4.2 历史数据" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.2 历史数据</span></a><a href="#43-数据报表" class="rp-toc-item rp-link" title="4.3 数据报表" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">4.3 数据报表</span></a><a href="#5-告警管理" class="rp-toc-item rp-link" title="5. 告警管理" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">5. 告警管理</span></a><a href="#51-告警配置" class="rp-toc-item rp-link" title="5.1 告警配置" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">5.1 告警配置</span></a><a href="#52-告警列表" class="rp-toc-item rp-link" title="5.2 告警列表" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">5.2 告警列表</span></a><a href="#53-告警通知" class="rp-toc-item rp-link" title="5.3 告警通知" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">5.3 告警通知</span></a><a href="#6-大屏展示" class="rp-toc-item rp-link" title="6. 大屏展示" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">6. 大屏展示</span></a><a href="#61-gis-大屏" class="rp-toc-item rp-link" title="6.1 GIS 大屏" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">6.1 GIS 大屏</span></a><a href="#62-ai-bi-大屏" class="rp-toc-item rp-link" title="6.2 AI BI 大屏" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">6.2 AI BI 大屏</span></a><a href="#7-系统管理" class="rp-toc-item rp-link" title="7. 系统管理" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">7. 系统管理</span></a><a href="#71-用户管理" class="rp-toc-item rp-link" title="7.1 用户管理" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">7.1 用户管理</span></a><a href="#72-组织管理" class="rp-toc-item rp-link" title="7.2 组织管理" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">7.2 组织管理</span></a><a href="#73-项目管理" class="rp-toc-item rp-link" title="7.3 项目管理" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">7.3 项目管理</span></a><a href="#74-系统配置" class="rp-toc-item rp-link" title="7.4 系统配置" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">7.4 系统配置</span></a><a href="#75-版本管理" class="rp-toc-item rp-link" title="7.5 版本管理" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">7.5 版本管理</span></a><a href="#8-移动-app-使用" class="rp-toc-item rp-link" title="8. 移动 APP 使用" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">8. 移动 APP 使用</span></a><a href="#81-app-下载" class="rp-toc-item rp-link" title="8.1 APP 下载" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">8.1 APP 下载</span></a><a href="#82-app-登录" class="rp-toc-item rp-link" title="8.2 APP 登录" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">8.2 APP 登录</span></a><a href="#83-app-功能" class="rp-toc-item rp-link" title="8.3 APP 功能" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">8.3 APP 功能</span></a><a href="#9-故障处理" class="rp-toc-item rp-link" title="9. 故障处理" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">9. 故障处理</span></a><a href="#91-常见问题" class="rp-toc-item rp-link" title="9.1 常见问题" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">9.1 常见问题</span></a><a href="#92-故障排查" class="rp-toc-item rp-link" title="9.2 故障排查" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">9.2 故障排查</span></a><a href="#10-最佳实践" class="rp-toc-item rp-link" title="10. 最佳实践" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">10. 最佳实践</span></a><a href="#101-设备管理" class="rp-toc-item rp-link" title="10.1 设备管理" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">10.1 设备管理</span></a><a href="#102-数据管理" class="rp-toc-item rp-link" title="10.2 数据管理" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">10.2 数据管理</span></a><a href="#103-系统维护" class="rp-toc-item rp-link" title="10.3 系统维护" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">10.3 系统维护</span></a><a href="#104-告警管理" class="rp-toc-item rp-link" title="10.4 告警管理" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">10.4 告警管理</span></a><a href="#11-联系支持" class="rp-toc-item rp-link" title="11. 联系支持" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">11. 联系支持</span></a><a href="#111-技术支持" class="rp-toc-item rp-link" title="11.1 技术支持" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">11.1 技术支持</span></a><a href="#112-常见问题" class="rp-toc-item rp-link" title="11.2 常见问题" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">11.2 常见问题</span></a><a href="#113-培训服务" class="rp-toc-item rp-link" title="11.3 培训服务" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">11.3 培训服务</span></a><a href="#12-附录" class="rp-toc-item rp-link" title="12. 附录" style="padding-left:0" data-depth="0"><span class="rp-toc-item__text rp-doc">12. 附录</span></a><a href="#121-设备协议" class="rp-toc-item rp-link" title="12.1 设备协议" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">12.1 设备协议</span></a><a href="#122-数据格式" class="rp-toc-item rp-link" title="12.2 数据格式" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">12.2 数据格式</span></a><a href="#123-告警级别" class="rp-toc-item rp-link" title="12.3 告警级别" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">12.3 告警级别</span></a><a href="#124-系统端口" class="rp-toc-item rp-link" title="12.4 系统端口" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">12.4 系统端口</span></a><a href="#125-浏览器支持" class="rp-toc-item rp-link" title="12.5 浏览器支持" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">12.5 浏览器支持</span></a><a href="#126-移动-app-支持" class="rp-toc-item rp-link" title="12.6 移动 APP 支持" style="padding-left:12px" data-depth="1"><span class="rp-toc-item__text rp-doc">12.6 移动 APP 支持</span></a></nav><div class="rp-outline__divider"></div><div class="rp-outline__bottom"></div></div></aside></div></div>
+    <div id="__rspress_modal_container"></div>
+  </body>
+</html>

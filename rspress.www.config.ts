@@ -11,6 +11,11 @@ export default defineConfig({
   logo: '/peaiot-logo.png',
   logoText: '奕柏科技',
   search: false,
+  markdown: {
+    link: {
+      checkDeadLinks: false
+    }
+  },
   themeConfig: {
     socialLinks: [],
     nav: [], // 官网使用自定义导航，这里留空

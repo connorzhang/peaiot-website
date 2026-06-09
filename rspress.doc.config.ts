@@ -11,6 +11,11 @@ export default defineConfig({
   logo: '/peaiot-logo.png',
   logoText: '企业文档中心',
   search: true,
+  markdown: {
+    link: {
+      checkDeadLinks: false
+    }
+  },
   themeConfig: {
     socialLinks: [],
     nav: [

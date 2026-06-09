@@ -1,1 +1,67 @@
-﻿{"tags":[],"projects":[]}
+{
+  "tags": [
+    "硬件",
+    "嵌入式",
+    "核心",
+    "PLC",
+    "解决方案",
+    "软件",
+    "云平台",
+    "桌面应用",
+    "分析工具"
+  ],
+  "projects": [
+    {
+      "id": "micro-gc",
+      "title": "MICRO-GC",
+      "description": "微型气相色谱仪硬件架构、主板协议及嵌入式软件说明。",
+      "tags": [
+        "硬件",
+        "嵌入式",
+        "核心"
+      ],
+      "icon": "🔬",
+      "repo": "git@github.com:connorzhang/peaiot-website.git",
+      "link": "/micro-gc/tcd-gas-flow"
+    },
+    {
+      "id": "h2o2-plc",
+      "title": "双氧水工艺PLC系统",
+      "description": "双氧水工艺监控系统 PLC 梯形图开发文档及控制逻辑说明。",
+      "tags": [
+        "硬件",
+        "PLC",
+        "解决方案"
+      ],
+      "icon": "⚙️",
+      "repo": "git@github.com:connorzhang/peaiot-website.git",
+      "link": "/h2o2-plc/plc-manual-offline"
+    },
+    {
+      "id": "peabss",
+      "title": "PeaBSS 物联网平台",
+      "description": "企业级物联网设备接入与管理中枢，提供设备连接、数据处理和可视化服务。",
+      "tags": [
+        "软件",
+        "云平台",
+        "核心"
+      ],
+      "icon": "🌐",
+      "repo": "git@github.com:connorzhang/peaiot-website.git",
+      "link": "/peabss/"
+    },
+    {
+      "id": "workstation",
+      "title": "色谱工作站",
+      "description": "跨平台、高性能的气相色谱仪控制与数据分析软件。",
+      "tags": [
+        "软件",
+        "桌面应用",
+        "分析工具"
+      ],
+      "icon": "📈",
+      "repo": "git@github.com:connorzhang/peaiot-website.git",
+      "link": "/workstation/intro"
+    }
+  ]
+}
