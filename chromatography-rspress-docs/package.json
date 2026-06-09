@@ -1,0 +1,8 @@
+{
+  "name": "chromatography-rspress-docs",
+  "version": "1.0.0",
+  "description": "Dummy package to trigger root build for Baota Webhook",
+  "scripts": {
+    "build": "cd .. && npm install --include=dev && npm run build:doc"
+  }
+}
