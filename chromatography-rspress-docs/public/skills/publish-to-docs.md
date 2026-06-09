@@ -60,10 +60,15 @@ description: "将当前项目的文档同步发布到企业中心文档站(doc.r
 
 ## 附加机制：自我升级机制 (Self-Update)
 当用户明确要求【升级技能】（如输入“技能升级”），或者在执行上述【2.5 架构兼容性与版本熔断校验】时发现本技能版本过低，AI 必须全自动执行以下“自我升级”操作：
-1. **自动抓取新版本**：使用 `curl` 或原生网络工具，获取最新技能配置：
-   `curl -s http://doc.rry.net/skills/publish-to-docs.md`
-2. **覆盖本地全局配置**：将抓取到的内容覆盖写入本地的全局技能文件中（Windows 下通常为 `~/.trae/skills/publish-to-docs/SKILL.md`，即当前文件）。
-3. **反馈用户**：告诉用户：“技能已全自动升级到最新版本！现在您可以重新让我执行同步文档了。”
+1. **获取最新技能配置**：由于直接请求网络 URL 容易受到拦截或网络问题导致失败，**严禁使用 curl 直接拉取**。必须采用以下可靠方式：
+   - 如果当前处于任何一个 Git 业务项目中，利用系统的临时目录，执行 `git archive` 或直接执行轻量级的克隆，从主仓库提取最新的技能文件：
+     ```bash
+     git clone --depth 1 --filter=blob:none --sparse git@github.com:connorzhang/peaiot-website.git temp_upgrade_repo
+     cd temp_upgrade_repo
+     git sparse-checkout set .trae/skills/publish-to-docs
+     ```
+2. **覆盖本地全局配置**：将提取到的 `temp_upgrade_repo/.trae/skills/publish-to-docs/SKILL.md` 文件内容，覆盖写入本地的全局技能文件中（Windows 下通常为 `~/.trae/skills/publish-to-docs/SKILL.md`）。
+3. **清理临时文件并反馈**：删除 `temp_upgrade_repo` 目录。并告诉用户：“技能已通过 Git 安全通道全自动升级到最新版本！现在您可以重新让我执行同步文档了。”
 
 ## 核心规则与红线
 - **完全自动化**：必须代用户执行克隆、复制、提交和推送的所有操作。
