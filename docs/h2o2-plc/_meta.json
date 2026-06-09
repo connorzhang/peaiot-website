@@ -1,0 +1,12 @@
+[
+  {
+    "type": "file",
+    "name": "plc-manual",
+    "label": "📖 PLC 硬件接线与操作"
+  },
+  {
+    "type": "file",
+    "name": "plc-manual-offline",
+    "label": "📄 PLC 说明书 (单文件版)"
+  }
+]

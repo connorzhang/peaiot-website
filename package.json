@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "predev:doc": "node scripts/generate-project-index.js",
+    "prebuild:doc": "node scripts/generate-project-index.js",
     "dev:www": "rspress dev -c rspress.www.config.ts",
     "dev:doc": "rspress dev -c rspress.doc.config.ts",
     "build:www": "rspress build -c rspress.www.config.ts",

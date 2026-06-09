@@ -1,0 +1,22 @@
+[
+  {
+    "name": "index",
+    "label": "色谱工作站白皮书"
+  },
+  {
+    "name": "cross-platform-plan",
+    "label": "跨平台重构方案"
+  },
+  {
+    "name": "hardware-abstraction",
+    "label": "硬件抽象层规划"
+  },
+  {
+    "name": "milestone-report",
+    "label": "标准化里程碑报告"
+  },
+  {
+    "name": "functional-report",
+    "label": "功能测试报告"
+  }
+]

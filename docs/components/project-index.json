@@ -6,7 +6,7 @@
       {
         "name": "micro-gc",
         "label": "MICRO-GC",
-        "link": "/hardware/micro-gc/"
+        "link": "/hardware/micro-gc/tcd-gas-flow"
       }
     ]
   },
@@ -15,9 +15,14 @@
     "label": "💻 软件项目",
     "projects": [
       {
+        "name": "peabss",
+        "label": "PEABSS",
+        "link": "/software/peabss/"
+      },
+      {
         "name": "workstation",
-        "label": "WORKSTATION",
-        "link": "/software/workstation/"
+        "label": "色谱工作站",
+        "link": "/software/workstation/API_DESIGN"
       }
     ]
   }
