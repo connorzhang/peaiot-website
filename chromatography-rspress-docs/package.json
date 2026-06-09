@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "description": "Dummy package to trigger root build for Baota Webhook",
   "scripts": {
-    "build": "cd .. && npm install --include=dev --registry=https://registry.npmmirror.com && (npm run build:doc || true) && mkdir -p chromatography-rspress-docs/build_doc && cp -rf build_doc/* chromatography-rspress-docs/build_doc/ || true"
+    "build": "cd .. && npm install --include=dev --registry=https://registry.npmmirror.com && (npm run build:doc > build.log 2>&1 || true) && mkdir -p chromatography-rspress-docs/build_doc && cp -rf build_doc/* chromatography-rspress-docs/build_doc/ || true && cp build.log chromatography-rspress-docs/build_doc/build.txt || true"
   }
 }
