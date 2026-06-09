@@ -1,0 +1,8 @@
+{
+  "id": "subnetra-studio",
+  "title": "Subnetra Studio",
+  "description": "基于 Subnetra 核心引擎开发的现代化 SD-WAN 网络配置与管理控制台",
+  "tags": ["软件系统", "网络工具", "SD-WAN", "Rust", "客户端"],
+  "icon": "🌐",
+  "repo": "git@github.com:peaiot/subnetra-studio.git"
+}
