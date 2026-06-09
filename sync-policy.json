@@ -1,4 +1,4 @@
 {
-  "min_skill_version": "2.1",
-  "description": "文档站已升级为扁平化+标签化架构及侧边栏项目自治。低于 v2.1 版本的旧版 publish-to-docs 技能将被拒绝同步，请先升级全局技能。"
+  "min_skill_version": "2.1.0",
+  "description": "文档站已升级为扁平化+标签化架构及侧边栏项目自治。低于 v2.1.0 版本的旧版 publish-to-docs 技能将被拒绝同步，请先升级全局技能。"
 }
