@@ -41,7 +41,7 @@ echo ">>> 代码拉取完成！"
 
 # 4. 安装依赖并编译文档
 echo ">>> 开始安装依赖 (npm install)..."
-npm install
+npm install --include=dev
 
 echo ">>> 开始编译文档 (npm run build) ..."
 # 在根目录执行文档构建
