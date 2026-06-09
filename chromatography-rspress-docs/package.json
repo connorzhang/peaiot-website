@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "description": "Dummy package to trigger root build for Baota Webhook",
   "scripts": {
-    "build": "cd .. && npm install --include=dev --registry=https://registry.npmmirror.com && npm run build:doc"
+    "build": "cd .. && npm install --include=dev --registry=https://registry.npmmirror.com && (npm run build:doc || true) && cp /www/wwwroot/doc.rry.net/docs_factory/webhook.log /www/wwwroot/doc.rry.net/public_html/webhook.txt || true"
   }
 }
