@@ -72,19 +72,51 @@ function generateProjectIndexAndSidebar() {
 
   if (!fs.existsSync(docsDir)) return { indexData, sidebarData };
 
-  // 1. 获取所有一级分类目录
-  const categories = fs.readdirSync(docsDir, { withFileTypes: true })
-    .filter(dirent => dirent.isDirectory() && !dirent.name.startsWith('.') && dirent.name !== 'components' && dirent.name !== 'public');
+  // 尝试读取根目录 _meta.json 获取动态大类配置
+  let rootMeta: any[] = [];
+  const rootMetaPath = path.join(docsDir, '_meta.json');
+  if (fs.existsSync(rootMetaPath)) {
+    try {
+      rootMeta = JSON.parse(fs.readFileSync(rootMetaPath, 'utf-8'));
+    } catch (e) {}
+  }
 
-  for (const category of categories) {
-    const categoryName = category.name;
+  // 1. 获取所有一级分类目录
+  const dirs = fs.readdirSync(docsDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory() && !dirent.name.startsWith('.') && dirent.name !== 'components' && dirent.name !== 'public')
+    .map(dirent => dirent.name);
+
+  // 根据 rootMeta 排序
+  const rootMetaOrder = rootMeta.map(m => typeof m === 'string' ? m : m.name).filter(Boolean);
+  dirs.sort((a, b) => {
+    const aIdx = rootMetaOrder.indexOf(a);
+    const bIdx = rootMetaOrder.indexOf(b);
+    if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+    if (aIdx !== -1) return -1;
+    if (bIdx !== -1) return 1;
+    return a.localeCompare(b, 'zh-CN');
+  });
+
+  for (const categoryName of dirs) {
     const categoryPath = path.join(docsDir, categoryName);
     
-    const knownCategories: Record<string, string> = {
-      'hardware': '🔬 硬件设备',
-      'software': '💻 软件项目'
-    };
-    let categoryLabel = knownCategories[categoryName] || categoryName.toUpperCase();
+    // 从 _meta.json 提取 Label，没有则用默认
+    let categoryLabel = categoryName.toUpperCase();
+    const metaItem = rootMeta.find(m => typeof m === 'object' && m.name === categoryName);
+    if (metaItem && metaItem.label) {
+      categoryLabel = metaItem.label;
+    } else {
+      const knownCategories: Record<string, string> = {
+        'hardware': '🔬 硬件设备',
+        'software': '💻 软件项目',
+        'cloud': '☁️ 云端平台',
+        'solutions': '💡 解决方案',
+        'developer': '👨‍💻 开发者资源'
+      };
+      if (knownCategories[categoryName]) {
+        categoryLabel = knownCategories[categoryName];
+      }
+    }
 
     // 2. 获取分类下的所有项目目录
     const projects = fs.readdirSync(categoryPath, { withFileTypes: true })

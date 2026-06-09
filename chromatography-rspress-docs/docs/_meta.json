@@ -1,0 +1,28 @@
+[
+  "index",
+  {
+    "type": "dir",
+    "name": "hardware",
+    "label": "🔧 硬件设备"
+  },
+  {
+    "type": "dir",
+    "name": "software",
+    "label": "💻 软件系统"
+  },
+  {
+    "type": "dir",
+    "name": "cloud",
+    "label": "☁️ 云端平台"
+  },
+  {
+    "type": "dir",
+    "name": "solutions",
+    "label": "💡 解决方案"
+  },
+  {
+    "type": "dir",
+    "name": "developer",
+    "label": "👨‍💻 开发者资源"
+  }
+]
