@@ -17,7 +17,7 @@ const ExplorePortal = () => {
 
   return (
     <div className="explore-container">
-      <style dangerouslySetContent={{__html: `
+      <style dangerouslySetInnerHTML={{__html: `
         .explore-container {
           display: flex;
           max-width: 1400px;

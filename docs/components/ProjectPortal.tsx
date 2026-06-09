@@ -11,7 +11,7 @@ const ProjectPortal = () => {
 
   return (
     <div className="project-portal-container">
-      <style dangerouslySetContent={{__html: `
+      <style dangerouslySetInnerHTML={{__html: `
         .project-portal-container {
           padding: 2rem 0;
           max-width: 1200px;
