@@ -1,0 +1,8 @@
+{
+  "id": "workstation",
+  "title": "色谱工作站",
+  "description": "跨平台、高性能的气相色谱仪控制与数据分析软件。",
+  "tags": ["软件", "桌面应用", "分析工具"],
+  "icon": "📈",
+  "repo": "git@github.com:connorzhang/peaiot-website.git"
+}

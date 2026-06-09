@@ -1,0 +1,8 @@
+{
+  "id": "micro-gc",
+  "title": "MICRO-GC",
+  "description": "微型气相色谱仪硬件架构、主板协议及嵌入式软件说明。",
+  "tags": ["硬件", "嵌入式", "核心"],
+  "icon": "🔬",
+  "repo": "git@github.com:connorzhang/peaiot-website.git"
+}

@@ -65,131 +65,44 @@ function buildSidebarTree(dirPath: string, routePrefix: string): any[] {
 }
 
 // 动态生成项目索引，用于首页门户展示，同时生成各个项目的独立侧边栏
-function generateProjectIndexAndSidebar() {
+function generateProjectSidebar() {
   const docsDir = path.join(__dirname, 'docs');
-  const indexData: any[] = [];
   const sidebarData: Record<string, any[]> = {};
 
-  if (!fs.existsSync(docsDir)) return { indexData, sidebarData };
+  if (!fs.existsSync(docsDir)) return sidebarData;
 
-  // 尝试读取根目录 _meta.json 获取动态大类配置
-  let rootMeta: any[] = [];
-  const rootMetaPath = path.join(docsDir, '_meta.json');
-  if (fs.existsSync(rootMetaPath)) {
-    try {
-      rootMeta = JSON.parse(fs.readFileSync(rootMetaPath, 'utf-8'));
-    } catch (e) {}
-  }
+  // 1. 获取所有的项目目录（扁平化结构）
+  const projects = fs.readdirSync(docsDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory() && !dirent.name.startsWith('.') && dirent.name !== 'components' && dirent.name !== 'public');
 
-  // 1. 获取所有一级分类目录
-  const dirs = fs.readdirSync(docsDir, { withFileTypes: true })
-    .filter(dirent => dirent.isDirectory() && !dirent.name.startsWith('.') && dirent.name !== 'components' && dirent.name !== 'public')
-    .map(dirent => dirent.name);
-
-  // 根据 rootMeta 排序
-  const rootMetaOrder = rootMeta.map(m => typeof m === 'string' ? m : m.name).filter(Boolean);
-  dirs.sort((a, b) => {
-    const aIdx = rootMetaOrder.indexOf(a);
-    const bIdx = rootMetaOrder.indexOf(b);
-    if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
-    if (aIdx !== -1) return -1;
-    if (bIdx !== -1) return 1;
-    return a.localeCompare(b, 'zh-CN');
-  });
-
-  for (const categoryName of dirs) {
-    const categoryPath = path.join(docsDir, categoryName);
+  for (const project of projects) {
+    const projectName = project.name;
+    const projectPath = path.join(docsDir, projectName);
     
-    // 从 _meta.json 提取 Label，没有则用默认
-    let categoryLabel = categoryName.toUpperCase();
-    const metaItem = rootMeta.find(m => typeof m === 'object' && m.name === categoryName);
-    if (metaItem && metaItem.label) {
-      categoryLabel = metaItem.label;
-    } else {
-      const knownCategories: Record<string, string> = {
-        'hardware': '🔬 硬件设备',
-        'software': '💻 软件项目',
-        'cloud': '☁️ 云端平台',
-        'solutions': '💡 解决方案',
-        'developer': '👨‍💻 开发者资源'
-      };
-      if (knownCategories[categoryName]) {
-        categoryLabel = knownCategories[categoryName];
-      }
+    let projectLabel = projectName.toUpperCase();
+    const projectJsonPath = path.join(projectPath, 'project.json');
+    if (fs.existsSync(projectJsonPath)) {
+      try {
+        const meta = JSON.parse(fs.readFileSync(projectJsonPath, 'utf-8'));
+        if (meta.title) projectLabel = meta.title;
+      } catch (e) {}
     }
 
-    // 2. 获取分类下的所有项目目录
-    const projects = fs.readdirSync(categoryPath, { withFileTypes: true })
-      .filter(dirent => dirent.isDirectory() && !dirent.name.startsWith('.'));
-
-    const projectList = [];
-    for (const project of projects) {
-      const projectName = project.name;
-      let projectLabel = projectName.toUpperCase();
-
-      const categoryMetaPath = path.join(categoryPath, '_meta.json');
-      if (fs.existsSync(categoryMetaPath)) {
-        try {
-          const meta = JSON.parse(fs.readFileSync(categoryMetaPath, 'utf-8'));
-          const metaItem = meta.find((m: any) => m.name === projectName);
-          if (metaItem && metaItem.label) {
-            projectLabel = metaItem.label;
-          }
-        } catch (e) {}
-      }
-
-      let projectLink = `/${categoryName}/${projectName}/`;
-      const projectDir = path.join(categoryPath, projectName);
-      const projectFiles = fs.readdirSync(projectDir, { withFileTypes: true });
-      const hasIndex = projectFiles.some(f => f.name === 'index.md' || f.name === 'index.mdx');
-      
-      if (!hasIndex) {
-        const firstDoc = projectFiles.find(f => f.isFile() && (f.name.endsWith('.md') || f.name.endsWith('.mdx')));
-        if (firstDoc) {
-          const docName = firstDoc.name.replace(/\.mdx?$/, '');
-          projectLink = `/${categoryName}/${projectName}/${docName}`;
-        }
-      }
-
-      projectList.push({
-        name: projectName,
-        label: projectLabel,
-        link: projectLink
-      });
-
-      // === 生成独立侧边栏 ===
-      const projectSidebar = buildSidebarTree(projectDir, `/${categoryName}/${projectName}/`);
-      // 为侧边栏加上返回首页和当前项目名的头部
-      sidebarData[`/${categoryName}/${projectName}/`] = [
-        { text: '🏠 返回产品导航', link: '/' },
-        { text: projectLabel, items: projectSidebar }
-      ];
-    }
-
-    if (projectList.length > 0) {
-      indexData.push({
-        name: categoryName,
-        label: categoryLabel,
-        projects: projectList
-      });
-    }
+    // === 生成独立侧边栏 ===
+    const projectSidebar = buildSidebarTree(projectPath, `/${projectName}/`);
+    // 为侧边栏加上返回首页、探索页和当前项目名的头部
+    sidebarData[`/${projectName}/`] = [
+      { text: '🏠 返回首页门户', link: '/' },
+      { text: '🔍 探索所有项目', link: '/explore' },
+      { text: projectLabel, items: projectSidebar }
+    ];
   }
-
-  const componentsDir = path.join(docsDir, 'components');
-  if (!fs.existsSync(componentsDir)) {
-    fs.mkdirSync(componentsDir, { recursive: true });
-  }
-  fs.writeFileSync(
-    path.join(componentsDir, 'project-index.json'),
-    JSON.stringify(indexData, null, 2),
-    'utf-8'
-  );
 
   return sidebarData;
 }
 
 // 在构建配置前执行生成
-const dynamicSidebar = generateProjectIndexAndSidebar();
+const dynamicSidebar = generateProjectSidebar();
 
 export default defineConfig({
   root: path.join(__dirname, 'docs'),
@@ -202,7 +115,8 @@ export default defineConfig({
   themeConfig: {
     socialLinks: [],
     nav: [
-      { text: '产品手册目录', link: '/' },
+      { text: '产品门户', link: '/' },
+      { text: '探索项目', link: '/explore' }
     ],
     sidebar: dynamicSidebar,
     footer: {
