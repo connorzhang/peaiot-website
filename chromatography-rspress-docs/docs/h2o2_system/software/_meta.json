@@ -1,0 +1,12 @@
+[
+  {
+    "type": "file",
+    "name": "overview",
+    "label": "🌟 项目总览与架构"
+  },
+  {
+    "type": "file",
+    "name": "monitor-app",
+    "label": "💻 上位机监控软件说明"
+  }
+]
