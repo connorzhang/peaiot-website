@@ -1,8 +1,0 @@
-{
-  "id": "peabss",
-  "title": "PeaBSS 物联网平台",
-  "description": "企业级物联网设备接入与管理中枢，提供设备连接、数据处理和可视化服务。",
-  "tags": ["软件", "云平台", "核心"],
-  "icon": "🌐",
-  "repo": "git@github.com:connorzhang/peaiot-website.git"
-}

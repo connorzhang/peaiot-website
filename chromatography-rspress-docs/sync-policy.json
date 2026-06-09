@@ -1,4 +1,0 @@
-{
-  "min_skill_version": "2.0",
-  "description": "文档站已升级为扁平化+标签化架构。低于 v2.0 版本的旧版 publish-to-docs 技能（依然使用 hardware/software 树状大类和强行修改 _meta.json 的逻辑）将被拒绝同步，以防破坏现有架构。"
-}
