@@ -2,9 +2,9 @@ import * as path from 'path';
 import { defineConfig } from '@rspress/core';
 
 export default defineConfig({
-  root: path.join(__dirname, 'docs'),
-  outDir: path.join(__dirname, 'build_doc'),
-  themeDir: path.join(__dirname, 'theme_doc'),
+  root: path.resolve('docs'),
+  outDir: path.resolve('build_doc'),
+  themeDir: path.resolve('theme_doc'),
   title: '企业文档中心 | 奕柏科技',
   description: '涵盖硬件仪器、软件平台的全矩阵在线说明书与技术支持',
   icon: '/peaiot-logo.png',
@@ -27,7 +27,7 @@ export default defineConfig({
   builderConfig: {
     resolve: {
       alias: {
-        '@docs-components': path.join(__dirname, 'docs/components'),
+        '@docs-components': path.resolve('docs/components'),
       },
     },
   },
