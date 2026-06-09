@@ -1,0 +1,46 @@
+[
+  {
+    "name": "gckc-command-ref",
+    "label": "遗留主板Cmd指令参考"
+  },
+  {
+    "name": "gckc-dev-guide",
+    "label": "遗留主板开发指南"
+  },
+  {
+    "name": "epc-protocol",
+    "label": "EPC气路控制协议"
+  },
+  {
+    "name": "fid-protocol",
+    "label": "FID放大器协议"
+  },
+  {
+    "name": "tcd-protocol",
+    "label": "TCD放大器协议"
+  },
+  {
+    "name": "temp-control-modbus",
+    "label": "温控模块Modbus协议"
+  },
+  {
+    "name": "modbus-standard-map",
+    "label": "Modbus标准寄存器映射"
+  },
+  {
+    "name": "opcua-lads-mapping",
+    "label": "OPC-UA LADS映射规范"
+  },
+  {
+    "name": "mqtt-voc-proposal",
+    "label": "VOC物联网MQTT协议"
+  },
+  {
+    "name": "device-id-station",
+    "label": "设备ID与站点映射规范"
+  },
+  {
+    "name": "mqtt-notes",
+    "label": "MQTT测试笔记"
+  }
+]
