@@ -1,62 +1,58 @@
 #!/bin/bash
-exec > /www/wwwroot/doc.rry.net/docs_factory/webhook.log 2>&1
+set -euo pipefail
 
-# 宝塔 WebHook 自动拉取与编译部署脚本
-# 用途：监听 GitHub 推送，自动编译文档并发布到隔离目录
-
-echo "========================================================================="
-echo "开始执行自动部署 WebHook 任务 - $(date "+%Y-%m-%d %H:%M:%S")"
-echo "Starting deployment at $(date)"
-echo "========================================================================="
-
-# 加载 Node.js 环境（如果使用了 nvm 或默认环境不在 path 中）
-export PATH=$PATH:/usr/local/bin:/usr/bin:/usr/local/node/bin
-if [ -s "$HOME/.nvm/nvm.sh" ]; then
-    source "$HOME/.nvm/nvm.sh"
-fi
-
-echo "Node version: $(node -v)"
-echo "NPM version: $(npm -v)"
-
-# 1. 定义站点根目录变量
 SITE_ROOT="/www/wwwroot/doc.rry.net"
 SOURCE_DIR="${SITE_ROOT}/docs_factory"
 PUBLIC_DIR="${SITE_ROOT}/public_html"
+LOG_FILE="${SITE_ROOT}/auto_update.log"
+LOCK_FILE="${SITE_ROOT}/auto_update.lock"
+LAST_FILE="${SOURCE_DIR}/.last_deployed_commit"
 
-# 2. 检查源码目录是否存在
-if [ ! -d "${SOURCE_DIR}" ]; then
-  echo "错误: 源码目录 ${SOURCE_DIR} 不存在！请先在宝塔终端中手动 git clone 一次仓库代码到该目录。"
+exec >> "${LOG_FILE}" 2>&1
+exec 9>"${LOCK_FILE}"
+flock -n 9 || exit 0
+
+echo "========================================================================="
+echo "自动部署检查开始 - $(date "+%Y-%m-%d %H:%M:%S")"
+
+export HOME=/root
+export PATH="/www/server/nodejs/v22.12.0/bin:/www/server/nodejs/v22.13.1/bin:/www/server/nodejs/v20.19.0/bin:/www/server/nodejs/v20.12.2/bin:/usr/local/node/bin:/usr/local/bin:/usr/bin:/bin:${PATH}"
+
+if [ ! -d "${SOURCE_DIR}/.git" ]; then
+  echo "源码仓库不存在: ${SOURCE_DIR}"
   exit 1
 fi
 
-# 3. 进入源码目录并拉取最新代码
-echo ">>> 进入源码目录并拉取最新文档..."
-cd ${SOURCE_DIR} || exit 1
+git config --global --add safe.directory "${SOURCE_DIR}" >/dev/null 2>&1 || true
 
-# 强制放弃本地所有未提交的修改，确保与远程代码库一致
-git reset --hard
-git pull origin main
+cd "${SOURCE_DIR}"
+git fetch origin main
+REMOTE_COMMIT="$(git rev-parse origin/main)"
+LAST_COMMIT=""
+if [ -f "${LAST_FILE}" ]; then
+  LAST_COMMIT="$(cat "${LAST_FILE}")"
+fi
 
-echo ">>> 代码拉取完成！"
+if [ "${REMOTE_COMMIT}" = "${LAST_COMMIT}" ]; then
+  echo "没有新提交，跳过构建: ${REMOTE_COMMIT}"
+  exit 0
+fi
 
-# 4. 安装依赖并编译文档
-echo ">>> 开始安装依赖 (npm install)..."
+git reset --hard origin/main
+
+echo "Node version: $(node -v)"
+echo "NPM version: $(npm -v)"
+echo "开始安装依赖"
 npm install --include=dev --registry=https://registry.npmmirror.com
 
-echo ">>> 开始编译文档 (npm run build) ..."
-# 在根目录执行文档构建
+echo "开始构建文档站"
 npm run build:doc
 
-# 5. 物理隔离部署：将编译产物移动到公开访问区
-echo ">>> 开始将编译好的静态页面部署到 public_html 目录..."
+mkdir -p "${PUBLIC_DIR}"
+rm -rf "${PUBLIC_DIR:?}"/*
+cp -r build_doc/* "${PUBLIC_DIR}/"
+printf "%s" "${REMOTE_COMMIT}" > "${LAST_FILE}"
 
-# 确保 public_html 目录存在
-mkdir -p ${PUBLIC_DIR}
-
-# 将构建好的文件拷贝到公开访问区 (强制覆盖)
-cp -r build_doc/* ${PUBLIC_DIR}/
-
-echo "========================================================================="
-echo "自动部署成功！网站内容已更新 - $(date "+%Y-%m-%d %H:%M:%S")"
-echo "Deployment finished at $(date)"
+echo "自动部署成功: ${REMOTE_COMMIT}"
+echo "完成时间 - $(date "+%Y-%m-%d %H:%M:%S")"
 echo "========================================================================="

@@ -5,8 +5,10 @@
 
 # Dist
 node_modules
+node-v*-win-x64/
 dist/
 doc_build/
+build_doc/
 
 # IDE
 .vscode/*
