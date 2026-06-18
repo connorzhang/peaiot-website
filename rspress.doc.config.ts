@@ -1,5 +1,143 @@
 import * as path from 'path';
+import * as fs from 'fs';
 import { defineConfig } from '@rspress/core';
+
+type SidebarItem = {
+  text?: string;
+  link?: string;
+  items?: SidebarItem[];
+  collapsible?: boolean;
+  collapsed?: boolean;
+};
+
+type MetaItem = string | {
+  type?: string;
+  name?: string;
+  label?: string;
+  link?: string;
+  items?: MetaItem[];
+  collapsible?: boolean;
+  collapsed?: boolean;
+};
+
+const docsRoot = path.resolve('docs');
+const pageExtensions = ['.md', '.mdx'];
+const excludedRootDirs = new Set(['components', 'public']);
+
+function readMeta(dir: string): MetaItem[] | null {
+  const metaPath = path.join(dir, '_meta.json');
+  if (!fs.existsSync(metaPath)) return null;
+  return JSON.parse(fs.readFileSync(metaPath, 'utf-8')) as MetaItem[];
+}
+
+function findPage(dir: string, name: string): string | null {
+  for (const extension of pageExtensions) {
+    const filePath = path.join(dir, `${name}${extension}`);
+    if (fs.existsSync(filePath)) return filePath;
+  }
+  return null;
+}
+
+function routeFor(filePath: string): string {
+  const parsed = path.parse(filePath);
+  const relativePath = path.relative(docsRoot, path.join(parsed.dir, parsed.name)).replace(/\\/g, '/');
+  if (parsed.name === 'index') {
+    const dir = path.dirname(relativePath).replace(/\\/g, '/');
+    return dir === '.' ? '/' : `/${dir}/`;
+  }
+  return `/${relativePath}`;
+}
+
+function inferTitle(filePath: string, fallback: string): string {
+  const content = fs.readFileSync(filePath, 'utf-8');
+  const frontmatterTitle = content.match(/^---[\s\S]*?\ntitle:\s*["']?(.+?)["']?\s*\n[\s\S]*?---/);
+  if (frontmatterTitle?.[1]) return frontmatterTitle[1].trim();
+  const heading = content.match(/^#\s+(.+)$/m);
+  return heading?.[1]?.trim() || fallback;
+}
+
+function fileSidebarItem(dir: string, name: string, label?: string): SidebarItem | null {
+  const filePath = findPage(dir, name);
+  if (!filePath) return null;
+  return {
+    text: label || inferTitle(filePath, name),
+    link: routeFor(filePath)
+  };
+}
+
+function listMetaFromFs(dir: string): MetaItem[] {
+  return fs.readdirSync(dir, { withFileTypes: true })
+    .filter(item => !item.name.startsWith('.') && item.name !== '_meta.json' && item.name !== 'project.json')
+    .sort((a, b) => {
+      const aBase = path.parse(a.name).name;
+      const bBase = path.parse(b.name).name;
+      if (aBase === 'index') return -1;
+      if (bBase === 'index') return 1;
+      return a.name.localeCompare(b.name);
+    })
+    .map(item => {
+      if (item.isDirectory()) return { type: 'dir', name: item.name };
+      return pageExtensions.includes(path.extname(item.name)) ? path.parse(item.name).name : null;
+    })
+    .filter(Boolean) as MetaItem[];
+}
+
+function metaToSidebarItem(dir: string, metaItem: MetaItem): SidebarItem | null {
+  if (typeof metaItem === 'string') return fileSidebarItem(dir, metaItem);
+
+  if (metaItem.type === 'custom-link' && metaItem.link) {
+    return {
+      text: metaItem.label || metaItem.link,
+      link: metaItem.link,
+      items: metaItem.items?.map(item => metaToSidebarItem(dir, item)).filter(Boolean) as SidebarItem[] | undefined,
+      collapsible: metaItem.collapsible,
+      collapsed: metaItem.collapsed
+    };
+  }
+
+  if (metaItem.type === 'divider' || metaItem.type === 'section-header' || metaItem.type === 'dir-section-header') return null;
+
+  if (metaItem.type === 'file' || !metaItem.type) {
+    if (!metaItem.name) return null;
+    return fileSidebarItem(dir, metaItem.name, metaItem.label);
+  }
+
+  if (metaItem.type === 'dir') {
+    if (!metaItem.name) return null;
+    return dirSidebarItem(path.join(dir, metaItem.name), metaItem.label, metaItem.collapsible, metaItem.collapsed);
+  }
+
+  return null;
+}
+
+function dirSidebarItem(dir: string, label?: string, collapsible?: boolean, collapsed?: boolean): SidebarItem | null {
+  if (!fs.existsSync(dir)) return null;
+  const indexPage = findPage(dir, 'index');
+  const items = buildSidebarItems(dir).filter(item => item.link !== (indexPage ? routeFor(indexPage) : undefined));
+  if (!indexPage && items.length === 0) return null;
+  return {
+    text: label || path.basename(dir),
+    link: indexPage ? routeFor(indexPage) : undefined,
+    items,
+    collapsible,
+    collapsed
+  };
+}
+
+function buildSidebarItems(dir: string): SidebarItem[] {
+  const meta = readMeta(dir) || listMetaFromFs(dir);
+  return meta.map(item => metaToSidebarItem(dir, item)).filter(Boolean) as SidebarItem[];
+}
+
+function buildSidebarConfig(): Record<string, SidebarItem[]> {
+  const sidebar: Record<string, SidebarItem[]> = {};
+  for (const item of fs.readdirSync(docsRoot, { withFileTypes: true })) {
+    if (!item.isDirectory() || item.name.startsWith('.') || excludedRootDirs.has(item.name)) continue;
+    const projectDir = path.join(docsRoot, item.name);
+    sidebar[`/${item.name}/`] = buildSidebarItems(projectDir);
+  }
+  return sidebar;
+}
 
 export default defineConfig({
   root: path.resolve('docs'),
@@ -22,6 +160,7 @@ export default defineConfig({
       { text: '产品手册目录', link: '/index' },
       { text: '探索项目', link: '/explore' }
     ],
+    sidebar: buildSidebarConfig(),
     footer: {
       message: '版权所有 © 2026 奕柏科技'
     },
