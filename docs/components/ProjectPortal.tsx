@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
 import projectsData from './projects.json';
+import buildInfo from './build-info.json';
+
+const formatDateTime = (value?: string) => {
+  if (!value) return '';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleString('zh-CN', { hour12: false });
+};
 
 const ProjectPortal = () => {
   const [activeTag, setActiveTag] = useState('全部');
@@ -34,6 +42,22 @@ const ProjectPortal = () => {
           font-weight: 500;
           transition: all 0.2s ease;
           font-size: 0.95rem;
+        }
+        .build-info-bar {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+          justify-content: center;
+          align-items: center;
+          margin: -0.5rem 0 2rem;
+          color: var(--rp-c-text-3);
+          font-size: 0.82rem;
+        }
+        .build-info-item {
+          padding: 0.25rem 0.65rem;
+          border-radius: 9999px;
+          background: var(--rp-c-bg-soft);
+          border: 1px solid var(--rp-c-divider);
         }
         .tag-chip:hover {
           border-color: var(--rp-c-brand);
@@ -110,7 +134,23 @@ const ProjectPortal = () => {
           border-radius: 4px;
           font-weight: 500;
         }
+        .project-meta {
+          margin-top: 1rem;
+          padding-top: 1rem;
+          border-top: 1px dashed var(--rp-c-divider);
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+          color: var(--rp-c-text-3);
+          font-size: 0.78rem;
+        }
       `}} />
+
+      <div className="build-info-bar">
+        <span className="build-info-item">站点版本：v{buildInfo.siteVersion || 'unknown'}</span>
+        <span className="build-info-item">编译时间：{formatDateTime(buildInfo.buildTime) || 'unknown'}</span>
+        <span className="build-info-item">提交：{buildInfo.shortCommit || 'unknown'}</span>
+      </div>
 
       {/* 标签过滤区 */}
       <div className="tag-filter-container">
@@ -144,6 +184,10 @@ const ProjectPortal = () => {
               {project.tags.map(tag => (
                 <span key={tag} className="badge">{tag}</span>
               ))}
+            </div>
+            <div className="project-meta">
+              {(project.doc_version || project.docVersion) && <span>文档版本：{project.doc_version || project.docVersion}</span>}
+              {(project.doc_synced_at || project.docSyncedAt) && <span>同步时间：{formatDateTime(project.doc_synced_at || project.docSyncedAt)}</span>}
             </div>
           </a>
         ))}

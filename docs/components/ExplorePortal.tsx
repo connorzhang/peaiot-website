@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
 import projectsData from './projects.json';
+import buildInfo from './build-info.json';
+
+const formatDateTime = (value?: string) => {
+  if (!value) return '';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleString('zh-CN', { hour12: false });
+};
 
 const ExplorePortal = () => {
   const { tags, projects } = projectsData;
@@ -59,9 +67,23 @@ const ExplorePortal = () => {
           flex-grow: 1;
         }
         .results-header {
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
           color: var(--rp-c-text-2);
           font-size: 0.95rem;
+        }
+        .build-info-bar {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.6rem;
+          margin-bottom: 1.5rem;
+          color: var(--rp-c-text-3);
+          font-size: 0.8rem;
+        }
+        .build-info-item {
+          padding: 0.2rem 0.55rem;
+          border-radius: 9999px;
+          background: var(--rp-c-bg-soft);
+          border: 1px solid var(--rp-c-divider);
         }
         .explore-grid {
           display: grid;
@@ -106,6 +128,16 @@ const ExplorePortal = () => {
           border-radius: 4px;
           color: var(--rp-c-text-3);
         }
+        .ex-card-meta {
+          margin-top: 0.8rem;
+          padding-top: 0.8rem;
+          border-top: 1px dashed var(--rp-c-divider);
+          color: var(--rp-c-text-3);
+          font-size: 0.75rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
+        }
         @media (max-width: 768px) {
           .explore-container {
             flex-direction: column;
@@ -141,6 +173,11 @@ const ExplorePortal = () => {
         <div className="results-header">
           找到 {filteredProjects.length} 个相关项目
         </div>
+        <div className="build-info-bar">
+          <span className="build-info-item">站点版本：v{buildInfo.siteVersion || 'unknown'}</span>
+          <span className="build-info-item">编译时间：{formatDateTime(buildInfo.buildTime) || 'unknown'}</span>
+          <span className="build-info-item">提交：{buildInfo.shortCommit || 'unknown'}</span>
+        </div>
         <div className="explore-grid">
           {filteredProjects.map(project => (
             <a key={project.id} href={project.link} className="explore-card">
@@ -150,6 +187,10 @@ const ExplorePortal = () => {
                 {project.tags.map(t => (
                   <span key={t} className="ex-tag">{t}</span>
                 ))}
+              </div>
+              <div className="ex-card-meta">
+                {(project.doc_version || project.docVersion) && <span>文档版本：{project.doc_version || project.docVersion}</span>}
+                {(project.doc_synced_at || project.docSyncedAt) && <span>同步时间：{formatDateTime(project.doc_synced_at || project.docSyncedAt)}</span>}
               </div>
             </a>
           ))}

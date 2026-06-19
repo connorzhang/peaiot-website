@@ -1,9 +1,42 @@
 import fs from 'fs';
 import path from 'path';
+import { execSync } from 'child_process';
 
 const DOCS_DIR = path.resolve('docs');
 const COMPONENTS_DIR = path.resolve('docs/components');
 const OUTPUT_FILE = path.join(COMPONENTS_DIR, 'projects.json');
+const BUILD_INFO_FILE = path.join(COMPONENTS_DIR, 'build-info.json');
+
+function readPackageVersion() {
+  try {
+    const packageJson = JSON.parse(fs.readFileSync(path.resolve('package.json'), 'utf-8'));
+    return packageJson.version || '';
+  } catch (e) {
+    return '';
+  }
+}
+
+function readGitValue(command) {
+  try {
+    return execSync(command, { encoding: 'utf-8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  } catch (e) {
+    return '';
+  }
+}
+
+function generateBuildInfo(projectCount) {
+  const commit = process.env.GITHUB_SHA || readGitValue('git rev-parse HEAD');
+  const shortCommit = commit ? commit.slice(0, 7) : '';
+  const buildInfo = {
+    siteVersion: readPackageVersion(),
+    buildTime: new Date().toISOString(),
+    commit,
+    shortCommit,
+    branch: process.env.GITHUB_REF_NAME || readGitValue('git rev-parse --abbrev-ref HEAD'),
+    projectCount
+  };
+  fs.writeFileSync(BUILD_INFO_FILE, JSON.stringify(buildInfo, null, 2), 'utf-8');
+}
 
 function generate() {
   if (!fs.existsSync(DOCS_DIR)) return;
@@ -75,6 +108,7 @@ function generate() {
   };
 
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(data, null, 2), 'utf-8');
+  generateBuildInfo(projects.length);
   console.log('✅ Generated projects.json successfully! Total projects:', projects.length);
 }
 
