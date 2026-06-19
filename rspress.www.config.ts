@@ -25,6 +25,31 @@ export default defineConfig({
     hideNavbar: true
   },
   builderConfig: {
+    html: {
+      tags: [
+        {
+          tag: 'meta',
+          attrs: {
+            'http-equiv': 'Cache-Control',
+            content: 'no-cache, no-store, must-revalidate'
+          }
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            'http-equiv': 'Pragma',
+            content: 'no-cache'
+          }
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            'http-equiv': 'Expires',
+            content: '0'
+          }
+        }
+      ]
+    },
     resolve: {
       alias: {
         '@components': path.resolve('src/components'),

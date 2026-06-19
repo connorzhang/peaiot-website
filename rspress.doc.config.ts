@@ -258,6 +258,31 @@ export default defineConfig({
     nextPageText: '下一页'
   },
   builderConfig: {
+    html: {
+      tags: [
+        {
+          tag: 'meta',
+          attrs: {
+            'http-equiv': 'Cache-Control',
+            content: 'no-cache, no-store, must-revalidate'
+          }
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            'http-equiv': 'Pragma',
+            content: 'no-cache'
+          }
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            'http-equiv': 'Expires',
+            content: '0'
+          }
+        }
+      ]
+    },
     resolve: {
       alias: {
         '@docs-components': path.resolve('docs/components'),
