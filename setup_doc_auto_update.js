@@ -123,6 +123,94 @@ async function getLog() {
   }
 }
 
+async function readRemoteFile(filePath) {
+  const result = await postForm('files?action=GetFileBody', {
+    path: filePath
+  });
+  return result.data || '';
+}
+
+async function inspectPublish() {
+  const files = [
+    '/www/wwwroot/doc.rry.net/public_html/skills/publish-to-docs.md',
+    '/www/wwwroot/doc.rry.net/skills/publish-to-docs.md',
+    '/www/wwwroot/doc.rry.net/public_html/workstation/01-overview/lab-workstation-integration-plan.html',
+    '/www/wwwroot/doc.rry.net/workstation/01-overview/lab-workstation-integration-plan.html'
+  ];
+
+  for (const file of files) {
+    const data = await readRemoteFile(file);
+    console.log('---', file);
+    console.log(JSON.stringify({
+      size: data.length,
+      hasSkillV230: data.includes('version: "2.3.0"'),
+      hasWorkstationPage: data.includes('实验室工作站功能对标与集成规划') || data.includes('实验室工作站对标与集成规划'),
+      hasSidebar: data.includes('项目首页')
+    }));
+  }
+}
+
+async function inspectServerConfig() {
+  const files = [
+    '/www/server/panel/vhost/nginx/doc.rry.net.conf',
+    '/www/server/panel/vhost/nginx/0.default.conf',
+    '/www/server/nginx/conf/nginx.conf'
+  ];
+
+  const siteList = await postForm('site?action=GetSiteList', {
+    p: '1',
+    limit: '100',
+    search: 'doc.rry.net'
+  });
+  console.log('--- site?action=GetSiteList');
+  console.log(JSON.stringify(siteList, null, 2));
+
+  for (const file of files) {
+    const data = await readRemoteFile(file);
+    console.log('---', file);
+    console.log(data.split('\n').filter(line => /server_name|root|proxy_pass|rewrite|location|include|try_files/.test(line)).join('\n'));
+  }
+}
+
+async function webCheck() {
+  const checks = [
+    {
+      url: 'https://doc.rry.net/skills/publish-to-docs.md',
+      tests: {
+        hasSkillV230: 'version: "2.3.0"'
+      }
+    },
+    {
+      url: 'https://doc.rry.net/workstation/01-overview/lab-workstation-integration-plan.html',
+      tests: {
+        hasWorkstationPage: '实验室工作站功能对标与集成规划',
+        hasSidebar: '项目首页'
+      }
+    }
+  ];
+
+  for (const check of checks) {
+    const res = await fetch(`${check.url}?cache_bust=${Date.now()}`, {
+      headers: {
+        'Cache-Control': 'no-cache',
+        Pragma: 'no-cache'
+      }
+    });
+    const content = await res.text();
+    const tests = Object.fromEntries(Object.entries(check.tests).map(([name, keyword]) => [name, content.includes(keyword)]));
+    console.log('---', check.url);
+    console.log(JSON.stringify({
+      status: res.status,
+      contentType: res.headers.get('content-type'),
+      lastModified: res.headers.get('last-modified'),
+      cacheControl: res.headers.get('cache-control'),
+      etag: res.headers.get('etag'),
+      size: content.length,
+      ...tests
+    }, null, 2));
+  }
+}
+
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const action = process.argv[2] || 'install';
@@ -134,7 +222,13 @@ if (action === 'install') {
   await runOnce();
 } else if (action === 'log') {
   await getLog();
+} else if (action === 'inspect') {
+  await inspectPublish();
+} else if (action === 'server-config') {
+  await inspectServerConfig();
+} else if (action === 'web-check') {
+  await webCheck();
 } else {
-  console.error('用法: node setup_doc_auto_update.js install|run-once|log');
+  console.error('用法: node setup_doc_auto_update.js install|run-once|log|inspect|server-config|web-check');
   process.exit(1);
 }
