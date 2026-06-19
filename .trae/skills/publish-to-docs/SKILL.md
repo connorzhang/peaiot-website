@@ -1,17 +1,17 @@
 ---
 name: "publish-to-docs"
-version: "2.3.0"
+version: "2.4.0"
 description: "将当前项目的文档同步发布到企业中心文档站(doc.rry.net)。当用户要求 “发布到文档站”或“同步文档”时调用此技能。"
 ---
 
 # 发布到企业文档中心 (Publish to Docs)
 
-> **当前技能版本：v2.3.0** (支持现代扁平化与标签化架构、项目侧边栏自治、首页兜底、防乱码编码规范、同步后自动发布闭环、README 兼容与代码块语言容错)
+> **当前技能版本：v2.4.0** (支持单项目目录最小化同步、浅克隆与稀疏检出、并发推送重试、现代扁平化与标签化架构、项目侧边栏自治、首页兜底、防乱码编码规范、同步后自动发布闭环、README 兼容与代码块语言容错)
 > **技能更新源：** `http://doc.rry.net/skills/publish-to-docs.md`
 
 ## 技能版本控制与自我升级机制 (Self-Updating Mechanism)
 
-**版本号的作用**：本技能配置存在严格的版本控制（当前为 v2.3.0）。远端文档站会在 `sync-policy.json` 中声明最低允许的技能版本。如果 AI 发现当前技能版本过低，或者旧版架构不兼容，会被**强制熔断**以防破坏远端文档库架构。
+**版本号的作用**：本技能配置存在严格的版本控制（当前为 v2.4.0）。远端文档站会在 `sync-policy.json` 中声明最低允许的技能版本。如果 AI 发现当前技能版本过低，或者旧版架构不兼容，会被**强制熔断**以防破坏远端文档库架构。
 
 **【全自动自我升级指令】**：
 如果触发版本熔断，或者当用户主动要求“更新技能”、“升级文档同步技能”时，AI 必须明白是要从服务器下载最新的版本。此时 AI 必须**全自动执行**以下命令，从官方源拉取最新规则并覆盖本地技能文件，实现一键升级：
@@ -68,22 +68,25 @@ curl.exe -sL http://doc.rry.net/skills/publish-to-docs.md -o ~/.trae/skills/publ
 - **【强制编码规范】**：如果 AI 在 Windows (PowerShell) 环境下通过命令生成文件，**必须强制指定使用 UTF-8 编码**（例如使用 `Set-Content -Encoding UTF8` 或 Node.js 的 `fs.writeFileSync(..., 'utf-8')`），绝对禁止使用默认的 `>` 重定向或 `echo`，否则会导致文档站出现中文乱码！
 - **【强制红线】**：由于文档站是静态站点，如果没有 `index.md`，访问该项目目录时会导致 403 Forbidden 报错，所以必须确保项目存在默认首页。
 
-### 2. 克隆文档主仓库
-- 在当前项目的上一级目录（或系统的 Temp 目录）建立临时文件夹，执行克隆操作：
+### 2. 最小化克隆文档主仓库
+- 在当前项目的上一级目录（或系统的 Temp 目录）建立临时文件夹，执行**浅克隆 + 稀疏检出**。单项目同步只需要读取 `sync-policy.json` 和目标项目目录 `docs/<project-id>/`，不得拉取、扫描、修改其它项目目录。
   ```bash
-  git clone git@github.com:connorzhang/peaiot-website.git temp_docs_repo
+  git clone --depth=1 --filter=blob:none --sparse git@github.com:connorzhang/peaiot-website.git temp_docs_repo
+  cd temp_docs_repo
+  git sparse-checkout set sync-policy.json docs/<project-id>
   ```
+- 如果当前 Git 环境不支持 `--filter=blob:none` 或 `--sparse`，才允许退化为浅克隆 `git clone --depth=1 ...`，但仍必须只操作 `docs/<project-id>/`。
 
 ### 2.5 架构兼容性与版本熔断校验 (Version Check)
 - 读取克隆下来的主仓库中的架构策略文件：`temp_docs_repo/sync-policy.json`。
 - 提取其中的 `min_skill_version` 字段（如 `"2.1.0"`）。
-- **【强制红线】版本熔断**：对比本技能声明的当前版本（即 `v2.3.0`）与 `min_skill_version`。如果本技能版本低于主仓库的最低要求，**必须立即中止**，并向用户抛出红色警告：“🔴 致命错误：当前同步技能版本过低，与远端文档站架构不兼容！为了防止破坏文档库，请先拉取最新技能脚本更新全局配置后重试。”，绝不允许往下执行任何清空或复制动作。
+- **【强制红线】版本熔断**：对比本技能声明的当前版本（即 `v2.4.0`）与 `min_skill_version`。如果本技能版本低于主仓库的最低要求，**必须立即中止**，并向用户抛出红色警告：“🔴 致命错误：当前同步技能版本过低，与远端文档站架构不兼容！为了防止破坏文档库，请先拉取最新技能脚本更新全局配置后重试。”，绝不允许往下执行任何清空或复制动作。
 
 ### 3. 防覆盖校验与扁平化复制 (Ownership Check)
-- 在主仓库的 `docs/` 目录下，检查是否已经存在名为 `project.json` 中 `id` 值的文件夹（即 `docs/<id>`）。
+- 在主仓库的目标项目目录下，检查是否已经存在 `docs/<id>/project.json`。
 - **【强制红线】冲突熔断**：如果该目录存在，读取该目录下的旧 `project.json`。对比其中的 `repo` 与当前项目的 `repo` 是否完全一致。如果不一致，说明该 `id` 已被其他业务抢占，必须**立即中止操作**，并向用户抛出红色警告：“致命错误：项目 ID 冲突！该标识已被其他仓库占用，请修改 project.json 中的 id”。
 - 校验通过后，**必须先清空**目标目录 `temp_docs_repo/docs/<id>/` 下的所有旧文件，然后再将当前业务项目文档目录下的所有文件复制进去。
-- **【严禁干预元数据】**：只复制文件，绝对不要去修改主仓库中的路由配置，框架会自动通过标签和预编译脚本生成首页与探索页。
+- **【强制红线】单项目边界**：同步过程只允许删除、复制、修改 `temp_docs_repo/docs/<id>/` 这一棵目录；不得读取其它 `docs/<other-id>/` 目录内容，不得清理其它项目，不得修改主仓库路由配置。框架会在服务器构建阶段自动扫描项目并生成首页与探索页。
 
 ### 3.5 构建兼容性预检 (Build Safety Check)
 - AI 在同步前必须扫描 Markdown/MDX 代码块语言标记，避免使用 Rspress/Shiki 不支持的语言导致整个文档站构建失败。
@@ -93,10 +96,13 @@ curl.exe -sL http://doc.rry.net/skills/publish-to-docs.md -o ~/.trae/skills/publ
 ### 4. 提交并推送到主仓库
 - 进入 `temp_docs_repo` 目录内，自动执行 Git 提交流程：
   ```bash
-  git add docs/
+  git add docs/<project-id>/
   git commit -m "docs: 自动同步 <子项目名> 项目文档"
   git push origin main
   ```
+- **【强制红线】提交范围校验**：提交前必须执行差异检查，只允许本次提交包含 `docs/<project-id>/` 下的文件变更；如果发现其它路径变更，必须中止并回滚这些无关变更。
+- **并发推送处理**：如果 `git push` 因 `non-fast-forward` 失败，说明有其它项目刚刚先推送成功。AI 必须自动执行 `git fetch origin main`、`git rebase origin/main`，确认差异仍只包含 `docs/<project-id>/` 后再次 push。不同项目并发同步应通过 rebase 自动合并，不应让用户手动处理。
+- **同项目覆盖规则**：如果多人同时同步同一个 `project-id`，镜像同步以最后一次成功推送为准。AI 必须在反馈中明确这是同项目业务层覆盖，不属于跨项目误覆盖。
   *(注：遵循用户的核心习惯，执行 git push 时直接全自动执行，无需询问确认)*
 
 ### 5. 自动发布触发与结果反馈
@@ -107,6 +113,7 @@ curl.exe -sL http://doc.rry.net/skills/publish-to-docs.md -o ~/.trae/skills/publ
 
 ## 核心规则与红线
 - **完全自动化**：必须代用户执行克隆、复制、提交和推送的所有操作。
+- **单项目最小化同步**：单项目同步只允许拉取、校验、清空、复制、提交 `docs/<project-id>/`，不得操作其它项目目录；禁止使用 `git add docs/` 这类全目录提交。
 - **扁平项目目录**：任何项目都必须同步到 `docs/<project-id>/`，项目内部目录和侧边栏由项目自身 `_meta.json` 管理，主框架只扫描项目并生成首页/探索页索引。
 - **自动发布闭环**：项目同步后只需要 `git push` 到主仓库，后续由文档站服务器自动拉取、构建和发布；严禁依赖人工每次重新配置或手动上传才能生效。
 - **构建安全**：同步前必须保证 Markdown 代码块语言、UTF-8 编码、项目首页和 `_meta.json` 都不会导致主站构建失败；构建失败会阻塞所有项目页面更新。
