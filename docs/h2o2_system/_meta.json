@@ -1,12 +1,8 @@
 [
-  {
-    "type": "dir",
-    "name": "hardware",
-    "label": "🔧 硬件说明"
-  },
-  {
-    "type": "dir",
-    "name": "software",
-    "label": "💻 软件说明"
-  }
+  "index",
+  "plc-guide",
+  "hmi-guide",
+  "startup-shutdown",
+  "changelog",
+  "937-15xxF01_GB"
 ]
