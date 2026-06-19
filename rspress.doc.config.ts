@@ -20,9 +20,65 @@ type MetaItem = string | {
   collapsed?: boolean;
 };
 
+type MarkdownNode = {
+  type?: string;
+  lang?: string;
+  children?: MarkdownNode[];
+};
+
 const docsRoot = path.resolve('docs');
 const pageExtensions = ['.md', '.mdx'];
 const excludedRootDirs = new Set(['components', 'public']);
+const safeCodeLangs = new Set([
+  'bash',
+  'c',
+  'cpp',
+  'csharp',
+  'css',
+  'go',
+  'html',
+  'ini',
+  'java',
+  'javascript',
+  'js',
+  'json',
+  'md',
+  'powershell',
+  'python',
+  'rust',
+  'shellscript',
+  'sql',
+  'text',
+  'tsx',
+  'ts',
+  'txt',
+  'xml',
+  'yaml',
+  'yml'
+]);
+const codeLangAliases: Record<string, string> = {
+  hex: 'txt',
+  text: 'txt',
+  plaintext: 'txt',
+  cmd: 'bash',
+  shell: 'bash',
+  ps: 'powershell',
+  ps1: 'powershell'
+};
+
+function remarkNormalizeCodeLangs() {
+  return (tree: MarkdownNode) => {
+    const walk = (node: MarkdownNode) => {
+      if (node.type === 'code' && node.lang) {
+        const lang = node.lang.toLowerCase();
+        const normalizedLang = codeLangAliases[lang] || lang;
+        node.lang = safeCodeLangs.has(normalizedLang) ? normalizedLang : 'txt';
+      }
+      node.children?.forEach(walk);
+    };
+    walk(tree);
+  };
+}
 
 function readMeta(dir: string): MetaItem[] | null {
   const metaPath = path.join(dir, '_meta.json');
@@ -31,11 +87,33 @@ function readMeta(dir: string): MetaItem[] | null {
 }
 
 function findPage(dir: string, name: string): string | null {
-  for (const extension of pageExtensions) {
-    const filePath = path.join(dir, `${name}${extension}`);
-    if (fs.existsSync(filePath)) return filePath;
+  const candidates = name === 'index' ? ['index', 'README', 'readme'] : [name];
+  for (const candidate of candidates) {
+    for (const extension of pageExtensions) {
+      const filePath = path.join(dir, `${candidate}${extension}`);
+      if (fs.existsSync(filePath)) return filePath;
+    }
   }
   return null;
+}
+
+function isPageFile(fileName: string): boolean {
+  return pageExtensions.includes(path.extname(fileName));
+}
+
+function pagePriority(name: string): number {
+  const baseName = path.parse(name).name.toLowerCase();
+  if (baseName === 'index') return 0;
+  if (baseName === 'readme') return 1;
+  return 2;
+}
+
+function hasPage(dir: string, name: string): boolean {
+  for (const extension of pageExtensions) {
+    const filePath = path.join(dir, `${name}${extension}`);
+    if (fs.existsSync(filePath)) return true;
+  }
+  return false;
 }
 
 function routeFor(filePath: string): string {
@@ -71,13 +149,13 @@ function listMetaFromFs(dir: string): MetaItem[] {
     .sort((a, b) => {
       const aBase = path.parse(a.name).name;
       const bBase = path.parse(b.name).name;
-      if (aBase === 'index') return -1;
-      if (bBase === 'index') return 1;
+      const priorityDiff = pagePriority(a.name) - pagePriority(b.name);
+      if (priorityDiff !== 0) return priorityDiff;
       return a.name.localeCompare(b.name);
     })
     .map(item => {
       if (item.isDirectory()) return { type: 'dir', name: item.name };
-      return pageExtensions.includes(path.extname(item.name)) ? path.parse(item.name).name : null;
+      return isPageFile(item.name) ? path.parse(item.name).name : null;
     })
     .filter(Boolean) as MetaItem[];
 }
@@ -97,9 +175,19 @@ function metaToSidebarItem(dir: string, metaItem: MetaItem): SidebarItem | null 
 
   if (metaItem.type === 'divider' || metaItem.type === 'section-header' || metaItem.type === 'dir-section-header') return null;
 
-  if (metaItem.type === 'file' || !metaItem.type) {
+  if (metaItem.type === 'file') {
     if (!metaItem.name) return null;
     return fileSidebarItem(dir, metaItem.name, metaItem.label);
+  }
+
+  if (!metaItem.type) {
+    if (!metaItem.name) return null;
+    const childDir = path.join(dir, metaItem.name);
+    if (fs.existsSync(childDir) && fs.statSync(childDir).isDirectory()) {
+      return dirSidebarItem(childDir, metaItem.label, metaItem.collapsible, metaItem.collapsed);
+    }
+    if (hasPage(dir, metaItem.name)) return fileSidebarItem(dir, metaItem.name, metaItem.label);
+    return null;
   }
 
   if (metaItem.type === 'dir') {
@@ -150,6 +238,7 @@ export default defineConfig({
   logoText: '企业文档中心',
   search: true,
   markdown: {
+    remarkPlugins: [remarkNormalizeCodeLangs],
     link: {
       checkDeadLinks: false
     }

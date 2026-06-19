@@ -44,15 +44,25 @@ function generate() {
       projectData.tags = ['未分类'];
     }
 
-    // 处理 link: 如果没有 index.md，找第一个文件
+    // 处理 link: 优先 index，其次 README，再找第一个普通文档
     const projectFiles = fs.readdirSync(projectPath, { withFileTypes: true });
-    const hasIndex = projectFiles.some(f => f.name === 'index.md' || f.name === 'index.mdx');
-    if (!hasIndex) {
-      const firstDoc = projectFiles.find(f => f.isFile() && (f.name.endsWith('.md') || f.name.endsWith('.mdx') && f.name !== 'project.json'));
-      if (firstDoc) {
-        const docName = firstDoc.name.replace(/\.mdx?$/, '');
-        projectData.link = `/${dir}/${docName}`;
-      }
+    const pageFiles = projectFiles
+      .filter(f => f.isFile() && /\.mdx?$/.test(f.name) && !['_meta.json', 'project.json'].includes(f.name))
+      .sort((a, b) => {
+        const priority = name => {
+          const base = name.replace(/\.mdx?$/, '').toLowerCase();
+          if (base === 'index') return 0;
+          if (base === 'readme') return 1;
+          return 2;
+        };
+        const priorityDiff = priority(a.name) - priority(b.name);
+        if (priorityDiff !== 0) return priorityDiff;
+        return a.name.localeCompare(b.name);
+      });
+    const firstDoc = pageFiles[0];
+    if (firstDoc) {
+      const docName = firstDoc.name.replace(/\.mdx?$/, '');
+      projectData.link = docName.toLowerCase() === 'index' ? `/${dir}/` : `/${dir}/${docName}`;
     }
 
     projectData.tags.forEach(t => allTags.add(t));
