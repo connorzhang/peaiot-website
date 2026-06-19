@@ -1,8 +1,8 @@
 {
   "id": "workstation",
   "title": "色谱工作站",
-  "description": "跨平台、高性能的气相色谱仪控制与数据分析软件。",
-  "tags": ["软件", "桌面应用", "分析工具"],
-  "icon": "📈",
-  "repo": "git@github.com:connorzhang/peaiot-website.git"
+  "description": "跨平台、软硬一体化、全面拥抱国际标准协议的智能色谱分析工作站",
+  "tags": ["软件系统", "色谱工作站", "SiLA2", "OPC-UA"],
+  "icon": "🔬",
+  "repo": "git@github.com:connorzhang/Chromatography-workstation.git"
 }
