@@ -183,7 +183,7 @@ async function webCheck() {
     {
       url: 'https://doc.rry.net/workstation/01-overview/lab-workstation-integration-plan.html',
       tests: {
-        hasWorkstationPage: '实验室工作站功能对标与集成规划',
+        hasWorkstationPage: '实验室色谱工作站功能对标与集成规划',
         hasSidebar: '项目首页'
       }
     }
