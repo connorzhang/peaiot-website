@@ -57,6 +57,19 @@ function getSign() {
     return { request_time: timestamp, request_token: token };
 }
 
+function parseApiResult(label, text) {
+    try {
+        const result = JSON.parse(text);
+        if (result.status === false) {
+            throw new Error(`${label}失败: ${result.msg || text}`);
+        }
+        return result;
+    } catch (e) {
+        if (e instanceof SyntaxError) return null;
+        throw e;
+    }
+}
+
 async function addSite() {
     console.log(`1. 尝试新建 HTML 静态站点 ${siteDomain} ...`);
     const { request_time, request_token } = getSign();
@@ -87,6 +100,11 @@ async function addSite() {
     });
     const text = await res.text();
     console.log('建站结果:', text);
+    try {
+        parseApiResult('建站', text);
+    } catch (e) {
+        if (!String(e.message).includes('已存在')) throw e;
+    }
 }
 
 async function applySSL() {
@@ -111,9 +129,10 @@ async function applySSL() {
         });
         const text = await res.text();
         console.log('SSL 申请触发结果:', text);
+        parseApiResult('SSL 申请', text);
         console.log('注意: 如果域名解析尚未生效或阿里云 DNS 密钥未在宝塔配置，可能会失败。失败请手动在面板操作。');
     } catch (e) {
-        console.log('SSL 申请请求失败:', e.message);
+        throw new Error(`SSL 申请请求失败: ${e.message}`);
     }
 }
 
@@ -137,6 +156,7 @@ async function upload() {
     });
     const text = await res.text();
     console.log('上传结果:', text);
+    parseApiResult('上传', text);
 }
 
 async function unzip() {
@@ -156,6 +176,7 @@ async function unzip() {
     });
     const text = await res.text();
     console.log('解压结果:', text);
+    parseApiResult('解压', text);
 }
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -168,5 +189,6 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
         console.log('所有自动化建站与部署流程执行完毕！最新的极速官网已经上线！');
     } catch (e) {
         console.error('执行失败:', e);
+        process.exit(1);
     }
 })();
