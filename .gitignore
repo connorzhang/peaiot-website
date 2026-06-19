@@ -14,6 +14,10 @@ build_doc/
 *.rar
 *.7z
 
+# Env
+.env
+.env.*
+
 # IDE
 .vscode/*
 !.vscode/extensions.json
