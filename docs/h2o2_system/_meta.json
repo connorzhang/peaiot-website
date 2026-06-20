@@ -1,8 +1,32 @@
 [
-  "index",
-  "plc-guide",
-  "hmi-guide",
-  "startup-shutdown",
-  "changelog",
-  "937-15xxF01_GB"
+  {
+    "type": "file",
+    "name": "index",
+    "label": "项目首页"
+  },
+  {
+    "type": "file",
+    "name": "plc-guide",
+    "label": "PLC 使用说明"
+  },
+  {
+    "type": "file",
+    "name": "hmi-guide",
+    "label": "原生上位机说明"
+  },
+  {
+    "type": "file",
+    "name": "startup-shutdown",
+    "label": "开关机说明"
+  },
+  {
+    "type": "file",
+    "name": "changelog",
+    "label": "更新记录"
+  },
+  {
+    "type": "file",
+    "name": "937-15xxF01_GB",
+    "label": "流量计资料"
+  }
 ]
