@@ -2,6 +2,46 @@
   {
     "type": "file",
     "name": "index",
-    "label": "Subnetra Studio"
+    "label": "首页"
+  },
+  {
+    "type": "file",
+    "name": "overview",
+    "label": "项目概览"
+  },
+  {
+    "type": "file",
+    "name": "architecture",
+    "label": "系统架构"
+  },
+  {
+    "type": "file",
+    "name": "subnetra-overlay",
+    "label": "Subnetra Overlay"
+  },
+  {
+    "type": "file",
+    "name": "wsl-socks-bridge",
+    "label": "WSL SOCKS 桥接"
+  },
+  {
+    "type": "file",
+    "name": "windows-routing-proxy",
+    "label": "Windows 分流代理"
+  },
+  {
+    "type": "file",
+    "name": "lan-reuse",
+    "label": "局域网复用"
+  },
+  {
+    "type": "file",
+    "name": "zerotier-gateway",
+    "label": "ZeroTier 网关"
+  },
+  {
+    "type": "file",
+    "name": "operations",
+    "label": "运维与排障"
   }
 ]
