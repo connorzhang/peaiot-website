@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AnIML Inspired Sequence Schema for Agilent Clone",
+  "description": "JSON representation of a sequence table.",
+  "type": "object",
+  "properties": {
+    "sequenceId": { "type": "string", "format": "uuid" },
+    "sequenceName": { "type": "string" },
+    "operator": { "type": "string" },
+    "lines": {
+      "type": "array",
+      "description": "Rows in the sequence table.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "lineNo": { "type": "integer" },
+          "location": { "type": "string", "description": "Vial number, e.g. '1', '101'" },
+          "sampleName": { "type": "string" },
+          "methodId": { "type": "string", "format": "uuid" },
+          "injVolume": { "type": "number", "description": "uL" },
+          "dataFileName": { "type": "string", "description": "Output file prefix or explicit name" },
+          "sampleType": { "type": "string", "enum": ["Sample", "Calibration", "Control", "Blank"] }
+        },
+        "required": ["lineNo", "location", "sampleName", "methodId"]
+      }
+    }
+  },
+  "required": ["sequenceId", "lines"]
+}

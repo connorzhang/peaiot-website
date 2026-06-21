@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AnIML Inspired Method Schema for Agilent Clone",
+  "description": "JSON representation of a chromatography method, preserving Agilent ChemStation concepts mapped to AnIML structures.",
+  "type": "object",
+  "properties": {
+    "methodId": { "type": "string", "format": "uuid" },
+    "version": { "type": "integer" },
+    "methodName": { "type": "string" },
+    "description": { "type": "string" },
+    "instrumentControl": {
+      "type": "object",
+      "description": "Hardware settings mapped to Agilent System Diagram components.",
+      "properties": {
+        "oven": {
+          "type": "object",
+          "properties": {
+            "initialTemperature": { "type": "number", "description": "Celsius" },
+            "initialTime": { "type": "number", "description": "Minutes" },
+            "temperatureProgram": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rate": { "type": "number", "description": "Celsius/Min" },
+                  "targetTemperature": { "type": "number", "description": "Celsius" },
+                  "holdTime": { "type": "number", "description": "Minutes" }
+                }
+              }
+            }
+          }
+        },
+        "detectors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string", "enum": ["FID", "TCD", "ECD", "FPD"] },
+              "temperature": { "type": "number" },
+              "heaterOn": { "type": "boolean" },
+              "dataRateHz": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "dataAnalysis": {
+      "type": "object",
+      "description": "Agilent classic Integration Events and Calibration Table",
+      "properties": {
+        "integrationEvents": {
+          "type": "array",
+          "description": "Ordered list of integration events based on Agilent ChemStation.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "time": { "type": "number", "description": "Time in minutes" },
+              "eventType": {
+                "type": "string",
+                "enum": [
+                  "InitialAreaReject",
+                  "InitialPeakWidth",
+                  "TangentSkimMode",
+                  "BaselineHold",
+                  "IntegrationOff",
+                  "IntegrationOn",
+                  "ValleyToValley"
+                ]
+              },
+              "value": { "type": "number", "description": "Value for the event (e.g. area threshold, width)" }
+            },
+            "required": ["time", "eventType"]
+          }
+        },
+        "calibrationTable": {
+          "type": "object",
+          "properties": {
+            "compounds": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "expectedRt": { "type": "number" },
+                  "rtWindow": { "type": "number" },
+                  "levels": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "levelName": { "type": "string" },
+                        "amount": { "type": "number" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["methodId", "version", "methodName"]
+}
