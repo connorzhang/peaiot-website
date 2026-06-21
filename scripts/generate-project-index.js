@@ -67,7 +67,8 @@ function generate() {
 
     if (fs.existsSync(projectJsonPath)) {
       try {
-        const meta = JSON.parse(fs.readFileSync(projectJsonPath, 'utf-8'));
+        const content = fs.readFileSync(projectJsonPath, 'utf-8').replace(/^\uFEFF/, '');
+        const meta = JSON.parse(content);
         projectData = { ...projectData, ...meta };
       } catch (e) {
         console.warn(`Failed to parse ${projectJsonPath}`);

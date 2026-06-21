@@ -83,7 +83,8 @@ function remarkNormalizeCodeLangs() {
 function readMeta(dir: string): MetaItem[] | null {
   const metaPath = path.join(dir, '_meta.json');
   if (!fs.existsSync(metaPath)) return null;
-  return JSON.parse(fs.readFileSync(metaPath, 'utf-8')) as MetaItem[];
+  const content = fs.readFileSync(metaPath, 'utf-8').replace(/^\uFEFF/, '');
+  return JSON.parse(content) as MetaItem[];
 }
 
 function findPage(dir: string, name: string): string | null {
