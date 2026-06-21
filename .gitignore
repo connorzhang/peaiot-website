@@ -9,8 +9,29 @@ node-v*-win-x64/
 dist/
 doc_build/
 build_doc/
+*.zip
+*.tar.gz
+*.rar
+*.7z
 
 # IDE
 .vscode/*
 !.vscode/extensions.json
 .idea
+
+# Temporary & Test
+temp.*
+temp_*
+test.cjs
+test2.cjs
+bt_api_check.js
+get_log.js
+download_images.cjs
+replace.cjs
+logo.png
+
+# Sensitive
+.env
+.env.*
+*.pem
+*.key
