@@ -1,7 +1,7 @@
 # Subnetra Studio
 
-> 文档版本：v2026.06.20.1559  
-> 更新时间：2026-06-20 15:59:17 +08:00  
+> 文档版本：v1.0.10
+> 更新时间：2026-06-21 23:30:57 +08:00
 > 适用范围：Subnetra Studio 控制台、Subnetra 10.79 Overlay、Windows + WSL SOCKS 桥接、sing-box TUN 分流、ZeroTier 出口网关验证
 
 Subnetra Studio 是基于 Subnetra 核心引擎开发的现代化 SD-WAN 网络配置与管理控制台，目标是在保持底层核心极轻量的前提下，为服务器、桌面端、临时 Agent 和运维节点提供可视化、可审计、可自动化的网络接入能力。
