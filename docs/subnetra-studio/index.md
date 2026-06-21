@@ -17,6 +17,37 @@ Subnetra Studio 是基于 Subnetra 核心引擎开发的现代化 SD-WAN 网络�
 - [ZeroTier 出口与 IPv6 网关](./zerotier-gateway.md)：M2 IPv4 出口、IPv6 `/128` 分配和 NDP Proxy 验证。
 - [运维与排障](./operations.md)：常见故障、检查命令和恢复路径。
 
+## 客户端下载与使用
+
+### Windows 桌面客户端使用
+
+Windows 客户端完全采用原生 UI 编译，没有任何多余的依赖（如 WebView2 等）。
+1. 在 [Releases 页面](https://github.com/peaiot/subnetra-studio/releases) 下载最新版的 `subnetra-client-windows-amd64.zip`。
+2. 解压后获得 `subnetra-client.exe`。
+3. **右键 -> 以管理员身份运行** (因为需要创建虚拟网卡进行组网隧道)。
+4. 在界面上填入您的配置参数，点击连接即可。
+
+### Windows 命令行客户端 (CLI) 使用 (专为自动化与 AI 准备)
+
+压缩包内同时提供了一个无界面的纯命令行工具 `subnetra-cli.exe`。该工具省去了配置文件和解析步骤，完全通过参数传值实现开箱即用的网络连通，非常适合由 Python 脚本、PowerShell 脚本或 AI Agent 作为子进程后台拉起。
+
+**使用示例（必须在管理员权限终端下执行）：**
+
+```powershell
+.\subnetra-cli.exe --endpoint 180.171.58.5:28020 --psk "您的16进制加密密钥" --id 3 --tun-ip 10.0.0.3
+```
+
+**参数说明：**
+- `--endpoint <IP:PORT>` : 必填，目标服务器（Hub）的公网 IP 和 UDP 监听端口。
+- `--psk <HEX_KEY>` : 必填，16进制格式的预共享密钥。
+- `--id <ID>` : 可选，当前客户端的虚拟节点 ID（默认: 3）。
+- `--hub-id <ID>` : 可选，服务端（Hub）的虚拟节点 ID（默认: 1）。
+- `--tun-ip <IP>` : 可选，虚拟网卡分配的本地 IP（默认: 10.0.0.3）。
+- `--tun-mask <MASK>` : 可选，虚拟网卡子网掩码（默认: 255.255.255.0）。
+
+**退出与清理：**
+直接发送 `Ctrl+C` 信号（或终止该进程），程序会在退出前安全地执行自动清理，卸载对应的虚拟网卡，绝不残留。
+
 ## 当前结论
 
 - `10.79.0.0/24` Overlay 已验证可用，Spoke 节点可访问 `10.79.0.1/.2/.3/.4`。
