@@ -1,46 +1,48 @@
 [
+  "index",
   {
-    "name": "README",
-    "label": "项目首页"
-  },
-  {
+    "type": "dir",
     "name": "01-overview",
-    "label": "产品与架构概述"
+    "label": "📖 产品说明"
   },
   {
-    "name": "architecture",
-    "label": "架构设计"
+    "type": "dir",
+    "name": "04-deployment",
+    "label": "🚀 部署与快速开始"
   },
   {
-    "name": "api",
-    "label": "API接口文档"
-  },
-  {
-    "name": "sila2",
-    "label": "SiLA2集成"
-  },
-  {
-    "name": "02-protocols",
-    "label": "硬件与通信协议"
-  },
-  {
+    "type": "dir",
     "name": "03-api-design",
-    "label": "软件API与数据结构"
+    "label": "💻 API 接口文档"
   },
   {
+    "type": "dir",
+    "name": "02-protocols",
+    "label": "🔌 协议与硬件接入"
+  },
+  {
+    "type": "dir",
+    "name": "schemas",
+    "label": "📄 数据结构 (Schemas)"
+  },
+  {
+    "type": "file",
+    "name": "api",
+    "label": "REST API"
+  },
+  {
+    "type": "file",
     "name": "deployment",
     "label": "部署指南"
   },
   {
-    "name": "development",
-    "label": "开发指南"
+    "type": "file",
+    "name": "sila2",
+    "label": "SiLA2 标准"
   },
   {
-    "name": "04-deployment",
-    "label": "开发部署与记录"
-  },
-  {
+    "type": "file",
     "name": "troubleshooting",
-    "label": "故障排查"
+    "label": "🛠️ 故障排除"
   }
 ]
