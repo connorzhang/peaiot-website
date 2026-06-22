@@ -1,5 +1,11 @@
 {
   "tags": [
+    "软件系统",
+    "色谱工作站",
+    "SiLA2",
+    "OPC-UA",
+    "Rust",
+    "Go",
     "硬件",
     "PLC",
     "解决方案",
@@ -8,7 +14,6 @@
     "生产系统",
     "嵌入式",
     "核心",
-    "软件系统",
     "环保物联网",
     "云端平台",
     "数据可视化",
@@ -16,13 +21,28 @@
     "MCP",
     "网络工具",
     "SD-WAN",
-    "Rust",
-    "客户端",
-    "色谱工作站",
-    "SiLA2",
-    "OPC-UA"
+    "客户端"
   ],
   "projects": [
+    {
+      "id": "chromatography-workstation",
+      "title": "色谱工作站",
+      "description": "跨平台、软硬一体化、全面拥抱国际标准协议的智能色谱分析工作站",
+      "tags": [
+        "软件系统",
+        "色谱工作站",
+        "SiLA2",
+        "OPC-UA",
+        "Rust",
+        "Go"
+      ],
+      "icon": "🧪",
+      "repo": "git@github.com:connorzhang/Chromatography-workstation.git",
+      "link": "/chromatography-workstation/",
+      "doc_version": "v0.3.89",
+      "doc_synced_at": "2026-06-22T08:48:11+08:00",
+      "doc_source_commit": "d16226ec439b295be7901d14f8493e37dff6d781"
+    },
     {
       "id": "h2o2-plc",
       "title": "双氧水工艺PLC系统",
