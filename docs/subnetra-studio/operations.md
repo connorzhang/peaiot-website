@@ -15,7 +15,7 @@ Get-NetAdapter -Name subnetra-tun
 ```bash
 pgrep -af 'subnetra-socks-relay|subnetrad'
 ss -lntp | grep 18080
-ping -c 3 10.79.0.4
+ping -c 3 10.x.x.x
 ```
 
 最后验证 SOCKS：
@@ -35,17 +35,17 @@ Get-NetRoute -DestinationPrefix '::/0'
 
 如果测试 TUN 或 ZeroTier 意外接管默认路由，应停止对应进程或计划任务。
 
-## 20.62.58.5 没走代理
+## xx.xx.xx.xx 没走代理
 
 检查 sing-box 日志中是否出现：
 
 ```text
-outbound/socks[subnetra-socks]: outbound connection to 20.62.58.5
+outbound/socks[subnetra-socks]: outbound connection to xx.xx.xx.xx
 ```
 
 如果没有，说明规则未命中或 TUN 未运行。
 
-## 10.79 Overlay 不通
+## 10.x Overlay 不通
 
 检查 TUN：
 
@@ -57,7 +57,7 @@ ip -s link show snr0
 检查 UDP：
 
 ```bash
-sudo tcpdump -ni any 'udp and host 39.107.35.41 and port 28020'
+sudo tcpdump -ni any 'udp and host api.example.com and port 28020'
 ```
 
 判断依据：
