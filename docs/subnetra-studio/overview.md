@@ -16,13 +16,13 @@ Subnetra Studio 面向 Subnetra 核心引擎提供管理控制台、配置展示
 
 | 能力 | 结论 |
 | --- | --- |
-| 10.79 Overlay | 已测通 `10.79.0.1/.2/.3/.4` |
-| WSL Subnetra | 已可创建 `snr0=10.79.0.5/24` |
-| SOCKS 访问 | 已可通过 `10.79.0.4:18080` 访问 HTTPS 网站 |
-| Windows TUN 分流 | GitHub 与 `20.62.58.5/32` 走 Subnetra SOCKS |
+| 10.x Overlay | 已测通 `10.x.x.x` |
+| WSL Subnetra | 已可创建 `snr0=10.x.x.x/24` |
+| SOCKS 访问 | 已可通过 `10.x.x.x:18080` 访问 HTTPS 网站 |
+| Windows TUN 分流 | GitHub 与指定 IP 走 Subnetra SOCKS |
 | 普通流量直连 | 百度等普通站点保持 direct |
-| ZeroTier IPv4 出口 | M2 可作为 `10.8.5.219` 出口节点 |
-| ZeroTier IPv6 网关 | M2 可给客户端分配公网 IPv6 `/128` |
+| ZeroTier IPv4 出口 | 节点可作为出站代理 |
+| ZeroTier IPv6 网关 | 节点可给客户端分配公网 IPv6 `/128` |
 
 ## 明确边界
 

@@ -5,7 +5,7 @@
 让 Windows 上任意应用访问以下目标时自动走 Subnetra SOCKS：
 
 - GitHub 相关域名
-- `20.62.58.5/32`
+- `xx.xx.xx.xx/32`
 
 其它流量保持本机直连。
 
@@ -17,7 +17,7 @@ Windows 应用
   -> subnetra-socks outbound
   -> 127.0.0.1:18080
   -> WSL relay
-  -> 10.79.0.4:18080
+  -> 10.x.x.x:18080
 ```
 
 ## SOCKS 出站配置
@@ -56,7 +56,7 @@ Windows 应用
 
 ```json
 {
-  "ip_cidr": ["20.62.58.5/32"],
+  "ip_cidr": ["xx.xx.xx.xx/32"],
   "outbound": "subnetra-socks"
 }
 ```
@@ -65,7 +65,7 @@ Windows 应用
 
 ```text
 github.com -> outbound/socks[subnetra-socks]
-20.62.58.5 -> outbound/socks[subnetra-socks]
+xx.xx.xx.xx -> outbound/socks[subnetra-socks]
 www.baidu.com -> outbound/direct[direct]
 ```
 
@@ -73,7 +73,7 @@ www.baidu.com -> outbound/direct[direct]
 
 ```text
 https://github.com/ -> HTTP 200
-http://20.62.58.5/ -> HTTP 404，代表网络已通但目标站点路径不存在
+http://xx.xx.xx.xx/ -> HTTP 404，代表网络已通但目标站点路径不存在
 https://www.baidu.com/ -> HTTP 200，直连
 ```
 

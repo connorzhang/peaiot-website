@@ -1,4 +1,4 @@
-# Subnetra 10.79 Overlay
+# Subnetra 10.x Overlay
 
 ## Spoke 配置模板
 
@@ -8,19 +8,19 @@
   "role": "spoke",
   "local_tun_mtu": 1400,
   "listen_ports": [28020],
-  "virtual_subnet": "10.79.0.0/24",
+  "virtual_subnet": "10.x.x.x/24",
   "local_id": 5,
-  "local_tun_ip": "10.79.0.5/24",
-  "local_routes": ["10.79.0.5/32"],
+  "local_tun_ip": "10.x.x.x/24",
+  "local_routes": ["10.x.x.x/32"],
   "keepalive_secs": 20,
   "obfuscate": true,
   "peers": [
     {
       "id": 1,
-      "endpoint": "39.107.35.41:28020",
-      "allowed_src": "10.79.0.0/24",
+      "endpoint": "api.example.com:28020",
+      "allowed_src": "10.x.x.x/24",
       "name": "subnetra-hub",
-      "psk": "按实际部署填写"
+      "psk": "your_psk_here"
     }
   ]
 }
@@ -31,39 +31,33 @@
 ```bash
 sudo /usr/local/bin/subnetrad --config /etc/subnetra/config.json
 sudo ip link set snr0 mtu 1400
-sudo ip addr add 10.79.0.5/24 dev snr0
+sudo ip addr add 10.x.x.x/24 dev snr0
 sudo ip link set snr0 up
 ```
 
 ## 连通性验证
 
 ```bash
-ping -c 4 10.79.0.1
-ping -c 4 10.79.0.2
-ping -c 4 10.79.0.3
-ping -c 4 10.79.0.4
+ping -c 4 10.x.x.x
 ```
 
 已验证结果：
 
 ```text
-10.79.0.1: 0% packet loss, avg 27ms
-10.79.0.2: 0% packet loss, avg 65ms
-10.79.0.3: 0% packet loss, avg 69ms
-10.79.0.4: 0% packet loss, avg 61ms
+10.x.x.x: 0% packet loss, avg 27ms
 ```
 
 ## UDP 抓包确认
 
 ```bash
-sudo tcpdump -ni any 'udp and host 39.107.35.41 and port 28020'
+sudo tcpdump -ni any 'udp and host api.example.com and port 28020'
 ```
 
 成功时可看到双向 UDP：
 
 ```text
-本机:28020 -> 39.107.35.41:28020
-39.107.35.41:28020 -> 本机:28020
+本机:28020 -> api.example.com:28020
+api.example.com:28020 -> 本机:28020
 ```
 
 ## TUN UNKNOWN 说明

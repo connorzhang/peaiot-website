@@ -8,8 +8,8 @@
 局域网电脑
   -> 当前 Windows 主机:18080
   -> WSL relay
-  -> Subnetra 10.79 Overlay
-  -> 10.79.0.4:18080
+  -> Subnetra 10.x Overlay
+  -> 10.x.x.x:18080
 ```
 
 ## 简单代理模式
@@ -47,7 +47,7 @@ curl.exe --socks5-hostname <用户名>:<密码>@<Windows主机IP>:18080 https://
 }
 ```
 
-规则与 Windows 本机一致：GitHub 相关域名和 `20.62.58.5/32` 走 `subnetra-socks`，其它走 direct。
+规则与 Windows 本机一致：GitHub 相关域名和指定IP走 `subnetra-socks`，其它走 direct。
 
 ## 安全建议
 
