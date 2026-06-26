@@ -1,4 +1,4 @@
-> 🏷️ 当前版本: v0.2.5 | ⏱️ 最后同步: 2026-06-27 00:14:37 | 🔗 构建 Commit: 072f76c
+> 🏷️ 当前版本: v0.2.6 | ⏱️ 最后同步: 2026-06-27 00:33:44 | 🔗 构建 Commit: 072f76c
 
 This document outlines the vision, goals, non-goals, and milestones for the **Subnetra Studio** project.
 It serves as the product direction compass for both human maintainers and AI agents.

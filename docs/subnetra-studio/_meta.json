@@ -3,21 +3,21 @@
   {
     "type": "dir",
     "name": "overview",
-    "label": "📖 项目概述与规划"
+    "label": " 项目概述与规划"
   },
   {
     "type": "dir",
     "name": "architecture",
-    "label": "🏗️ 系统架构与设计"
+    "label": " 系统架构与设计"
   },
   {
     "type": "dir",
     "name": "development",
-    "label": "💻 开发与接口文档"
+    "label": " 开发与接口文档"
   },
   {
     "type": "dir",
     "name": "operations",
-    "label": "🛡️ 运维与服务管理"
+    "label": " 运维与服务管理"
   }
 ]

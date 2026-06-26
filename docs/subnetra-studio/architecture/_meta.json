@@ -1,0 +1,8 @@
+[
+  "architecture",
+  "subnetra-overlay",
+  "windows-routing-proxy",
+  "wsl-socks-bridge",
+  "zerotier-gateway",
+  "lan-reuse"
+]
