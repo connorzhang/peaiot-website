@@ -10,22 +10,35 @@ function getGitCommit() {
     }
 }
 
+function normalizeVersion(v) {
+    if (!v) return 'v1.0.0';
+    // 强制正则提取 vX.X.X 格式
+    const match = String(v).match(/(\d+\.\d+\.\d+)/);
+    if (match) {
+        return 'v' + match[1];
+    }
+    return 'v1.0.0'; // 遵循软考高项标准，如果无法识别，默认生成 v1.0.0 初版正式版本
+}
+
 function getVersion() {
     try {
+        // 1. 尝试从业务侧 package.json 提取并规范化
         if (fs.existsSync('package.json')) {
             const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-            if (pkg.version) return 'v' + pkg.version;
+            if (pkg.version) return normalizeVersion(pkg.version);
         }
+        // 2. 尝试从 project.json 提取并规范化
         const docsPath = path.join(process.cwd(), 'docs');
         const projectJsonPath = path.join(docsPath, 'project.json');
         if (fs.existsSync(projectJsonPath)) {
             let content = fs.readFileSync(projectJsonPath, 'utf8').replace(/^\uFEFF/, '');
             const proj = JSON.parse(content);
-            if (proj.doc_version) return proj.doc_version;
+            if (proj.doc_version) return normalizeVersion(proj.doc_version);
         }
     } catch (e) {}
-    const now = new Date();
-    return `v${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}.${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}`;
+    
+    // 3. 兜底方案：软考高项初始版本规范
+    return 'v1.0.0';
 }
 
 function getSyncTime() {
@@ -43,7 +56,7 @@ function updateProjectJson(docsDir, version, commit) {
             proj.doc_synced_at = new Date().toISOString();
             proj.doc_source_commit = commit;
             fs.writeFileSync(projectJsonPath, JSON.stringify(proj, null, 2), 'utf8');
-            console.log(`✅ Updated project.json metadata.`);
+            console.log(`✅ Updated project.json metadata with formal version: ${version}`);
         } catch (e) {
             console.error(`❌ Failed to update project.json: ${e.message}`);
         }
@@ -103,7 +116,7 @@ const version = getVersion();
 const syncTime = getSyncTime();
 const commit = getGitCommit();
 
-console.log('🚀 Starting documentation metadata update...');
+console.log('🚀 Starting documentation metadata update (Strict Formal Versioning)...');
 updateProjectJson(docsDir, version, commit);
 updateMarkdownFiles(docsDir, version, syncTime, commit);
-console.log('🎉 All documentation metadata updated successfully!');
+console.log('🎉 All documentation metadata updated successfully with formal semantic versions!');
