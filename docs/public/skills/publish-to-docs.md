@@ -1,12 +1,12 @@
 ---
 name: "publish-to-docs"
-version: "2.11.0"
+version: "2.14.0"
 description: "将当前项目的文档同步发布到企业中心文档站(doc.rry.net)。当用户要求 “发布到文档站”或“同步文档”时调用此技能。"
 ---
 
 # 发布到企业文档中心 (Publish to Docs)
 
-> **当前技能版本：v2.11.0** (防挂起终端可见化、Grep强制继承排除、反交互式命令、项目防跑偏机制、环境动态指纹隔离、强制私有仓库保密与脱敏审查、项目名称必须使用正式中文、每次更新强制递增版本号、支持文档同步版本与站点编译时间可视化、敏感文件自动排除并继续同步、文档类型白名单与构建/源码文件强制排除、单项目目录最小化同步、并发推送重试、现代扁平化与标签化架构、同步后自动发布闭环)
+> **当前技能版本：v2.14.0** (防挂起终端可见化、Grep强制继承排除、反交互式命令、项目防跑偏机制、环境动态指纹隔离、强制私有仓库保密与脱敏审查、项目名称必须使用正式中文、每次更新强制递增版本号、支持文档同步版本与站点编译时间可视化、敏感文件自动排除并继续同步、文档类型白名单与构建/源码文件强制排除、单项目目录最小化同步、并发推送重试、现代扁平化与标签化架构、同步后自动发布闭环)
 > **技能更新源：** `http://doc.rry.net/skills/publish-to-docs.md`
 
 ## 技能版本控制与自我升级机制 (Self-Updating Mechanism)
@@ -94,14 +94,25 @@ curl.exe -sL http://doc.rry.net/skills/publish-to-docs.md -o ~/.trae/skills/publ
   ```
 - 执行完毕后，你会在终端看到 `🎉 All documentation metadata updated successfully!` 的成功提示。这代表元信息已经全自动注入完成，你可以直接进入下一步，彻底告别手动修改。
 
-### 2. 最小化克隆文档主仓库
-- 在当前项目的上一级目录（或系统的 Temp 目录）建立临时文件夹，执行**浅克隆 + 稀疏检出**。单项目同步只需要读取 `sync-policy.json` 和目标项目目录 `docs/<project-id>/`，不得拉取、扫描、修改其它项目目录。
+### 2. 【核心性能优化】极限无感克隆策略 (Extreme Sparse Checkout)
+- **【核心痛点】**：文档中心仓库 `peaiot-website` 包含了整个企业的所有项目文档、图片资源以及前端工程（Rspress）。如果执行普通的 `git clone --depth=1`，即便只有一层提交记录，也会下载几十 MB 甚至上百 MB 的无用数据，导致一个只更新几个 MD 文件的操作极度缓慢。
+- **【强制克隆红线】**：为了实现毫秒级同步，AI 必须**强制**使用 Git 的 `--no-checkout` 和严格的 `sparse-checkout` 模式，只下载当前项目所必须的骨架目录。
+- **【标准执行脚本】**：
   ```bash
-  git clone --depth=1 --filter=blob:none --sparse git@github.com:connorzhang/peaiot-website.git temp_docs_repo
+  # 1. 初始化空仓库，完全不下载任何文件内容
+  git clone --no-checkout --depth=1 --filter=blob:none git@github.com:connorzhang/peaiot-website.git temp_docs_repo
   cd temp_docs_repo
-  git sparse-checkout set sync-policy.json docs/<project-id>
+  
+  # 2. 开启锥形稀疏检出模式
+  git sparse-checkout init --cone
+  
+  # 3. 只将根目录骨架和当前项目的专属目录加入白名单 (不要加文件，只加目录路径)
+  git sparse-checkout set "docs/<project-id>"
+  
+  # 4. 执行检出，此时只会极速下载这几个文件，下载量通常不到 100KB
+  git checkout main
   ```
-- 如果当前 Git 环境不支持 `--filter=blob:none` 或 `--sparse`，才允许退化为浅克隆 `git clone --depth=1 ...`，但仍必须只操作 `docs/<project-id>/`。
+- **【避坑指南】**：在执行 `git sparse-checkout set` 时，参数必须是**目录相对路径**，绝对不要写具体的文件名（比如之前报错的 `sync-policy.json`），否则在锥形模式(`--cone`)下会引发 Git 内部路径匹配崩溃，导致退化为全量下载。由于我们只需要同步当前子项目的文档，检出 `docs/<project-id>` 就足够完成防覆盖校验和文件提交了。
 
 ### 2.5 架构兼容性与版本熔断校验 (Version Check)
 - 读取克隆下来的主仓库中的架构策略文件：`temp_docs_repo/sync-policy.json`。

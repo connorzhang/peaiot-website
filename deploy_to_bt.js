@@ -183,10 +183,20 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 (async () => {
     try {
         await addSite();
+    } catch (e) {
+        console.warn('警告: 建站步骤出现异常 (可能已存在或配置有误)，将继续尝试部署:', e.message);
+    }
+    
+    try {
         await applySSL();
+    } catch (e) {
+        console.warn('警告: SSL 申请步骤出现异常 (可能已存在或参数无效)，将继续尝试部署:', e.message);
+    }
+
+    try {
         await upload();
         await unzip();
-        console.log('所有自动化建站与部署流程执行完毕！最新的极速官网已经上线！');
+        console.log('所有自动化建站与部署流程执行完毕！最新的网站已经上线！');
     } catch (e) {
         console.error('执行失败:', e);
         process.exit(1);
