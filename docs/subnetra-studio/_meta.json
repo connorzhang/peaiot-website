@@ -1,47 +1,23 @@
 [
+  "index",
   {
-    "type": "file",
-    "name": "index",
-    "label": "首页"
-  },
-  {
-    "type": "file",
+    "type": "dir",
     "name": "overview",
-    "label": "项目概览"
+    "label": "📖 项目概述与规划"
   },
   {
-    "type": "file",
+    "type": "dir",
     "name": "architecture",
-    "label": "系统架构"
+    "label": "🏗️ 系统架构与设计"
   },
   {
-    "type": "file",
-    "name": "subnetra-overlay",
-    "label": "Subnetra Overlay"
+    "type": "dir",
+    "name": "development",
+    "label": "💻 开发与接口文档"
   },
   {
-    "type": "file",
-    "name": "wsl-socks-bridge",
-    "label": "WSL SOCKS 桥接"
-  },
-  {
-    "type": "file",
-    "name": "windows-routing-proxy",
-    "label": "Windows 分流代理"
-  },
-  {
-    "type": "file",
-    "name": "lan-reuse",
-    "label": "局域网复用"
-  },
-  {
-    "type": "file",
-    "name": "zerotier-gateway",
-    "label": "ZeroTier 网关"
-  },
-  {
-    "type": "file",
+    "type": "dir",
     "name": "operations",
-    "label": "运维与排障"
+    "label": "🛡️ 运维与服务管理"
   }
 ]
