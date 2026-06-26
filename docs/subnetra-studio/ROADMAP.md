@@ -1,4 +1,6 @@
-# Subnetra Studio Roadmap
+
+
+>  当前版本: v2026.06.26.1147 |  最后同步: 2026-06-26 11:47:18 |  构建 Commit: 1ea0cea
 
 This document outlines the vision, goals, non-goals, and milestones for the **Subnetra Studio** project.
 It serves as the product direction compass for both human maintainers and AI agents.

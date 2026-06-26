@@ -1,11 +1,17 @@
 {
-  "id": "subnetra-studio",
-  "title": "Subnetra Studio",
-  "description": "Layer-3 adaptive networking engine orchestrator and dashboard.",
-  "tags": ["Rust", "Zig", "Network", "ZeroTier", "Daemon"],
-  "icon": "🌐",
-  "repo": "git@github.com:peaiot/subnetra-studio.git",
-  "doc_version": "v2026.06.26.0048",
-  "doc_synced_at": "2026-06-26T00:48:31+08:00",
-  "doc_source_commit": "ce26fb7f41bfbff201d4cd4135e62ec3c3d6736e"
+    "id": "subnetra-studio",
+    "title": "Subnetra Studio",
+    "description": "Layer-3 adaptive networking engine orchestrator and dashboard.",
+    "tags": [
+        "Rust",
+        "Zig",
+        "Network",
+        "ZeroTier",
+        "Daemon"
+    ],
+    "icon": "🌐",
+    "repo": "git@github.com:peaiot/subnetra-studio.git",
+    "doc_version": "v2026.06.26.1147",
+    "doc_synced_at": "2026-06-26T11:47:18+08:00",
+    "doc_source_commit": "1ea0cea"
 }
