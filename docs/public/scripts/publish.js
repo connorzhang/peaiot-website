@@ -152,6 +152,27 @@ function injectMetaToTemp(tempDocsDir, proj) {
     }
 }
 
+// 强健的目录删除机制（解决 Windows 下 .git 文件占用锁导致的 EPERM 报错）
+function robustRmSync(dir) {
+    if (!fs.existsSync(dir)) return;
+    try {
+        fs.rmSync(dir, { recursive: true, force: true });
+    } catch (e) {
+        console.log(`⚠️ Initial delete failed, retrying in 2 seconds... (${e.message})`);
+        execSync('sleep 2 || timeout 2', { stdio: 'ignore' }).catch(() => {});
+        try {
+            // 尝试去除只读属性后再次删除
+            if (process.platform === 'win32') {
+                execSync(`rmdir /s /q "${dir}"`, { stdio: 'ignore' });
+            } else {
+                fs.rmSync(dir, { recursive: true, force: true });
+            }
+        } catch (err) {
+            console.log(`⚠️ Could not fully delete ${dir}. It will be overwritten next time.`);
+        }
+    }
+}
+
 function main() {
     console.log('🚀 Starting Fundamental Document Sync Process (v4.0.0 Architecture)...');
     if (!fs.existsSync(DOCS_DIR)) {
@@ -179,7 +200,7 @@ function main() {
         process.exit(1);
     }
 
-    if (fs.existsSync(TEMP_REPO_DIR)) fs.rmSync(TEMP_REPO_DIR, { recursive: true, force: true });
+    if (fs.existsSync(TEMP_REPO_DIR)) robustRmSync(TEMP_REPO_DIR);
     
     console.log('📦 Cloning central repository (Extreme Sparse Checkout)...');
     run(`git clone --no-checkout --depth=1 --filter=blob:none ${REMOTE_REPO} ${TEMP_REPO_DIR}`);
@@ -189,7 +210,7 @@ function main() {
 
     // 4. 复制文件到缓存区
     const targetDir = path.join(TEMP_REPO_DIR, 'docs', projId);
-    if (fs.existsSync(targetDir)) fs.rmSync(targetDir, { recursive: true, force: true });
+    if (fs.existsSync(targetDir)) robustRmSync(targetDir);
     copyDir(DOCS_DIR, targetDir);
     console.log(`✅ Files copied to staging directory.`);
 
@@ -210,8 +231,8 @@ function main() {
     }
 
     // 7. 清理战场
-    try { fs.rmSync(TEMP_REPO_DIR, { recursive: true, force: true }); } catch(e) {}
-    try { fs.rmSync('publish.js', { force: true }); } catch(e) {}
+    robustRmSync(TEMP_REPO_DIR);
+    robustRmSync('temp_scripts');
     console.log('✅ Cleanup done. Sync complete. Please wait 1-2 minutes for server build.');
 }
 

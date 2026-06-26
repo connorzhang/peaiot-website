@@ -1,12 +1,12 @@
 ---
 name: "publish-to-docs"
-version: "4.1.0"
+version: "4.2.0"
 description: "将当前项目的文档同步发布到企业中心文档站(doc.rry.net)。当用户要求 “发布到文档站”或“同步文档”时调用此技能。"
 ---
 
 # 发布到企业文档中心 (Publish to Docs)
 
-> **当前技能版本：v4.1.0** (纯净数据源架构 Pure Source Architecture)
+> **当前技能版本：v4.2.0** (纯净数据源架构 Pure Source Architecture)
 > **技能更新源：** `http://doc.rry.net/skills/publish-to-docs.md`
 
 ## 革命性架构升级 (v4.0.0)
@@ -46,10 +46,12 @@ node temp_scripts/publish.js
 ```
 
 ### 执行说明：
-1. `publish.js` 会全自动完成：检查并清理本地历史乱码、自动校验 Emoji 图标、强制递增 `project.json` 的版本号、强制应用“软考高项”标准目录结构 (`_meta.json`)。
-2. 它会通过 `--no-checkout` 和 `sparse-checkout` 极速拉取企业主库的骨架。
-3. 它会**只在推送到服务器的副本中**注入带有版本和时间戳的可视化元数据条，从物理源头上杜绝了本地文件被污染和重复堆叠时间戳的可能。
-4. 它会自动 Commit 并 Push 到企业主仓库。
+1. **【强制绝对红线】**：AI 绝对禁止在终端中手动敲击任何 `git clone`、`git commit`、`git push` 命令，也绝对禁止使用 PowerShell 去删除目录。所有逻辑已全部封装在 `publish.js` 中！如果 AI 手动执行 Git 命令，即视为违规！
+2. `publish.js` 会全自动完成：检查并清理本地历史乱码、自动校验 Emoji 图标、强制递增 `project.json` 的版本号、强制应用“软考高项”标准目录结构 (`_meta.json`)。
+3. 它会通过 `--no-checkout` 和 `sparse-checkout` 极速拉取企业主库的骨架。
+4. 它会**只在推送到服务器的副本中**注入带有版本和时间戳的可视化元数据条，从物理源头上杜绝了本地文件被污染和重复堆叠时间戳的可能。
+5. 它会自动 Commit 并 Push 到企业主仓库。
+6. 它内置了强健的 `robustRmSync` 目录清理机制，完美解决了 Windows 下 `.git` 占用锁报错的问题，无需 AI 画蛇添足去删目录。
 
 ### 反馈给用户：
 脚本执行成功后，AI 必须明确告知用户：
