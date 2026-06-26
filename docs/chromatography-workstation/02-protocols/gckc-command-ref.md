@@ -1,5 +1,8 @@
 # GCKC 色谱主板协议（命令/帧格式）说明（源码整理版）
 
+> 🏷️ 当前版本: v0.3.42 | ⏱️ 最后同步: 2026-06-26 20:05:40 | 🔗 构建 Commit: 80ddc26
+
+
 > 目标：像“Modbus 寄存器说明”一样，把色谱主板（GC 主板）与工作站之间的 **GCKC TCP 协议**整理成可查的“命令字典 + 报文格式 + 字段说明”。  
 > 范围：仅覆盖主板↔工作站主站链路（TCP 25001/8000，帧头 `GCKC`）。不包含 502/503 的从站 Modbus-like 协议（见 [SLAVE_STATION.md](file:///d:/GIT/VS2022/Chromatography-workstation/docs/SLAVE_STATION.md) 与 [MODBUS_STANDARD_MAP.md](file:///d:/GIT/VS2022/Chromatography-workstation/docs/MODBUS_STANDARD_MAP.md)）。  
 > 数据来源：以旧版 WinForms 工作站 `IBrainChrom2018` 的协议实现（`TcpServerSocket`）与当前 Go Collector 的协议实现（`src/edge/internal/protocol/gckc`、`chromsend143`）为依据。若某些字段在源码中未被使用/未解码，会明确标为“未知/待抓包验证”。

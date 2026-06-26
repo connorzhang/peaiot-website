@@ -1,5 +1,8 @@
 # 核心数据结构设计 (DATA_SCHEMA)
 
+> 🏷️ 当前版本: v0.3.42 | ⏱️ 最后同步: 2026-06-26 20:05:40 | 🔗 构建 Commit: 80ddc26
+
+
 根据“核心数据结构沿用遗留系统”的架构原则，本篇文档提取自旧版 C# 工作站（`IBrainChrom2018`）的底层结构（如 `MtdSetup`, `Compound`, `Peak` 等），并转换为适用于 Go 后端存储（SQLite / JSON）的模型规范。
 
 ## 1. 峰与组分结果 (Peak & Result)

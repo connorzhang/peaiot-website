@@ -1,5 +1,8 @@
 # SiLA 2 集成
 
+> 🏷️ 当前版本: v0.3.42 | ⏱️ 最后同步: 2026-06-26 20:05:40 | 🔗 构建 Commit: 80ddc26
+
+
 ## 概述
 
 SiLA 2 (Standardization in Lab Automation) 是实验室自动化领域的国际标准通信协议。本系统实现了 SiLA 2 标准接口，支持与符合 SiLA 2 标准的上位系统通信。

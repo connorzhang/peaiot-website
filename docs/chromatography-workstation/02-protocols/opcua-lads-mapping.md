@@ -1,5 +1,8 @@
 # OPC-UA LADS 动态映射架构重构记录 (v0.3.83)
 
+> 🏷️ 当前版本: v0.3.42 | ⏱️ 最后同步: 2026-06-26 20:05:40 | 🔗 构建 Commit: 80ddc26
+
+
 ## 1. 背景与目标
 在先前的版本中，色谱仪后端与底层硬件的 OPC-UA 映射存在以下局限性：
 - 目录结构使用了自定义的临时域名，不符合 OPC 基金会官方 LADS (Laboratory and Analytical Device Standard) 规范。
