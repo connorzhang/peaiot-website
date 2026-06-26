@@ -92,6 +92,13 @@ function updateMarkdownFiles(dir, version, syncTime, commit) {
             content = content.replace(/^最后同步: .*\r?\n?/gm, '');
             content = content.replace(/^更新时间: .*\r?\n?/gm, '');
             content = content.replace(/^适用范围: .*\r?\n?/gm, '');
+            content = content.replace(/^> 🏷️ 当前版本: .*\r?\n?/gm, '');
+            content = content.replace(/^> ⏱️ 最后同步: .*\r?\n?/gm, '');
+            content = content.replace(/^> 🔗 构建 Commit: .*\r?\n?/gm, '');
+            content = content.replace(/.*当前版本: v2026.*\r?\n?/gm, '');
+            content = content.replace(/.*文档版本: v2026.*\r?\n?/gm, '');
+            content = content.replace(/.*更新时间: 2026.*\r?\n?/gm, '');
+            content = content.replace(/.*适用范围: Subnetra.*\r?\n?/gm, '');
             
             // Clean up any empty lines at the start or multiple consecutive empty lines created by removal
             content = content.replace(/(# .*\r?\n)\s*\n+/g, '$1\n');
