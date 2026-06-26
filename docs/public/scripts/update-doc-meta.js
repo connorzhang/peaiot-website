@@ -73,7 +73,11 @@ function updateMarkdownFiles(dir, version, syncTime, commit) {
     if (!fs.existsSync(dir)) return;
     const files = fs.readdirSync(dir);
     
-    const metaLine = `> 🏷️ 当前版本: ${version} | ⏱️ 最后同步: ${syncTime} | 🔗 构建 Commit: ${commit}`;
+    // 采用现代化的物理边界安全重写架构，彻底抛弃脆弱的正则替换
+    const metaStart = '<!-- TRAE_DOC_META_START -->';
+    const metaEnd = '<!-- TRAE_DOC_META_END -->';
+    const metaContent = `> 🏷️ 当前版本: ${version} | ⏱️ 最后同步: ${syncTime} | 🔗 构建 Commit: ${commit}`;
+    const fullMetaBlock = `${metaStart}\n${metaContent}\n${metaEnd}`;
 
     files.forEach(file => {
         const fullPath = path.join(dir, file);
@@ -85,38 +89,52 @@ function updateMarkdownFiles(dir, version, syncTime, commit) {
         } else if (file.endsWith('.md') || file.endsWith('.mdx')) {
             let content = fs.readFileSync(fullPath, 'utf8');
             
-            // Remove old meta lines if they exist (aggressive cleanup for historical formats)
-            content = content.replace(/> 🏷️ 当前版本: .* \| ⏱️ 最后同步: .* \| 🔗 构建 Commit: .*\r?\n?/g, '');
-            content = content.replace(/^当前版本: .* \| 最后同步: .*\r?\n?/gm, '');
-            content = content.replace(/^文档版本: .*\r?\n?/gm, '');
-            content = content.replace(/^最后同步: .*\r?\n?/gm, '');
-            content = content.replace(/^更新时间: .*\r?\n?/gm, '');
-            content = content.replace(/^适用范围: .*\r?\n?/gm, '');
-            content = content.replace(/^> 🏷️ 当前版本: .*\r?\n?/gm, '');
-            content = content.replace(/^> ⏱️ 最后同步: .*\r?\n?/gm, '');
-            content = content.replace(/^> 🔗 构建 Commit: .*\r?\n?/gm, '');
-            content = content.replace(/.*当前版本: v2026.*\r?\n?/gm, '');
-            content = content.replace(/.*文档版本: v2026.*\r?\n?/gm, '');
-            content = content.replace(/.*更新时间: 2026.*\r?\n?/gm, '');
-            content = content.replace(/.*适用范围: Subnetra.*\r?\n?/gm, '');
-            
-            // Clean up any empty lines at the start or multiple consecutive empty lines created by removal
-            content = content.replace(/(# .*\r?\n)\s*\n+/g, '$1\n');
-            const lines = content.split(/\r?\n/);
-            let inserted = false;
-            for (let i = 0; i < lines.length; i++) {
-                if (lines[i].startsWith('# ')) {
-                    lines.splice(i + 1, 0, '\n' + metaLine + '\n');
-                    inserted = true;
-                    break;
-                }
-            }
-            
-            if (!inserted) {
-                // If no H1 found, prepend to the top
-                content = metaLine + '\n\n' + content;
+            if (content.includes(metaStart) && content.includes(metaEnd)) {
+                // 如果文件已经存在物理边界，直接精准替换边界内的内容，100%安全
+                const regex = new RegExp(`${metaStart}[\\s\\S]*?${metaEnd}`, 'g');
+                content = content.replace(regex, fullMetaBlock);
             } else {
-                content = lines.join('\n');
+                // 如果没有物理边界，说明是旧文件或新文件。执行逐行解析安全重写。
+                const lines = content.split(/\r?\n/);
+                const cleanLines = [];
+                let h1Found = false;
+                let metaInserted = false;
+
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i];
+
+                    // 暴力清洗所有可能存在的历史遗留旧版元信息，不留任何死角
+                    if (line.includes('当前版本:') || line.includes('文档版本:') || 
+                        line.includes('最后同步:') || line.includes('更新时间:') || 
+                        line.includes('适用范围:') || line.includes('构建 Commit:')) {
+                        continue;
+                    }
+                    
+                    // 清洗掉孤立的空引用块
+                    if (line.trim() === '>') {
+                        continue;
+                    }
+
+                    cleanLines.push(line);
+
+                    // 找到真实的文档大标题后，立即插入物理边界和新的元信息
+                    if (!h1Found && line.startsWith('# ')) {
+                        h1Found = true;
+                        cleanLines.push('');
+                        cleanLines.push(fullMetaBlock);
+                        cleanLines.push('');
+                        metaInserted = true;
+                    }
+                }
+
+                if (!metaInserted) {
+                    // 兜底：如果连标题都没有，直接在文件最顶部写入
+                    cleanLines.unshift('');
+                    cleanLines.unshift(fullMetaBlock);
+                }
+
+                // 移除开头多余的空行并组合
+                content = cleanLines.join('\n').replace(/^\s+/, '');
             }
             
             fs.writeFileSync(fullPath, content, 'utf8');
