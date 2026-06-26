@@ -43,10 +43,23 @@ git reset --hard origin/main
 echo "Node version: $(node -v)"
 echo "NPM version: $(npm -v)"
 echo "开始安装依赖"
-npm install --include=dev --registry=https://registry.npmmirror.com
+
+if ! npm install --include=dev --registry=https://registry.npmmirror.com; then
+  echo "npm install 失败，触发自愈机制：清理 node_modules 和 npm 缓存..."
+  rm -rf node_modules package-lock.json
+  npm cache clean --force || rm -rf ~/.npm/_cacache
+  echo "重新尝试安装依赖..."
+  npm install --include=dev --registry=https://registry.npmmirror.com
+fi
 
 echo "开始构建文档站"
-npm run build:doc
+if ! npm run build:doc; then
+  echo "构建失败，触发深度自愈机制：清理全局缓存和 node_modules..."
+  rm -rf node_modules package-lock.json
+  npm cache clean --force || rm -rf ~/.npm/_cacache
+  npm install --include=dev --registry=https://registry.npmmirror.com
+  npm run build:doc
+fi
 
 mkdir -p "${PUBLIC_DIR}"
 rm -rf "${PUBLIC_DIR:?}"/*
