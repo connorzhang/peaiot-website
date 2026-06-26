@@ -101,22 +101,38 @@ function processProjectJson() {
 }
 
 function enforceStructure() {
+    // 1. 强制检查根目录下是否遗留了未分类的 Markdown 文件
+    const rootFiles = fs.readdirSync(DOCS_DIR).filter(f => 
+        fs.statSync(path.join(DOCS_DIR, f)).isFile() && 
+        (f.endsWith('.md') || f.endsWith('.mdx')) && 
+        f !== 'index.md'
+    );
+
+    if (rootFiles.length > 0) {
+        console.error('\n❌ [Error] Uncategorized Markdown files detected in docs/ root!');
+        console.error('❌ 左侧菜单渲染失败：检测到 docs/ 根目录下有未分类的文件：');
+        console.error('   ' + rootFiles.join(', '));
+        console.error('❌ Rspress 需要结构化的目录。请 AI 助手立即中断同步，并强制执行以下操作：');
+        console.error('   1. 在 docs/ 下创建如 overview、architecture、operations 等子目录。');
+        console.error('   2. 必须由 AI 将上述根目录的 md 文件移动到对应的子目录中。');
+        console.error('   3. 在各个子目录中创建 _meta.json 配置显示名称。');
+        console.error('   4. 更新 docs/_meta.json 确保包含这些子目录（"type": "dir"）。');
+        console.error('   5. 整理完成后再次运行本脚本。');
+        process.exit(1);
+    }
+
+    // 2. 检查 _meta.json 中是否真的配置了目录
     const metaPath = path.join(DOCS_DIR, '_meta.json');
     let meta = [];
     if (fs.existsSync(metaPath)) {
-        meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
+        try { meta = JSON.parse(fs.readFileSync(metaPath, 'utf8')); } catch(e){}
     }
 
     const hasDir = meta.some(item => typeof item === 'object' && item.type === 'dir');
     if (!hasDir) {
-        console.error('\n❌ [Error] Flat structure detected in docs/!');
-        console.error('❌ 左侧菜单渲染失败：检测到您的文档属于“平铺式”结构（所有 MD 文件都放在 docs 根目录）。');
-        console.error('❌ Rspress 无法自动为平铺文件生成侧边栏分类。');
-        console.error('❌ 请 AI 助手立即中断同步，并执行以下操作：');
-        console.error('   1. 根据“软考高项”标准，在 docs/ 下创建如 overview、architecture、operations 等子目录。');
-        console.error('   2. 将根目录的 md 文件语义化归类移动到对应子目录中。');
-        console.error('   3. 在 docs/_meta.json 中配置顶层目录，并在各子目录中配置各自的 _meta.json。');
-        console.error('   4. 整理完成后再次运行本脚本。');
+        console.error('\n❌ [Error] No directories configured in docs/_meta.json!');
+        console.error('❌ 左侧菜单渲染失败：docs/_meta.json 中没有配置任何子目录（"type": "dir"）。');
+        console.error('❌ 请 AI 助手按要求对文件进行分类，并在 _meta.json 中写入正确的 "type": "dir" 结构。');
         process.exit(1);
     }
 }

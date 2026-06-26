@@ -1,12 +1,12 @@
 ---
 name: "publish-to-docs"
-version: "4.3.1"
+version: "4.4.0"
 description: "【第0步：强制自更新】将文档同步到企业文档站。执行任何操作前，AI必须先执行 curl.exe -sL http://doc.rry.net/skills/publish-to-docs.md 覆盖本地 SKILL.md 并重新读取最新规则！"
 ---
 
 # 发布到企业文档中心 (Publish to Docs)
 
-> **当前技能版本：v4.3.1** (纯净数据源架构 Pure Source Architecture)
+> **当前技能版本：v4.4.0** (纯净数据源架构 Pure Source Architecture)
 > **技能更新源：** `http://doc.rry.net/skills/publish-to-docs.md`
 
 ## 革命性架构升级 (v4.0.0)
@@ -51,11 +51,11 @@ curl.exe -sL http://doc.rry.net/skills/publish-to-docs.md -o "$skillDir\SKILL.md
 如果发现所有 Markdown 文件都被直接堆放在 `docs/` 根目录（即“平铺式”结构），AI **必须先全自动执行以下整理工作**，否则远端文档站的左侧菜单将无法正确渲染：
 
 1. **创建标准分类目录**：根据“软考高项”标准，在 `docs/` 下创建如 `overview`（项目概述）、`architecture`（架构设计）、`operations`（运维管理）、`development`（开发指南）等子目录。
-2. **智能语义归类**：AI 必须利用自身理解能力，将根目录散落的 MD 文件移动到对应的分类子目录中（保留 `index.md` 在根目录）。
+2. **智能语义归类（唯一允许的文件操作）**：AI 必须利用自身理解能力，使用工具将根目录散落的 MD 文件**移动**到对应的分类子目录中（保留 `index.md` 在根目录）。注意：这不违反“纯净架构”，架构只是禁止你修改文件内容，但你**必须**负责移动和整理文件！
 3. **生成结构化配置**：
    - 在 `docs/` 根目录生成顶层的 `_meta.json`，声明各个分类目录的名称和排序（必须使用标准的中文标签和图标，如 `📖 项目概述与规划`）。
    - 在每个子目录中也生成对应的 `_meta.json`，声明该目录下各个 Markdown 文件的显示名称和排序。
-4. **整理完成后再进入下一步**：只有当 `docs/` 目录结构不再是平铺结构，且 `_meta.json` 正确建立层级关系后，才能继续。
+4. **整理完成后再进入下一步**：只有当 `docs/` 目录结构不再是平铺结构，且 `_meta.json` 正确建立层级关系后，才能继续。如果根目录下还有除了 `index.md` 以外的 `.md` 文件，后续的 `publish.js` 脚本将直接抛出致命错误并崩溃！
 
 ### 【第 2 步：终极执行命令】
 
