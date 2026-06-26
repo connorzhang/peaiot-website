@@ -27,13 +27,19 @@ function getVersion() {
             const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
             if (pkg.version) return normalizeVersion(pkg.version);
         }
-        // 2. 尝试从 project.json 提取并规范化
+        // 2. 尝试从 project.json 提取并规范化，并自动递增修订号 (Patch)
         const docsPath = path.join(process.cwd(), 'docs');
         const projectJsonPath = path.join(docsPath, 'project.json');
         if (fs.existsSync(projectJsonPath)) {
             let content = fs.readFileSync(projectJsonPath, 'utf8').replace(/^\uFEFF/, '');
             const proj = JSON.parse(content);
-            if (proj.doc_version) return normalizeVersion(proj.doc_version);
+            if (proj.doc_version) {
+                const match = String(proj.doc_version).match(/v?(\d+)\.(\d+)\.(\d+)/);
+                if (match) {
+                    return `v${match[1]}.${match[2]}.${parseInt(match[3]) + 1}`;
+                }
+                return normalizeVersion(proj.doc_version);
+            }
         }
     } catch (e) {}
     
@@ -79,10 +85,16 @@ function updateMarkdownFiles(dir, version, syncTime, commit) {
         } else if (file.endsWith('.md') || file.endsWith('.mdx')) {
             let content = fs.readFileSync(fullPath, 'utf8');
             
-            // Remove old meta lines if they exist
+            // Remove old meta lines if they exist (aggressive cleanup for historical formats)
             content = content.replace(/> 🏷️ 当前版本: .* \| ⏱️ 最后同步: .* \| 🔗 构建 Commit: .*\r?\n?/g, '');
+            content = content.replace(/^当前版本: .* \| 最后同步: .*\r?\n?/gm, '');
+            content = content.replace(/^文档版本: .*\r?\n?/gm, '');
+            content = content.replace(/^最后同步: .*\r?\n?/gm, '');
+            content = content.replace(/^更新时间: .*\r?\n?/gm, '');
+            content = content.replace(/^适用范围: .*\r?\n?/gm, '');
             
-            // Insert new meta line after the first # H1
+            // Clean up any empty lines at the start or multiple consecutive empty lines created by removal
+            content = content.replace(/(# .*\r?\n)\s*\n+/g, '$1\n');
             const lines = content.split(/\r?\n/);
             let inserted = false;
             for (let i = 0; i < lines.length; i++) {

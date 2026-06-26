@@ -1,12 +1,12 @@
 ---
 name: "publish-to-docs"
-version: "2.14.0"
+version: "2.15.0"
 description: "将当前项目的文档同步发布到企业中心文档站(doc.rry.net)。当用户要求 “发布到文档站”或“同步文档”时调用此技能。"
 ---
 
 # 发布到企业文档中心 (Publish to Docs)
 
-> **当前技能版本：v2.14.0** (防挂起终端可见化、Grep强制继承排除、反交互式命令、项目防跑偏机制、环境动态指纹隔离、强制私有仓库保密与脱敏审查、项目名称必须使用正式中文、每次更新强制递增版本号、支持文档同步版本与站点编译时间可视化、敏感文件自动排除并继续同步、文档类型白名单与构建/源码文件强制排除、单项目目录最小化同步、并发推送重试、现代扁平化与标签化架构、同步后自动发布闭环)
+> **当前技能版本：v2.15.0** (防挂起终端可见化、Grep强制继承排除、反交互式命令、项目防跑偏机制、环境动态指纹隔离、强制私有仓库保密与脱敏审查、项目名称必须使用正式中文、每次更新强制递增版本号、支持文档同步版本与站点编译时间可视化、敏感文件自动排除并继续同步、文档类型白名单与构建/源码文件强制排除、单项目目录最小化同步、并发推送重试、现代扁平化与标签化架构、软考高项正规化目录结构、同步后自动发布闭环)
 > **技能更新源：** `http://doc.rry.net/skills/publish-to-docs.md`
 
 ## 技能版本控制与自我升级机制 (Self-Updating Mechanism)
@@ -50,35 +50,46 @@ curl.exe -sL http://doc.rry.net/skills/publish-to-docs.md -o ~/.trae/skills/publ
     "title": "项目正式中文名称",
     "description": "项目一句话简介",
     "tags": ["软件系统", "云端平台", "可多选标签..."],
-    "icon": "🌐（选择一个合适的 Emoji）",
+    "icon": "🌐",
     "repo": "当前项目的完整 Git URL (如 git@github.com:xxx/yyy.git)",
     "doc_version": "文档同步版本，强制遵循软考高项标准 vX.X.X 格式，如 v1.0.0",
     "doc_synced_at": "ISO 8601 同步时间，如 2026-06-19T21:45:00+08:00",
     "doc_source_commit": "当前业务项目 Git 提交号"
   }
   ```
+- **【强制红线】编码与图标规范**：`project.json` 必须以纯净的 **UTF-8 (无 BOM)** 编码保存。`icon` 字段严禁包含乱码，必须使用标准的单字符 Emoji 或常见 Unicode 符号（如 `🌐`、`🚀`、`💻`）。
 - **【强制红线】卡片名称正规化**：`project.json` 中的 `title` 必须使用项目的**正式中文名称**，严禁使用英文简称、内部代号或直接照搬英文目录名（例如不能写 "peabss"，必须写 "PeaBSS 环保物联网平台"；不能写 "subnetra-studio"，必须写 "Subnetra Studio 管理平台"）。
 - **【强制红线】**：`repo` 字段必须使用当前项目的完整 Git 仓库 URL，以防止跨平台同名冲突。
-- **【强制规则】文档同步元信息**：每次同步前必须更新 `project.json` 的 `doc_version`、`doc_synced_at`、`doc_source_commit` 字段。`doc_synced_at` 使用当前本地时间的 ISO 8601 格式；`doc_source_commit` 使用当前业务项目 `git rev-parse HEAD`，如果业务项目不是 Git 仓库则写空字符串；`doc_version` 优先使用业务项目 `package.json` 的版本、其次使用已有 `project.json` 版本、再兜底生成 `vYYYY.MM.DD.HHmm`。
+- **【强制规则】文档同步元信息与版本递增**：
+  1. 每次同步前必须更新 `project.json` 的 `doc_version`、`doc_synced_at`、`doc_source_commit` 字段。
+  2. **【强制版本递增红线】**：文档只要有修改，**必须强制增加版本号**（遵循软考高项语义化，例如 `v0.2.0` 递增为 `v0.2.1`）。严禁存在同一个版本号不同时间反复提交的情况！AI 在生成或更新 `project.json` 时，必须核对版本是否已递增。
+  3. `doc_synced_at` 使用当前本地时间的 ISO 8601 格式；`doc_source_commit` 使用当前业务项目 `git rev-parse HEAD`。
 - **【可视化要求】**：文档站首页和探索页会显示站点版本、站点编译时间、主仓库提交号，并在项目卡片中显示项目 `doc_version` 和 `doc_synced_at`，用于快速判断文档是否更新成功。
 
 ### 1.7 强制生成并维护结构化侧边栏配置 (_meta.json)
 - 框架遵循“项目自治”原则，左侧侧边栏的排序和展示名称完全由各项目自身控制。
-- **【强制排版规范】**：作为正规的企业文档中心，**左侧菜单必须包含明确的结构化顶级分类**，严禁将所有文件直接平铺在根目录。必须按模块建立专业、正式的分类目录（例如：`📖 用户指南`、`💻 开发文档`、`🔌 接口文档`、`🤖 AI 与智能体` 等）。
+- **【强制排版与高项结构规范】**：作为正规的正式文档站，排版与目录结构必须高标准、正规化。**严禁文件平铺，必须参考“软考高项”等国家级信息系统工程标准，建立严谨的顶级分类**。推荐（但不限于）以下标准结构进行分类编排：
+  - `📖 项目概述与规划` (Overview & Planning)
+  - `🎯 需求分析与规格` (Requirements)
+  - `🏗️ 系统架构与设计` (Architecture & Design)
+  - `💻 开发与接口文档` (Development & API)
+  - `🧪 测试与质量保证` (Testing & QA)
+  - `🚀 部署与实施交付` (Deployment & Implementation)
+  - `🛡️ 运维与服务管理` (Operations & Maintenance)
 - 检查当前业务项目的文档目录（如 `docs/`）下是否存在 `_meta.json` 文件。
-- 如果**不存在**或**不符合上述分类规范**，AI 必须主动基于当前的 Markdown 文件结构，为项目自动生成或重构一个 `_meta.json` 配置文件。目录项必须显式写 `"type": "dir"`，文件项必须显式写 `"type": "file"`。
+- 如果**不存在**或**不符合上述正规化高项结构**，AI 必须主动重构目录结构，并生成标准的 `_meta.json` 配置文件。目录项必须显式写 `"type": "dir"`，文件项必须显式写 `"type": "file"`。
   ```json
   [
     "index",
     {
       "type": "dir",
-      "name": "guide",
-      "label": "📖 用户指南"
+      "name": "overview",
+      "label": "📖 项目概述与规划"
     },
     {
       "type": "dir",
-      "name": "develop",
-      "label": "💻 开发文档"
+      "name": "architecture",
+      "label": "🏗️ 系统架构与设计"
     }
   ]
   ```
