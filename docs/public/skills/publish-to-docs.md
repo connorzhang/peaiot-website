@@ -1,12 +1,12 @@
 ---
 name: "publish-to-docs"
-version: "4.0.0"
+version: "4.1.0"
 description: "将当前项目的文档同步发布到企业中心文档站(doc.rry.net)。当用户要求 “发布到文档站”或“同步文档”时调用此技能。"
 ---
 
 # 发布到企业文档中心 (Publish to Docs)
 
-> **当前技能版本：v4.0.0** (纯净数据源架构 Pure Source Architecture)
+> **当前技能版本：v4.1.0** (纯净数据源架构 Pure Source Architecture)
 > **技能更新源：** `http://doc.rry.net/skills/publish-to-docs.md`
 
 ## 革命性架构升级 (v4.0.0)
@@ -34,10 +34,15 @@ curl.exe -sL http://doc.rry.net/skills/publish-to-docs.md -o ~/.trae/skills/publ
 
 ### 【终极执行命令】
 
-在项目根目录下，直接执行官方同步脚本：
+在业务项目的根目录下，直接执行以下命令，下载最新的官方同步脚本并执行（该脚本会自动处理所有逻辑）：
 
 ```bash
-node docs/public/scripts/publish.js
+# 如果没有 temp_scripts 目录则创建
+if (!(Test-Path "temp_scripts")) { New-Item -ItemType Directory -Force -Path "temp_scripts" }
+# 下载最新的 publish.js
+curl.exe -sL http://doc.rry.net/scripts/publish.js -o temp_scripts/publish.js
+# 执行物理同步脚本
+node temp_scripts/publish.js
 ```
 
 ### 执行说明：
