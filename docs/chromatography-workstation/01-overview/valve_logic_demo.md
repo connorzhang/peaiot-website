@@ -13,7 +13,7 @@
 4. **精细分离**：进入 JN.13x 分子筛的轻组分气团，在柱内经过长时间保留，按物理属性逐渐拉开距离，最终分离为 5 个独立的组分峰进入检测器。
 
 <div align="center">
-  <img src="./valve_10port.svg" alt="10通阀动画演示" width="100%" />
+  <img src={require('./valve_10port.svg')} alt="10通阀动画演示" width="100%" />
 </div>
 
 ---
@@ -28,6 +28,6 @@
 3. **柱内分离**：目标物四氢噻吩与天然气基质（如甲烷等背景气体）在柱内按保留时间差异分离，先后进入检测器出峰。
 
 <div align="center">
-  <img src="./valve_6port.svg" alt="6通阀动画演示" width="100%" />
+  <img src={require('./valve_6port.svg')} alt="6通阀动画演示" width="100%" />
 </div>
 
