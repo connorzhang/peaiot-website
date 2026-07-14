@@ -7,42 +7,17 @@
   },
   {
     "type": "dir",
-    "name": "04-deployment",
-    "label": "🚀 部署与快速开始"
-  },
-  {
-    "type": "dir",
-    "name": "03-api-design",
+    "name": "02-api-design",
     "label": "💻 API 接口文档"
   },
   {
     "type": "dir",
-    "name": "02-protocols",
-    "label": "🔌 协议与硬件接入"
+    "name": "03-deployment",
+    "label": "🚀 部署与快速开始"
   },
   {
     "type": "dir",
-    "name": "schemas",
-    "label": "📄 数据结构 (Schemas)"
-  },
-  {
-    "type": "file",
-    "name": "api",
-    "label": "REST API"
-  },
-  {
-    "type": "file",
-    "name": "deployment",
-    "label": "部署指南"
-  },
-  {
-    "type": "file",
-    "name": "sila2",
-    "label": "SiLA2 标准"
-  },
-  {
-    "type": "file",
-    "name": "troubleshooting",
-    "label": "🛠️ 故障排除"
+    "name": "04-advanced",
+    "label": "🔌 高级与协议"
   }
 ]
