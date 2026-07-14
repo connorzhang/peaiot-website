@@ -1,9 +1,5 @@
 # VOCs 色谱边缘工作站 - 开发文档
 
-> 🏷️ 当前版本: v0.3.42 | ⏱️ 最后同步: 2026-06-26 20:05:40 | 🔗 构建 Commit: 80ddc26
-
-
-
 ## 项目概述
 
 VOCs 色谱边缘工作站是一个基于 Go 语言开发的工业级色谱数据采集与分析系统，用于环境监测领域的挥发性有机物在线监测。
@@ -36,3 +32,5 @@ VOCs 色谱边缘工作站是一个基于 Go 语言开发的工业级色谱数�
 - [开发指南](development.md)
 - [SiLA 2 集成](sila2.md)
 - [故障排查](troubleshooting.md)
+- [色谱气路逻辑与动画演示](01-overview/valve_logic_demo.html)
+- [色谱气路逻辑与动画演示](01-overview/valve_logic_demo.html)
